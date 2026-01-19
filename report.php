@@ -686,36 +686,6 @@ if ($scheduledResult) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="startDate">Start Date</label>
-                        <input type="date" class="form-control" id="startDate" value="">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="endDate">End Date</label>
-                        <input type="date" class="form-control" id="endDate" value="">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="productType">Product Type</label>
-                        <select class="form-control" id="productType">
-                            <option value="">All Product Types</option>
-                            <option value="switchgear">Switchgear</option>
-                            <option value="control-panels">Control Panels</option>
-                            <option value="capacitors">Capacitors</option>
-                            <option value="fuses">Fuses</option>
-                            <option value="resistors">Resistors</option>
-                            <option value="testing-equipment">Testing Equipment</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="testStatus">Test Status</label>
-                        <select class="form-control" id="testStatus">
-                            <option value="">All Statuses</option>
-                            <option value="passed">Passed</option>
-                            <option value="failed">Failed</option>
-                            <option value="pending">Pending</option>
-                            <option value="in-progress">In Progress</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label class="form-label" for="format">Report Format</label>
                         <select class="form-control" id="format">
                             <option value="pdf">PDF Document</option>
@@ -727,7 +697,6 @@ if ($scheduledResult) {
                 </div>
                 <div class="form-actions">
                     <button class="btn btn-primary" id="generateReportBtn"><i class="fas fa-file-download"></i> Generate Report</button>
-                    <button class="btn btn-secondary" id="scheduleReportBtn"><i class="fas fa-calendar-plus"></i> Schedule Report</button>
                 </div>
             </div>
         </section>
@@ -764,7 +733,7 @@ if ($scheduledResult) {
                                             <?php
                                             $statusClass = "status-pending";
                                             if ($report['status'] == "completed") $statusClass = "status-completed";
-                                            elseif ($report['status'] == "processing") $statusClass = "status-processing";
+                                            elseif ($report['status'] == "processing") $statusClass = "status-in-progress";
                                             elseif ($report['status'] == "failed") $statusClass = "status-failed";
                                             ?>
                                             <span class="status-badge <?= $statusClass ?>"><?= ucfirst($report['status']) ?></span>
@@ -783,69 +752,25 @@ if ($scheduledResult) {
                 </div>
             </div>
         </section>
-
-        <!-- Scheduled Reports Table -->
-        <section>
-            <h2 class="section-title">Scheduled Reports</h2>
-            <div class="table-container">
-                <div class="table-responsive">
-                    <table class="data-table" id="scheduledReportsTable">
-                        <thead>
-                            <tr>
-                                <th>Schedule Name</th>
-                                <th>Frequency</th>
-                                <th>Next Run</th>
-                                <th>Last Run</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (count($scheduledReports) == 0): ?>
-                                <tr>
-                                    <td colspan="6" style="text-align:center;">No scheduled reports</td>
-                                </tr>
-                            <?php else: ?>
-                                <?php foreach ($scheduledReports as $schedule): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($schedule['schedule_name']) ?></td>
-                                        <td><?= ucfirst($schedule['frequency']) ?></td>
-                                        <td><?= date('d M Y H:i', strtotime($schedule['next_run'])) ?></td>
-                                        <td><?= $schedule['last_run'] ? date('d M Y H:i', strtotime($schedule['last_run'])) : '-' ?></td>
-                                        <td>
-                                            <span class="status-badge <?= $schedule['status'] == "active" ? "status-completed" : "status-pending" ?>"><?= ucfirst($schedule['status']) ?></span>
-                                        </td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <button class="action-btn edit-btn" data-id="<?= $schedule['schedule_id'] ?>"><i class="fas fa-edit"></i> Edit</button>
-                                                <button class="action-btn delete-btn" data-id="<?= $schedule['schedule_id'] ?>"><i class="fas fa-trash"></i> Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // --- GENERATE REPORT ---
             document.getElementById("generateReportBtn").addEventListener("click", function() {
-                const formData = new FormData();
-                formData.append("report_type", document.getElementById("reportType").value);
-                formData.append("start_date", document.getElementById("startDate").value);
-                formData.append("end_date", document.getElementById("endDate").value);
-                formData.append("product_type", document.getElementById("productType").value);
-                formData.append("test_status", document.getElementById("testStatus").value);
-                formData.append("format", document.getElementById("format").value);
+                const reportType = document.getElementById("reportType").value;
+                const format = document.getElementById("format").value;
+                if (!reportType) {
+                    alert("Select a report type.");
+                    return;
+                }
 
                 fetch("api/insert_report.php", {
                         method: "POST",
-                        body: formData
+                        body: new URLSearchParams({
+                            report_type: reportType,
+                            format: format
+                        })
                     })
                     .then(res => res.json())
                     .then(data => {
@@ -855,69 +780,42 @@ if ($scheduledResult) {
                         } else {
                             alert("Error: " + data.message);
                         }
-                    })
-                    .catch(err => {
+                    }).catch(err => {
                         console.error(err);
                         alert("Error generating report.");
                     });
             });
 
-            // --- SCHEDULE REPORT ---
-            document.getElementById("scheduleReportBtn").addEventListener("click", function() {
-                const formData = new FormData();
-                formData.append("report_type", document.getElementById("reportType").value);
-                formData.append("start_date", document.getElementById("startDate").value);
-                formData.append("end_date", document.getElementById("endDate").value);
-                formData.append("product_type", document.getElementById("productType").value);
-                formData.append("test_status", document.getElementById("testStatus").value);
-                formData.append("format", document.getElementById("format").value);
+            // --- VIEW REPORT ---
+            document.querySelectorAll(".view-btn").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    window.open("api/view_report.php?id=" + this.dataset.id, "_blank");
+                });
+            });
 
-                fetch("api/insert_schedule.php", {
+
+        });
+
+        // --- DELETE REPORT ---
+        document.querySelectorAll(".delete-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                if (!confirm("Are you sure you want to delete this report?")) return;
+                const id = this.dataset.id;
+                fetch("api/delete_report.php", {
                         method: "POST",
-                        body: formData
+                        body: new URLSearchParams({
+                            report_id: id
+                        })
                     })
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
-                            alert("Report scheduled successfully!");
+                            alert("Report deleted successfully");
                             location.reload();
                         } else {
                             alert("Error: " + data.message);
                         }
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("Error scheduling report.");
                     });
-            });
-
-            // Delete & View Buttons
-            document.querySelectorAll(".delete-btn").forEach(btn => {
-                btn.addEventListener("click", function() {
-                    const id = this.dataset.id;
-                    if (confirm("Are you sure?")) {
-                        fetch("api/delete_report.php", {
-                                method: "POST",
-                                body: new URLSearchParams({
-                                    id
-                                })
-                            })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert("Deleted successfully");
-                                    location.reload();
-                                } else {
-                                    alert("Error: " + data.message);
-                                }
-                            });
-                    }
-                });
-            });
-            document.querySelectorAll(".view-btn").forEach(btn => {
-                btn.addEventListener("click", function() {
-                    window.open("view_report.php?id=" + this.dataset.id, "_blank");
-                });
             });
         });
     </script>
