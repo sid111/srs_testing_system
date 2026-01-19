@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = 'Email already registered';
             } else {
                 // Hash the password
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
                 // Insert new admin user
                 $insert_query = "INSERT INTO admin (username, email, password) 

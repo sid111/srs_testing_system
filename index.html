@@ -1344,8 +1344,8 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert(`Login successful! Welcome back to SRS Electrical Dashboard. ${remember ? 'Your login will be remembered.' : ''}`);
-                    // Redirect to dashboard
+                    sessionStorage.setItem('admin_logged_in', 'true');
+                    sessionStorage.setItem('admin_username', data.username);
                     window.location.href = 'dashboard.html';
                 } else {
                     alert(data.message || 'Login failed');

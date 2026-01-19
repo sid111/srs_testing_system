@@ -826,6 +826,13 @@
     </style>
 </head>
 <body>
+    <script>
+        // Check if user is logged in
+        if (!sessionStorage.getItem('admin_logged_in')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+
     <!-- Header & Navigation  -->
     <header>
         <div class="container">
@@ -852,6 +859,7 @@
                     </li>
                     <li><a href="product.html">Product Catalog</a></li>
                     <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a></li>
                 </ul>
             </nav>
         </div>
@@ -1077,15 +1085,59 @@
             <form id="addProductForm">
                 <div class="form-group">
                     <label for="productName">Product Name *</label>
-                    <input type="text" id="productName" name="product_name" required>
+                    <input type="text" id="productName" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="productDescription">Description</label>
-                    <textarea id="productDescription" name="product_description" placeholder="Enter product description"></textarea>
+                    <label for="productCategory">Category *</label>
+                    <select id="productCategory" name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="switchgear">Switchgear</option>
+                        <option value="transformers">Transformers</option>
+                        <option value="testing">Testing Equipment</option>
+                        <option value="panels">Control Panels</option>
+                        <option value="cables">Cables & Accessories</option>
+                        <option value="safety">Safety Equipment</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="productImage">Product Image URL</label>
-                    <input type="url" id="productImage" name="product_image" placeholder="https://example.com/image.jpg">
+                    <label for="productPrice">Price (₹) *</label>
+                    <input type="number" id="productPrice" name="price" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="productVoltage">Voltage Rating *</label>
+                    <select id="productVoltage" name="voltage_rating" required>
+                        <option value="">Select Voltage</option>
+                        <option value="lv">Low Voltage (≤1kV)</option>
+                        <option value="mv">Medium Voltage (1kV-33kV)</option>
+                        <option value="hv">High Voltage (>33kV)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productCert">Certification *</label>
+                    <select id="productCert" name="certification" required>
+                        <option value="">Select Certification</option>
+                        <option value="cpri">CPRI Certified</option>
+                        <option value="iso">ISO Certified</option>
+                        <option value="iec">IEC Compliant</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productStock">Stock *</label>
+                    <input type="number" id="productStock" name="stock" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description *</label>
+                    <textarea id="productDescription" name="description" placeholder="Enter product description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productBadge">Badge</label>
+                    <select id="productBadge" name="badge">
+                        <option value="">No Badge</option>
+                        <option value="new">New</option>
+                        <option value="popular">Popular</option>
+                        <option value="cpri">CPRI</option>
+                        <option value="limited">Limited</option>
+                    </select>
                 </div>
                 <div class="modal-buttons">
                     <button type="button" class="btn-cancel" onclick="closeAddProductModal()">Cancel</button>
@@ -1238,12 +1290,33 @@
         // Handle Add Product Form Submission
         document.getElementById("addProductForm").addEventListener("submit", function(e) {
             e.preventDefault();
-            const productName = document.getElementById("productName").value;
-            const productDescription = document.getElementById("productDescription").value;
-            const productImage = document.getElementById("productImage").value;
             
-            alert(`Product Added:\nName: ${productName}\nDescription: ${productDescription}\nImage: ${productImage}`);
-            closeAddProductModal();
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Adding...';
+            
+            fetch('api/add_product.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    closeAddProductModal();
+                    document.getElementById("addProductForm").reset();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Add Product';
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Add Product';
+            });
         });
 
         // Handle Start Test Form Submission
