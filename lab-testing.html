@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Testing | SRS Electrical Appliances</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles and Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-blue: #1a5f7a;
+            --accent-blue: #2a86ba;
+            --light-blue: #57c5e6;
+            --dark-gray: #333;
+            --medium-gray: #666;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --success-green: #28a745;
+            --danger-red: #dc3545;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 40px 0;
+        }
+
+        /* Navbar Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            position: relative;
+            margin-left: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a.active:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-blue);
+            left: 0;
+            bottom: 0;
+        }
+
+        .nav-menu a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            left: 0;
+            bottom: 0;
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover:after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        li.dropdown {
+            z-index: 1000;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            border-radius: 4px;
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            padding: 10px 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark-gray);
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light-gray);
+        }
+
+        .login-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 4px;
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-blue);
+        }
+
+        /* Page Header - FIXED: Removed sticky positioning */
+        .page-header {
+            background-color: var(--white);
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            margin-top: 0;
+            position: relative;
+            /* Changed from sticky to relative */
+            top: auto;
+            /* Removed fixed top positioning */
+            z-index: 900;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--medium-gray);
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Section Styles */
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+        }
+
+        /* Search Bar */
+        .search-section {
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(42, 134, 186, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--medium-gray);
+        }
+
+        /* Product Table */
+        .table-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .product-table thead {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .product-table th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .product-table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .product-table tbody tr:hover {
+            background-color: rgba(42, 134, 186, 0.05);
+        }
+
+        .product-table td {
+            padding: 18px 15px;
+            color: var(--dark-gray);
+        }
+
+        .product-name {
+            color: var(--accent-blue);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .product-name:hover {
+            color: var(--primary-blue);
+            text-decoration: underline;
+        }
+
+        .product-type {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: rgba(42, 134, 186, 0.1);
+            color: var(--accent-blue);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Product Details Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: var(--light-blue);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .product-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            margin-bottom: 20px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .detail-value {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+        }
+
+        .product-description {
+            line-height: 1.7;
+            color: var(--dark-gray);
+            padding: 15px;
+            background-color: rgba(248, 249, 250, 0.8);
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-in-progress {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
+        .status-completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-failed {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Test Action Buttons */
+        .test-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pass-btn {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-green);
+            border: 2px solid var(--success-green);
+        }
+
+        .pass-btn:hover {
+            background-color: var(--success-green);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .fail-btn {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger-red);
+            border: 2px solid var(--danger-red);
+        }
+
+        .fail-btn:hover {
+            background-color: var(--danger-red);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        /* Test History */
+        .test-history {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .test-history-title {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .test-history-item {
+            padding: 12px 15px;
+            border-left: 4px solid var(--accent-blue);
+            background-color: rgba(248, 249, 250, 0.8);
+            margin-bottom: 10px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .test-history-date {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .test-history-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .test-passed {
+            background-color: rgba(40, 167, 69, 0.15);
+            color: var(--success-green);
+        }
+
+        .test-failed {
+            background-color: rgba(220, 53, 69, 0.15);
+            color: var(--danger-red);
+        }
+
+        /* Lab Testing Section */
+        .lab-testing-section {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .image-slider-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .image-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 8px;
+        }
+
+        .slide-content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            color: var(--white);
+            border-radius: 8px;
+        }
+
+        .slide-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .slide-description {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-btn {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-btn.active {
+            background-color: var(--accent-blue);
+            transform: scale(1.2);
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .slider-nav:hover {
+            background-color: var(--white);
+        }
+
+        .prev-slide {
+            left: 20px;
+        }
+
+        .next-slide {
+            right: 20px;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 2100;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification-success {
+            background-color: var(--success-green);
+        }
+
+        .notification-error {
+            background-color: var(--danger-red);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: var(--white);
+            padding: 60px 0 30px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: var(--light-blue);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-blue);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column p,
+        .footer-column a {
+            color: #bdc3c7;
+            margin-bottom: 15px;
+            display: block;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--light-blue);
+            padding-left: 5px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item i {
+            color: var(--accent-blue);
+            width: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .slide {
+                height: 350px;
+            }
+
+            .test-actions {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.5s ease;
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+
+            .nav-menu li {
+                margin: 0 0 20px 0;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .product-table th,
+            .product-table td {
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+
+            .product-details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lab-testing-section {
+                padding: 25px;
+            }
+
+            .slide {
+                height: 300px;
+            }
+
+            .slide-content {
+                padding: 20px;
+            }
+
+            .slider-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .modal-header {
+                padding: 20px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-title {
+                font-size: 1.6rem;
+            }
+
+            .product-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .slide {
+                height: 250px;
+            }
+
+            .slider-nav {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .prev-slide {
+                left: 10px;
+            }
+
+            .next-slide {
+                right: 10px;
+            }
+
+            .notification {
+                left: 20px;
+                right: 20px;
+                top: 10px;
+            }
+        }
+
+        /* Table responsive helper */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--medium-gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--border-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index (2).html" class="logo">
+                    <i class="fas fa-bolt logo-icon"></i>
+                    <span class="logo-text">SRS Electrical</span>
+                </a>
+
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index (2).html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="dropdown">
+                        <a href="lab-testing.html" class="active">Lab Testing <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="reoprt.html">Reports</a>
+                            <a href="cpri.html">CPRI Testing</a>
+
+                        </div>
+                    </li>
+                    <li><a href="products.html">Product Catalog</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="container">
+                <h1 class="page-title">Lab Testing</h1>
+                <p class="page-subtitle">Electrical Lab Automation System - Product Testing Dashboard</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Product Search Section -->
+            <section class="search-section">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar"
+                        placeholder="Search by product name or product ID...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </section>
+            <!-- Lab Testing Section -->
+            <section class="lab-testing-section">
+                <h2 class="section-title">Lab Testing Facilities</h2>
+                <p style="margin-bottom: 30px; color: var(--medium-gray);">Our state-of-the-art testing equipment
+                    ensures accurate and reliable results for all electrical products.</p>
+
+                <div class="image-slider-container">
+                    <div class="image-slider" id="imageSlider">
+                        <!-- Slide 1 -->
+                        <div class="slide"
+                            style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                            <div class="slide-content">
+                                <div>
+                                    <h3 class="slide-title">High Voltage Testing Lab</h3>
+                                    <p class="slide-description">Advanced equipment for testing switchgear and
+                                        transformers up to 33kV</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="slide"
+                            style="background-image: url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');">
+                            <div class="slide-content">
+                                <div>
+                                    <h3 class="slide-title">Automation Control Testing</h3>
+                                    <p class="slide-description">Precision testing of control panels and automation
+                                        systems</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="slide"
+                            style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                            <div class="slide-content">
+                                <div>
+                                    <h3 class="slide-title">Safety Compliance Testing</h3>
+                                    <p class="slide-description">Comprehensive safety and compliance testing for all
+                                        electrical appliances</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slider Navigation -->
+                    <button class="slider-nav prev-slide" id="prevSlide">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-nav next-slide" id="nextSlide">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <!-- Slider Controls -->
+                    <div class="slider-controls">
+                        <button class="slider-btn active" data-slide="0"></button>
+                        <button class="slider-btn" data-slide="1"></button>
+                        <button class="slider-btn" data-slide="2"></button>
+                    </div>
+                </div>
+            </section>
+            <!-- Product Testing Section -->
+            <section>
+                <h2 class="section-title">Products Under Testing</h2>
+
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table class="product-table" id="productTable">
+                            <thead>
+                                <tr>
+                                    <th>Product ID</th>
+                                    <th>Product Name</th>
+                                    <th>Product Type</th>
+                                    <th>Test Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTableBody">
+                                <!-- Product rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>No products found</h3>
+                    <p>Try adjusting your search query to find what you're looking for.</p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Product Testing Details</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Product ID</div>
+                        <div class="detail-value" id="modalProductId">-</div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Product Name</div>
+                        <div class="detail-value" id="modalProductName">-</div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Product Type</div>
+                        <div class="detail-value" id="modalProductType">-</div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Current Test Status</div>
+                        <div class="detail-value">
+                            <span class="status-badge" id="modalTestStatus">-</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Test Date</div>
+                        <div class="detail-value" id="modalTestDate">-</div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Assigned Technician</div>
+                        <div class="detail-value" id="modalTechnician">-</div>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">Product Description</div>
+                    <div class="product-description" id="modalProductDescription">
+                        No description available.
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">Test Notes</div>
+                    <div class="product-description" id="modalTestNotes">
+                        No test notes available.
+                    </div>
+                </div>
+
+                <!-- Test History -->
+                <div class="test-history">
+                    <h3 class="test-history-title">Test History</h3>
+                    <div id="testHistoryList">
+                        <!-- Test history items will be added here -->
+                    </div>
+                </div>
+
+                <!-- Test Action Buttons -->
+                <div class="test-actions">
+                    <button class="action-btn pass-btn" id="markPassBtn">
+                        <i class="fas fa-check-circle"></i> Mark as Pass
+                    </button>
+                    <button class="action-btn fail-btn" id="markFailBtn">
+                        <i class="fas fa-times-circle"></i> Mark as Fail
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification" style="display: none;">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Test status updated successfully!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- Column 1: Contact Info -->
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 98765 43210</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@srselectrical.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Industrial Area, Phase II<br>Bengaluru, Karnataka 560058</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="cpri.html">CPRI Certification</a>
+                    <a href="faqs.html">FAQs</a>
+                    <a href="reoprt.html">Testing Reports</a>
+                </div>
+
+                <!-- Column 3: Social Media -->
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
+
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://pk.linkedin.com/" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.whatsapp.com/" class="social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://x.com/" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved
+                    Testing Facility</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+
+        // Sample product data with test history
+        const products = [
+            {
+                id: "ELEC-2023-001",
+                name: "HV Switchgear Panel",
+                type: "Switchgear",
+                description: "High voltage switchgear panel designed for industrial power distribution with advanced safety features and remote monitoring capabilities.",
+                testStatus: "in-progress",
+                testDate: "2023-11-15",
+                technician: "Dr. Anil Sharma",
+                testNotes: "Currently undergoing dielectric strength testing. Preliminary results are positive.",
+                testHistory: [
+                    { date: "2023-11-10", status: "in-progress", note: "Visual inspection completed" },
+                    { date: "2023-11-12", status: "in-progress", note: "Wiring continuity test passed" }
+                ]
+            },
+            {
+                id: "ELEC-2023-002",
+                name: "Power Capacitor Bank",
+                type: "Capacitors",
+                description: "Three-phase power factor correction capacitor bank with automatic switching and overload protection.",
+                testStatus: "in-progress",
+                testDate: "2023-11-05",
+                technician: "Rajesh Kumar",
+                testNotes: "Currently undergoing capacitance measurement test. Preliminary results show excellent performance.",
+                testHistory: [
+                    { date: "2023-11-01", status: "in-progress", note: "Initial inspection completed" },
+                    { date: "2023-11-03", status: "in-progress", note: "Insulation resistance test passed" }
+                ]
+            },
+            {
+                id: "ELEC-2023-003",
+                name: "Industrial Fuse Set",
+                type: "Fuses",
+                description: "High-breaking capacity fuses for industrial applications with time-delay characteristics.",
+                testStatus: "pending",
+                testDate: "2023-11-10",
+                technician: "Priya Singh",
+                testNotes: "Scheduled for testing next week. Preparing test setup for short-circuit testing.",
+                testHistory: []
+            },
+            {
+                id: "ELEC-2023-004",
+                name: "PLC Control Panel",
+                type: "Control Panels",
+                description: "Programmable Logic Controller based automation panel with HMI interface for process control.",
+                testStatus: "completed",
+                testDate: "2023-10-28",
+                technician: "Vikram Patel",
+                testNotes: "All functions tested successfully. Communication protocols verified with multiple devices.",
+                testHistory: [
+                    { date: "2023-10-25", status: "in-progress", note: "Power supply testing completed" },
+                    { date: "2023-10-27", status: "completed", note: "All functional tests passed" }
+                ]
+            },
+            {
+                id: "ELEC-2023-005",
+                name: "Precision Resistor Array",
+                type: "Resistors",
+                description: "High-precision resistor network with low temperature coefficient for measurement applications.",
+                testStatus: "failed",
+                testDate: "2023-11-02",
+                technician: "Meera Desai",
+                testNotes: "Failed tolerance test on resistors R3 and R7. Requires recalibration or replacement.",
+                testHistory: [
+                    { date: "2023-10-30", status: "in-progress", note: "Initial resistance measurement started" },
+                    { date: "2023-11-02", status: "failed", note: "Failed tolerance test on R3 and R7" }
+                ]
+            },
+            {
+                id: "ELEC-2023-006",
+                name: "Digital Multimeter",
+                type: "Testing Equipment",
+                description: "Industrial-grade digital multimeter with true RMS measurement and data logging capabilities.",
+                testStatus: "in-progress",
+                testDate: "2023-11-07",
+                technician: "Arun Verma",
+                testNotes: "Accuracy testing in progress. DC voltage measurements completed, AC testing underway.",
+                testHistory: [
+                    { date: "2023-11-05", status: "in-progress", note: "DC voltage accuracy test completed" }
+                ]
+            },
+            {
+                id: "ELEC-2023-007",
+                name: "Circuit Breaker Module",
+                type: "Switchgear",
+                description: "Modular circuit breaker unit with ground fault protection and remote trip capability.",
+                testStatus: "completed",
+                testDate: "2023-10-20",
+                technician: "Dr. Anil Sharma",
+                testNotes: "All protection functions tested successfully. Trip timing within specified limits.",
+                testHistory: [
+                    { date: "2023-10-18", status: "in-progress", note: "Initial mechanical tests completed" },
+                    { date: "2023-10-20", status: "completed", note: "All electrical tests passed" }
+                ]
+            },
+            {
+                id: "ELEC-2023-008",
+                name: "Voltage Stabilizer",
+                type: "Power Equipment",
+                description: "Automatic voltage stabilizer with microprocessor control for sensitive electronic equipment.",
+                testStatus: "pending",
+                testDate: "2023-11-12",
+                technician: "Rajesh Kumar",
+                testNotes: "Awaiting arrival of specialized test equipment for transient response testing.",
+                testHistory: []
+            }
+        ];
+
+        // DOM Elements
+        const productTableBody = document.getElementById('productTableBody');
+        const searchBar = document.getElementById('searchBar');
+        const emptyState = document.getElementById('emptyState');
+        const productModal = document.getElementById('productModal');
+        const closeModal = document.getElementById('closeModal');
+        const markPassBtn = document.getElementById('markPassBtn');
+        const markFailBtn = document.getElementById('markFailBtn');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const testHistoryList = document.getElementById('testHistoryList');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        // Modal elements
+        const modalProductId = document.getElementById('modalProductId');
+        const modalProductName = document.getElementById('modalProductName');
+        const modalProductType = document.getElementById('modalProductType');
+        const modalProductDescription = document.getElementById('modalProductDescription');
+        const modalTestStatus = document.getElementById('modalTestStatus');
+        const modalTestDate = document.getElementById('modalTestDate');
+        const modalTechnician = document.getElementById('modalTechnician');
+        const modalTestNotes = document.getElementById('modalTestNotes');
+
+        // Track current product in modal
+        let currentProductId = null;
+
+        // Initialize product table
+        function initializeProductTable() {
+            renderProductTable(products);
+        }
+
+        // Render product table
+        function renderProductTable(productsToRender) {
+            productTableBody.innerHTML = '';
+
+            if (productsToRender.length === 0) {
+                productTableBody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            productsToRender.forEach(product => {
+                const row = document.createElement('tr');
+
+                // Get status badge based on test status
+                let statusBadge = '';
+                switch (product.testStatus) {
+                    case 'pending':
+                        statusBadge = '<span class="status-badge status-pending">Pending</span>';
+                        break;
+                    case 'in-progress':
+                        statusBadge = '<span class="status-badge status-in-progress">In Progress</span>';
+                        break;
+                    case 'completed':
+                        statusBadge = '<span class="status-badge status-completed">Completed</span>';
+                        break;
+                    case 'failed':
+                        statusBadge = '<span class="status-badge status-failed">Failed</span>';
+                        break;
+                }
+
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td><span class="product-name" data-id="${product.id}">${product.name}</span></td>
+                    <td><span class="product-type">${product.type}</span></td>
+                    <td>${statusBadge}</td>
+                `;
+                productTableBody.appendChild(row);
+            });
+
+            // Add click event to product names
+            document.querySelectorAll('.product-name').forEach(item => {
+                item.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-id');
+                    openProductModal(productId);
+                });
+            });
+        }
+
+        // Open product modal
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+
+            if (!product) return;
+
+            currentProductId = productId;
+
+            // Set modal content
+            modalProductId.textContent = product.id;
+            modalProductName.textContent = product.name;
+            modalProductType.textContent = product.type;
+            modalProductDescription.textContent = product.description;
+            modalTestDate.textContent = formatDate(product.testDate);
+            modalTechnician.textContent = product.technician;
+            modalTestNotes.textContent = product.testNotes;
+
+            // Set test status with appropriate badge
+            let statusText = '';
+            let statusClass = '';
+
+            switch (product.testStatus) {
+                case 'pending':
+                    statusText = 'Pending';
+                    statusClass = 'status-pending';
+                    break;
+                case 'in-progress':
+                    statusText = 'In Progress';
+                    statusClass = 'status-in-progress';
+                    break;
+                case 'completed':
+                    statusText = 'Completed';
+                    statusClass = 'status-completed';
+                    break;
+                case 'failed':
+                    statusText = 'Failed';
+                    statusClass = 'status-failed';
+                    break;
+                default:
+                    statusText = 'Unknown';
+                    statusClass = 'status-pending';
+            }
+
+            modalTestStatus.textContent = statusText;
+            modalTestStatus.className = `status-badge ${statusClass}`;
+
+            // Render test history
+            renderTestHistory(product.testHistory);
+
+            // Show modal
+            productModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Render test history
+        function renderTestHistory(history) {
+            testHistoryList.innerHTML = '';
+
+            if (history.length === 0) {
+                testHistoryList.innerHTML = '<div class="test-history-item">No test history available.</div>';
+                return;
+            }
+
+            // Sort history by date (newest first)
+            const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            sortedHistory.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'test-history-item';
+
+                const statusClass = item.status === 'completed' ? 'test-passed' :
+                    item.status === 'failed' ? 'test-failed' : 'test-in-progress';
+
+                const statusText = item.status === 'completed' ? 'Passed' :
+                    item.status === 'failed' ? 'Failed' : 'In Progress';
+
+                historyItem.innerHTML = `
+                    <div class="test-history-date">${formatDate(item.date)}</div>
+                    <div>
+                        <span class="test-history-status ${statusClass}">${statusText}</span>
+                        <span>${item.note}</span>
+                    </div>
+                `;
+
+                testHistoryList.appendChild(historyItem);
+            });
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // Show notification
+        function showNotification(message, isSuccess = true) {
+            notificationText.textContent = message;
+            notification.className = `notification ${isSuccess ? 'notification-success' : 'notification-error'}`;
+            notification.style.display = 'flex';
+
+            // Update icon
+            const icon = notification.querySelector('i');
+            icon.className = isSuccess ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Update product status
+        function updateProductStatus(status, isPass) {
+            const productIndex = products.findIndex(p => p.id === currentProductId);
+
+            if (productIndex === -1) return;
+
+            // Update product status
+            products[productIndex].testStatus = status;
+            products[productIndex].testDate = new Date().toISOString().split('T')[0];
+
+            // Add to test history
+            const newHistoryEntry = {
+                date: new Date().toISOString().split('T')[0],
+                status: status,
+                note: isPass ? 'Product passed all tests successfully' : 'Product failed testing criteria'
+            };
+
+            products[productIndex].testHistory.unshift(newHistoryEntry);
+
+            // Update table
+            renderProductTable(products);
+
+            // Update modal if it's open
+            if (currentProductId) {
+                openProductModal(currentProductId);
+            }
+
+            // Show notification
+            showNotification(`Product marked as ${isPass ? 'PASS' : 'FAIL'}`, isPass);
+        }
+
+        // Search functionality
+        function searchProducts(query) {
+            if (!query.trim()) {
+                return products;
+            }
+
+            const lowercaseQuery = query.toLowerCase();
+
+            return products.filter(product =>
+                product.id.toLowerCase().includes(lowercaseQuery) ||
+                product.name.toLowerCase().includes(lowercaseQuery) ||
+                product.type.toLowerCase().includes(lowercaseQuery)
+            );
+        }
+
+        // Image Slider Functionality
+        const imageSlider = document.getElementById('imageSlider');
+        const prevSlideBtn = document.getElementById('prevSlide');
+        const nextSlideBtn = document.getElementById('nextSlide');
+        const sliderButtons = document.querySelectorAll('.slider-btn');
+
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        // Initialize slider
+        function initializeSlider() {
+            updateSlider();
+
+            // Auto slide every 5 seconds
+            setInterval(() => {
+                nextSlide();
+            }, 5000);
+        }
+
+        // Next slide
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        // Previous slide
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        // Update slider position and active button
+        function updateSlider() {
+            imageSlider.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            // Update active button
+            sliderButtons.forEach((btn, index) => {
+                if (index === currentSlide) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Go to specific slide
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateSlider();
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile Navigation Toggle
+            mobileToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                mobileToggle.innerHTML = navMenu.classList.contains('active')
+                    ? '<i class="fas fa-times"></i>'
+                    : '<i class="fas fa-bars"></i>';
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+
+            // Initialize product table
+            initializeProductTable();
+
+            // Initialize image slider
+            initializeSlider();
+
+            // Search functionality
+            searchBar.addEventListener('input', function () {
+                const filteredProducts = searchProducts(this.value);
+                renderProductTable(filteredProducts);
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', function () {
+                productModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close modal when clicking outside
+            productModal.addEventListener('click', function (e) {
+                if (e.target === productModal) {
+                    productModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Mark as Pass button
+            markPassBtn.addEventListener('click', function () {
+                updateProductStatus('completed', true);
+            });
+
+            // Mark as Fail button
+            markFailBtn.addEventListener('click', function () {
+                updateProductStatus('failed', false);
+            });
+
+            // Slider navigation
+            prevSlideBtn.addEventListener('click', prevSlide);
+            nextSlideBtn.addEventListener('click', nextSlide);
+
+            // Slider buttons
+            sliderButtons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    goToSlide(slideIndex);
+                });
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && productModal.style.display === 'flex') {
+                    productModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
