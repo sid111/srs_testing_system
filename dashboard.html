@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1077,18 +1078,35 @@
 
     <!-- Add Product Modal -->
     <div id="addProductModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
             <div class="modal-header">
                 <h2>Add New Product</h2>
                 <button class="close-btn" onclick="closeAddProductModal()">&times;</button>
             </div>
-            <form id="addProductForm">
+            <form id="addProductForm" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="productName">Product Name *</label>
+                    <label for="productImage">Product Image</label>
+                    <div style="border: 2px dashed #ccc; padding: 20px; border-radius: 5px; text-align: center; cursor: pointer;" id="imageDropZone">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--accent-blue); margin-bottom: 10px;"></i>
+                        <p>Drag and drop image here or click to select</p>
+                        <small style="color: #666;">JPG, PNG, GIF, WebP (Max 5MB)</small>
+                        <input type="file" id="productImage" name="product_image" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="imagePreview" style="display: none; margin-top: 15px; text-align: center;">
+                        <img id="previewImg" src="" style="max-width: 200px; max-height: 200px; border-radius: 5px;">
+                        <button type="button" onclick="removeImage()" style="display: block; margin-top: 10px; background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">
+                            Remove Image
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productName">Product Name <span style="color: red;">*</span></label>
                     <input type="text" id="productName" name="name" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="productCategory">Category *</label>
+                    <label for="productCategory">Category <span style="color: red;">*</span></label>
                     <select id="productCategory" name="category" required>
                         <option value="">Select Category</option>
                         <option value="switchgear">Switchgear</option>
@@ -1099,12 +1117,14 @@
                         <option value="safety">Safety Equipment</option>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="productPrice">Price (₹) *</label>
+                    <label for="productPrice">Price (₹) <span style="color: red;">*</span></label>
                     <input type="number" id="productPrice" name="price" step="0.01" min="0" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="productVoltage">Voltage Rating *</label>
+                    <label for="productVoltage">Voltage Rating <span style="color: red;">*</span></label>
                     <select id="productVoltage" name="voltage_rating" required>
                         <option value="">Select Voltage</option>
                         <option value="lv">Low Voltage (≤1kV)</option>
@@ -1112,8 +1132,9 @@
                         <option value="hv">High Voltage (>33kV)</option>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="productCert">Certification *</label>
+                    <label for="productCert">Certification <span style="color: red;">*</span></label>
                     <select id="productCert" name="certification" required>
                         <option value="">Select Certification</option>
                         <option value="cpri">CPRI Certified</option>
@@ -1121,14 +1142,17 @@
                         <option value="iec">IEC Compliant</option>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="productStock">Stock *</label>
+                    <label for="productStock">Stock <span style="color: red;">*</span></label>
                     <input type="number" id="productStock" name="stock" min="0" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="productDescription">Description *</label>
+                    <label for="productDescription">Description <span style="color: red;">*</span></label>
                     <textarea id="productDescription" name="description" placeholder="Enter product description" required></textarea>
                 </div>
+
                 <div class="form-group">
                     <label for="productBadge">Badge</label>
                     <select id="productBadge" name="badge">
@@ -1139,6 +1163,9 @@
                         <option value="limited">Limited</option>
                     </select>
                 </div>
+
+                <div id="statusMessage" style="display: none; padding: 10px; margin-bottom: 15px; border-radius: 5px; text-align: center;"></div>
+
                 <div class="modal-buttons">
                     <button type="button" class="btn-cancel" onclick="closeAddProductModal()">Cancel</button>
                     <button type="submit" class="btn-submit">Add Product</button>

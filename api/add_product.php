@@ -30,6 +30,7 @@ try {
     $price = floatval($_POST['price'] ?? 0);
     $stock = intval($_POST['stock'] ?? 0);
     $badge = mysqli_real_escape_string($conn, trim($_POST['badge'] ?? ''));
+    $image_path = '';
 
     // Validation
     if (empty($name)) {
@@ -48,6 +49,41 @@ try {
         throw new Exception('Stock cannot be negative');
     }
 
+    // Handle image upload
+    if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['product_image'];
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $max_size = 5 * 1024 * 1024; // 5MB
+
+        // Validate file type
+        if (!in_array($file['type'], $allowed_types)) {
+            throw new Exception('Invalid file type. Only JPG, PNG, GIF, and WebP are allowed.');
+        }
+
+        // Validate file size
+        if ($file['size'] > $max_size) {
+            throw new Exception('File size exceeds 5MB limit.');
+        }
+
+        // Create uploads directory if it doesn't exist
+        $upload_dir = '../uploads/products/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+
+        // Generate unique filename
+        $file_ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $unique_name = 'product_' . time() . '_' . uniqid() . '.' . $file_ext;
+        $upload_path = $upload_dir . $unique_name;
+
+        // Move uploaded file
+        if (move_uploaded_file($file['tmp_name'], $upload_path)) {
+            $image_path = 'uploads/products/' . $unique_name;
+        } else {
+            throw new Exception('Failed to upload image. Please try again.');
+        }
+    }
+
     // Generate product ID
     $lastProductQuery = "SELECT product_id FROM products ORDER BY product_id DESC LIMIT 1";
     $lastResult = $conn->query($lastProductQuery);
@@ -62,24 +98,38 @@ try {
     }
 
     // Insert product
-    $insertQuery = "INSERT INTO products (product_id, name, category, voltage_rating, certification, description, price, stock, badge, featured) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
-
-    $stmt = $conn->prepare($insertQuery);
-
-    if (!$stmt) {
-        throw new Exception('Prepare failed: ' . $conn->error);
+    if (!empty($image_path)) {
+        $insertQuery = "INSERT INTO products (product_id, name, category, voltage_rating, certification, description, price, stock, badge, featured, image_path) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
+        $stmt = $conn->prepare($insertQuery);
+        if (!$stmt) {
+            throw new Exception('Prepare failed: ' . $conn->error);
+        }
+        $featured = 0;
+        $stmt->bind_param("ssssssdisl", $product_id, $name, $category, $voltage_rating, $certification, $description, $price, $stock, $badge, $image_path);
+    } else {
+        $insertQuery = "INSERT INTO products (product_id, name, category, voltage_rating, certification, description, price, stock, badge, featured) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+        $stmt = $conn->prepare($insertQuery);
+        if (!$stmt) {
+            throw new Exception('Prepare failed: ' . $conn->error);
+        }
+        $featured = 0;
+        $stmt->bind_param("ssssssdis", $product_id, $name, $category, $voltage_rating, $certification, $description, $price, $stock, $badge);
     }
-
-    $featured = 0;
-    $stmt->bind_param("ssssssdis", $product_id, $name, $category, $voltage_rating, $certification, $description, $price, $stock, $badge);
 
     if ($stmt->execute()) {
         echo json_encode([
             'success' => true,
-            'message' => "Product added successfully! Product ID: " . $product_id
+            'message' => "Product added successfully! Product ID: " . $product_id,
+            'product_id' => $product_id,
+            'image_path' => $image_path
         ]);
     } else {
+        // Delete uploaded image if database insert fails
+        if (!empty($image_path) && file_exists('../' . $image_path)) {
+            unlink('../' . $image_path);
+        }
         throw new Exception('Execute failed: ' . $stmt->error);
     }
 
