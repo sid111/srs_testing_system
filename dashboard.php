@@ -1,4 +1,4 @@
-
+<?php include 'dashboard_auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -450,7 +450,7 @@
 
         .activity-time {
             font-size: 0.85rem;
-            color: var(--medium-gray);
+            color: var (--medium-gray);
         }
 
         /* Quick Actions */
@@ -458,7 +458,7 @@
             background-color: var(--white);
             border-radius: 8px;
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var (--shadow);
             height: fit-content;
         }
 
@@ -711,9 +711,9 @@
             height: 40px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            color: var(--white);
+            color: var (--white);
             text-decoration: none;
-            transition: var(--transition);
+            transition: var (--transition);
         }
 
         .social-icon:hover {
@@ -827,13 +827,6 @@
     </style>
 </head>
 <body>
-    <script>
-        // Check if user is logged in
-        if (!sessionStorage.getItem('admin_logged_in')) {
-            window.location.href = 'index.html';
-        }
-    </script>
-
     <!-- Header & Navigation  -->
     <header>
         <div class="container">
@@ -855,7 +848,6 @@
                         <div class="dropdown-content">
                             <a href="report.html">Reports</a>
                             <a href="cpri.html">CPRI Testing</a>
-                            
                         </div>
                     </li>
                     <li><a href="product.html">Product Catalog</a></li>
@@ -1068,7 +1060,6 @@
                                 <i class="fas fa-certificate action-icon"></i>
                                 <span class="action-text">CPRI</span>
                             </a>
-                           
                         </div>
                     </div>
                 </div>
@@ -1183,17 +1174,48 @@
             </div>
             <form id="startTestForm">
                 <div class="form-group">
-                    <label for="testerName">Tester Name *</label>
-                    <input type="text" id="testerName" name="tester_name" placeholder="Enter tester name" required>
+                    <label for="testerSelect">Tester <span style="color: red;">*</span></label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <select id="testerSelect" name="tester_name" required style="flex: 1;"></select>
+                        <input type="text" id="newTesterInput" placeholder="Add new tester" style="display:none; flex: 1;" />
+                        <button type="button" id="addTesterBtn" style="padding: 8px 12px;">Add New</button>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="testType">Test Type *</label>
+                    <label for="productId">Product <span style="color: red;">*</span></label>
+                    <select id="productId" name="product_id" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="productType">Product Type <span style="color: red;">*</span></label>
+                    <select id="productType" name="product_type" required>
+                        <option value="">-- Select Product Type --</option>
+                        <option value="switchgear">Switchgear</option>
+                        <option value="transformers">Transformers</option>
+                        <option value="testing">Testing Equipment</option>
+                        <option value="panels">Control Panels</option>
+                        <option value="cables">Cables & Accessories</option>
+                        <option value="safety">Safety Equipment</option>
+                        <option value="capacitors">Capacitors</option>
+                        <option value="resistors">Resistors</option>
+                        <option value="equipment">Power Equipment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="testType">Test Type <span style="color: red;">*</span></label>
                     <select id="testType" name="test_type" required>
                         <option value="">-- Select Test Type --</option>
-                        <option value="electrical">Electrical Safety Test</option>
-                        <option value="thermal">Thermal Test</option>
-                        <option value="performance">Performance Test</option>
-                        <option value="cpri">CPRI Approval Test</option>
+                        <option value="electrical">Electrical</option>
+                        <option value="thermal">Thermal</option>
+                        <option value="performance">Performance</option>
+                        <option value="cpri">CPRI</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="testStatus">Test Status <span style="color: red;">*</span></label>
+                    <select id="testStatus" name="status" required>
+                        <option value="in-progress">In Progress</option>
+                        <option value="pass">Pass</option>
+                        <option value="fail">Fail</option>
                     </select>
                 </div>
                 <div class="modal-buttons">
@@ -1293,26 +1315,100 @@
         function openStartTestModal() {
             document.getElementById("startTestModal").style.display = "block";
             document.body.style.overflow = "hidden";
+            populateProducts();
+            populateTesters();
         }
 
         function closeStartTestModal() {
             document.getElementById("startTestModal").style.display = "none";
             document.body.style.overflow = "auto";
             document.getElementById("startTestForm").reset();
+            document.getElementById('newTesterInput').style.display = 'none';
+            document.getElementById('testerSelect').style.display = '';
         }
 
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            let addProductModal = document.getElementById("addProductModal");
-            let startTestModal = document.getElementById("startTestModal");
-            
-            if (event.target == addProductModal) {
-                closeAddProductModal();
-            }
-            if (event.target == startTestModal) {
-                closeStartTestModal();
+        // Populate testers dropdown
+        async function populateTesters() {
+            try {
+                const response = await fetch('api/get_testers.php');
+                const data = await response.json();
+                const testerSelect = document.getElementById('testerSelect');
+                testerSelect.innerHTML = '';
+                if (data.success && data.testers.length > 0) {
+                    data.testers.forEach(tester => {
+                        const option = document.createElement('option');
+                        option.value = tester.tester_name;
+                        option.textContent = tester.tester_name;
+                        testerSelect.appendChild(option);
+                    });
+                }
+                // Add a blank option at the top
+                const blankOption = document.createElement('option');
+                blankOption.value = '';
+                blankOption.textContent = '-- Select Tester --';
+                testerSelect.insertBefore(blankOption, testerSelect.firstChild);
+                testerSelect.value = '';
+            } catch (error) {
+                console.error('Error fetching testers:', error);
             }
         }
+
+        // Add New Tester logic
+        document.addEventListener('DOMContentLoaded', function () {
+            const addTesterBtn = document.getElementById('addTesterBtn');
+            const newTesterInput = document.getElementById('newTesterInput');
+            const testerSelect = document.getElementById('testerSelect');
+            addTesterBtn.addEventListener('click', function () {
+                if (newTesterInput.style.display === 'none') {
+                    newTesterInput.style.display = '';
+                    testerSelect.style.display = 'none';
+                    newTesterInput.focus();
+                    addTesterBtn.textContent = 'Use Existing';
+                } else {
+                    newTesterInput.style.display = 'none';
+                    testerSelect.style.display = '';
+                    addTesterBtn.textContent = 'Add New';
+                }
+            });
+        });
+
+        // Populate products dropdown and auto-select type
+        async function populateProducts() {
+            try {
+                const response = await fetch('api/get_products.php');
+                const data = await response.json();
+                const productSelect = document.getElementById('productId');
+                const productTypeSelect = document.getElementById('productType');
+                productSelect.innerHTML = '<option value="">-- Select Product --</option>';
+                if (data.success && data.products.length > 0) {
+                    data.products.forEach(product => {
+                        const option = document.createElement('option');
+                        option.value = product.product_id;
+                        option.textContent = product.product_id + ' - ' + product.name;
+                        option.dataset.type = product.category;
+                        productSelect.appendChild(option);
+                    });
+                }
+                // Reset product type on open
+                if (productTypeSelect) productTypeSelect.value = '';
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        }
+
+        // Auto-select product type on product select
+        document.addEventListener('DOMContentLoaded', function () {
+            const productSelect = document.getElementById('productId');
+            const productTypeSelect = document.getElementById('productType');
+            productSelect.addEventListener('change', function () {
+                const selected = productSelect.options[productSelect.selectedIndex];
+                if (selected && selected.dataset.type) {
+                    productTypeSelect.value = selected.dataset.type;
+                } else {
+                    productTypeSelect.value = '';
+                }
+            });
+        });
 
         // Handle Add Product Form Submission
         document.getElementById("addProductForm").addEventListener("submit", function(e) {
@@ -1349,11 +1445,42 @@
         // Handle Start Test Form Submission
         document.getElementById("startTestForm").addEventListener("submit", function(e) {
             e.preventDefault();
-            const testerName = document.getElementById("testerName").value;
-            const testType = document.getElementById("testType").value;
-            
-            alert(`Test Started:\nTester: ${testerName}\nTest Type: ${testType}`);
-            closeStartTestModal();
+            const testerSelect = document.getElementById('testerSelect');
+            const newTesterInput = document.getElementById('newTesterInput');
+            let testerName = '';
+            if (newTesterInput.style.display !== 'none' && newTesterInput.value.trim() !== '') {
+                testerName = newTesterInput.value.trim();
+            } else {
+                testerName = testerSelect.value;
+            }
+            if (!testerName) {
+                alert('Please select or enter a tester name.');
+                return;
+            }
+            const formData = new FormData(this);
+            formData.set('tester_name', testerName);
+            const submitBtn = this.querySelector('[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Starting...';
+            fetch('api/add_test_result.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    closeStartTestModal();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Start Test';
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Start Test';
+            });
         });
         
         // Close mobile menu when clicking on a link - EXACTLY SAME AS OTHER PAGES

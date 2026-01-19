@@ -957,7 +957,7 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="index (2).html" class="logo">
+                <a href="index.html" class="logo">
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
@@ -967,7 +967,7 @@
                 </div>
 
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="index (2).html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li class="dropdown">
                         <a href="lab-testing.html" class="active">Lab Testing <i class="fas fa-chevron-down"></i></a>
@@ -977,7 +977,7 @@
 
                         </div>
                     </li>
-                    <li><a href="products.html">Product Catalog</a></li>
+                    <li><a href="product.html">Product Catalog</a></li>
                     <li><a href="contact.html">Contact Us</a></li>
 
                 </ul>
@@ -1081,6 +1081,7 @@
                                     <th>Product Name</th>
                                     <th>Product Type</th>
                                     <th>Test Status</th>
+                                    <th>Tester Name</th>
                                 </tr>
                             </thead>
                             <tbody id="productTableBody">
@@ -1248,114 +1249,7 @@
     <script>
 
 
-        // Sample product data with test history
-        const products = [
-            {
-                id: "ELEC-2023-001",
-                name: "HV Switchgear Panel",
-                type: "Switchgear",
-                description: "High voltage switchgear panel designed for industrial power distribution with advanced safety features and remote monitoring capabilities.",
-                testStatus: "in-progress",
-                testDate: "2023-11-15",
-                technician: "Dr. Anil Sharma",
-                testNotes: "Currently undergoing dielectric strength testing. Preliminary results are positive.",
-                testHistory: [
-                    { date: "2023-11-10", status: "in-progress", note: "Visual inspection completed" },
-                    { date: "2023-11-12", status: "in-progress", note: "Wiring continuity test passed" }
-                ]
-            },
-            {
-                id: "ELEC-2023-002",
-                name: "Power Capacitor Bank",
-                type: "Capacitors",
-                description: "Three-phase power factor correction capacitor bank with automatic switching and overload protection.",
-                testStatus: "in-progress",
-                testDate: "2023-11-05",
-                technician: "Rajesh Kumar",
-                testNotes: "Currently undergoing capacitance measurement test. Preliminary results show excellent performance.",
-                testHistory: [
-                    { date: "2023-11-01", status: "in-progress", note: "Initial inspection completed" },
-                    { date: "2023-11-03", status: "in-progress", note: "Insulation resistance test passed" }
-                ]
-            },
-            {
-                id: "ELEC-2023-003",
-                name: "Industrial Fuse Set",
-                type: "Fuses",
-                description: "High-breaking capacity fuses for industrial applications with time-delay characteristics.",
-                testStatus: "pending",
-                testDate: "2023-11-10",
-                technician: "Priya Singh",
-                testNotes: "Scheduled for testing next week. Preparing test setup for short-circuit testing.",
-                testHistory: []
-            },
-            {
-                id: "ELEC-2023-004",
-                name: "PLC Control Panel",
-                type: "Control Panels",
-                description: "Programmable Logic Controller based automation panel with HMI interface for process control.",
-                testStatus: "completed",
-                testDate: "2023-10-28",
-                technician: "Vikram Patel",
-                testNotes: "All functions tested successfully. Communication protocols verified with multiple devices.",
-                testHistory: [
-                    { date: "2023-10-25", status: "in-progress", note: "Power supply testing completed" },
-                    { date: "2023-10-27", status: "completed", note: "All functional tests passed" }
-                ]
-            },
-            {
-                id: "ELEC-2023-005",
-                name: "Precision Resistor Array",
-                type: "Resistors",
-                description: "High-precision resistor network with low temperature coefficient for measurement applications.",
-                testStatus: "failed",
-                testDate: "2023-11-02",
-                technician: "Meera Desai",
-                testNotes: "Failed tolerance test on resistors R3 and R7. Requires recalibration or replacement.",
-                testHistory: [
-                    { date: "2023-10-30", status: "in-progress", note: "Initial resistance measurement started" },
-                    { date: "2023-11-02", status: "failed", note: "Failed tolerance test on R3 and R7" }
-                ]
-            },
-            {
-                id: "ELEC-2023-006",
-                name: "Digital Multimeter",
-                type: "Testing Equipment",
-                description: "Industrial-grade digital multimeter with true RMS measurement and data logging capabilities.",
-                testStatus: "in-progress",
-                testDate: "2023-11-07",
-                technician: "Arun Verma",
-                testNotes: "Accuracy testing in progress. DC voltage measurements completed, AC testing underway.",
-                testHistory: [
-                    { date: "2023-11-05", status: "in-progress", note: "DC voltage accuracy test completed" }
-                ]
-            },
-            {
-                id: "ELEC-2023-007",
-                name: "Circuit Breaker Module",
-                type: "Switchgear",
-                description: "Modular circuit breaker unit with ground fault protection and remote trip capability.",
-                testStatus: "completed",
-                testDate: "2023-10-20",
-                technician: "Dr. Anil Sharma",
-                testNotes: "All protection functions tested successfully. Trip timing within specified limits.",
-                testHistory: [
-                    { date: "2023-10-18", status: "in-progress", note: "Initial mechanical tests completed" },
-                    { date: "2023-10-20", status: "completed", note: "All electrical tests passed" }
-                ]
-            },
-            {
-                id: "ELEC-2023-008",
-                name: "Voltage Stabilizer",
-                type: "Power Equipment",
-                description: "Automatic voltage stabilizer with microprocessor control for sensitive electronic equipment.",
-                testStatus: "pending",
-                testDate: "2023-11-12",
-                technician: "Rajesh Kumar",
-                testNotes: "Awaiting arrival of specialized test equipment for transient response testing.",
-                testHistory: []
-            }
-        ];
+        let testResults = [];
 
         // DOM Elements
         const productTableBody = document.getElementById('productTableBody');
@@ -1384,9 +1278,25 @@
         // Track current product in modal
         let currentProductId = null;
 
+        // Fetch Test Results
+        async function fetchTestResults() {
+            try {
+                const response = await fetch('api/get_testing-records.php');
+                const data = await response.json();
+                if (data.success) {
+                    testResults = data.records;
+                    renderProductTable(testResults);
+                } else {
+                    console.error(data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching test results:', error);
+            }
+        }
+
         // Initialize product table
         function initializeProductTable() {
-            renderProductTable(products);
+            fetchTestResults();
         }
 
         // Render product table
@@ -1401,94 +1311,67 @@
 
             emptyState.style.display = 'none';
 
-            productsToRender.forEach(product => {
+            productsToRender.forEach(record => {
                 const row = document.createElement('tr');
-
-                // Get status badge based on test status
                 let statusBadge = '';
-                switch (product.testStatus) {
-                    case 'pending':
-                        statusBadge = '<span class="status-badge status-pending">Pending</span>';
+                switch (record.result) {
+                    case 'Pass':
+                        statusBadge = '<span class="status-badge status-completed">Pass</span>';
                         break;
-                    case 'in-progress':
-                        statusBadge = '<span class="status-badge status-in-progress">In Progress</span>';
+                    case 'Fail':
+                        statusBadge = '<span class="status-badge status-failed">Fail</span>';
                         break;
-                    case 'completed':
-                        statusBadge = '<span class="status-badge status-completed">Completed</span>';
-                        break;
-                    case 'failed':
-                        statusBadge = '<span class="status-badge status-failed">Failed</span>';
+                    default:
+                        statusBadge = `<span class="status-badge status-pending">${record.status || 'Pending'}</span>`;
                         break;
                 }
-
                 row.innerHTML = `
-                    <td>${product.id}</td>
-                    <td><span class="product-name" data-id="${product.id}">${product.name}</span></td>
-                    <td><span class="product-type">${product.type}</span></td>
+                    <td>${record.product_id}</td>
+                    <td><span class="product-name" data-id="${record.test_id}">${record.product_name || record.product_id}</span></td>
+                    <td><span class="product-type">${record.test_type}</span></td>
                     <td>${statusBadge}</td>
+                    <td>${record.tester_name || '-'}</td>
                 `;
                 productTableBody.appendChild(row);
             });
-
-            // Add click event to product names
             document.querySelectorAll('.product-name').forEach(item => {
                 item.addEventListener('click', function () {
-                    const productId = this.getAttribute('data-id');
-                    openProductModal(productId);
+                    const recordId = this.getAttribute('data-id');
+                    openProductModal(recordId);
                 });
             });
         }
 
         // Open product modal
-        function openProductModal(productId) {
-            const product = products.find(p => p.id === productId);
-
-            if (!product) return;
-
-            currentProductId = productId;
-
-            // Set modal content
-            modalProductId.textContent = product.id;
-            modalProductName.textContent = product.name;
-            modalProductType.textContent = product.type;
-            modalProductDescription.textContent = product.description;
-            modalTestDate.textContent = formatDate(product.testDate);
-            modalTechnician.textContent = product.technician;
-            modalTestNotes.textContent = product.testNotes;
-
-            // Set test status with appropriate badge
+        function openProductModal(recordId) {
+            const record = testResults.find(r => r.test_id == recordId);
+            if (!record) return;
+            currentProductId = recordId;
+            modalProductId.textContent = record.product_id;
+            modalProductName.textContent = record.product_name || record.product_id;
+            modalProductType.textContent = record.test_type;
+            modalProductDescription.textContent = record.notes || 'No description available.';
+            modalTestDate.textContent = formatDate(record.test_date);
+            modalTechnician.textContent = record.tester_name || '-';
+            modalTestNotes.textContent = record.result || 'N/A';
             let statusText = '';
             let statusClass = '';
-
-            switch (product.testStatus) {
-                case 'pending':
-                    statusText = 'Pending';
-                    statusClass = 'status-pending';
-                    break;
-                case 'in-progress':
-                    statusText = 'In Progress';
-                    statusClass = 'status-in-progress';
-                    break;
-                case 'completed':
-                    statusText = 'Completed';
+            switch (record.result) {
+                case 'Pass':
+                    statusText = 'Pass';
                     statusClass = 'status-completed';
                     break;
-                case 'failed':
-                    statusText = 'Failed';
+                case 'Fail':
+                    statusText = 'Fail';
                     statusClass = 'status-failed';
                     break;
                 default:
-                    statusText = 'Unknown';
+                    statusText = record.status || 'Pending';
                     statusClass = 'status-pending';
             }
-
             modalTestStatus.textContent = statusText;
             modalTestStatus.className = `status-badge ${statusClass}`;
-
-            // Render test history
-            renderTestHistory(product.testHistory);
-
-            // Show modal
+            renderTestHistory([]);
             productModal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -1551,47 +1434,23 @@
 
         // Update product status
         function updateProductStatus(status, isPass) {
-            const productIndex = products.findIndex(p => p.id === currentProductId);
-
-            if (productIndex === -1) return;
-
-            // Update product status
-            products[productIndex].testStatus = status;
-            products[productIndex].testDate = new Date().toISOString().split('T')[0];
-
-            // Add to test history
-            const newHistoryEntry = {
-                date: new Date().toISOString().split('T')[0],
-                status: status,
-                note: isPass ? 'Product passed all tests successfully' : 'Product failed testing criteria'
-            };
-
-            products[productIndex].testHistory.unshift(newHistoryEntry);
-
-            // Update table
-            renderProductTable(products);
-
-            // Update modal if it's open
-            if (currentProductId) {
-                openProductModal(currentProductId);
-            }
-
-            // Show notification
-            showNotification(`Product marked as ${isPass ? 'PASS' : 'FAIL'}`, isPass);
+            // This function needs to be adapted to work with the new data structure
+            // For now, it will just show a notification
+            showNotification(`This functionality is not yet implemented with the new data structure.`, false);
         }
 
         // Search functionality
         function searchProducts(query) {
             if (!query.trim()) {
-                return products;
+                return testResults;
             }
 
             const lowercaseQuery = query.toLowerCase();
 
-            return products.filter(product =>
-                product.id.toLowerCase().includes(lowercaseQuery) ||
-                product.name.toLowerCase().includes(lowercaseQuery) ||
-                product.type.toLowerCase().includes(lowercaseQuery)
+            return testResults.filter(product =>
+                product.product_id.toLowerCase().includes(lowercaseQuery) ||
+                product.product_name.toLowerCase().includes(lowercaseQuery) ||
+                product.test_type.toLowerCase().includes(lowercaseQuery)
             );
         }
 
