@@ -84,6 +84,141 @@ if ($scheduledResult) {
             padding: 30px 0;
         }
 
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            position: relative;
+            margin-left: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a.active:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-blue);
+            left: 0;
+            bottom: 0;
+        }
+
+        .nav-menu a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            left: 0;
+            bottom: 0;
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover:after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            border-radius: 4px;
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            padding: 10px 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark-gray);
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light-gray);
+        }
+
+        .dashboard-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 4px;
+        }
+
+        .dashboard-btn:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-blue);
+        }
+
         /* Page Header */
         .page-header {
             background-color: var(--white);
@@ -639,6 +774,37 @@ if ($scheduledResult) {
 </head>
 
 <body>
+    <!-- Header & Navigation  -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.php" class="logo">
+                    <i class="fas fa-bolt logo-icon"></i>
+                    <span class="logo-text">SRS Electrical</span>
+                </a>
+
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php">About</a></li>
+                    <li class="dropdown">
+                        <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="report.php">Reports</a>
+                            <a href="cpri.php">CPRI Testing</a>
+                        </div>
+                    </li>
+                    <li><a href="product.php">Product Catalog</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
+                    <li><a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <header class="page-header">
         <div class="container">
             <h1 class="page-title">Reports and Analytics</h1>
