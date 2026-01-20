@@ -1,7 +1,7 @@
 <?php
-include("../config/conn.php"); // Your DB connection
+include("../config/conn.php"); // DB connection
 
-// --- STATIC DATA FROM YOUR JS --- //
+// --- STATIC DATA FROM JS --- //
 $recentReports = [
     [
         'name' => "Q3 2023 Testing Summary",
