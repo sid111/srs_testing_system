@@ -31,6 +31,15 @@ if ($scheduledResult) {
     while ($row = $scheduledResult->fetch_assoc()) {
         $scheduledReports[] = $row;
     }
+
+    // Fetch report types for dropdown
+    $reportTypes = [
+        ['type_id' => 1, 'type_name' => 'Analytics Summary'],
+        ['type_id' => 2, 'type_name' => 'Compliance Report'],
+        ['type_id' => 3, 'type_name' => 'Performance Summary'],
+        ['type_id' => 4, 'type_name' => 'CPRI Report'],
+        ['type_id' => 5, 'type_name' => 'Failure Analysis']
+    ];
 }
 ?>
 <!DOCTYPE html>
@@ -840,17 +849,21 @@ if ($scheduledResult) {
                 <h2 class="section-title">Generate Custom Report</h2>
                 <div class="filter-grid">
                     <div class="form-group">
+                        <label class="form-label" for="reportName">Report Name</label>
+                        <input type="text" class="form-control" id="reportName" placeholder="Enter new report name">
+                    </div>
+
+                    <div class="form-group">
                         <label class="form-label" for="reportType">Report Type</label>
                         <select class="form-control" id="reportType">
                             <option value="">Select Report Type</option>
-                            <option value="comprehensive">Comprehensive Test Report</option>
-                            <option value="failure-analysis">Failure Analysis Report</option>
-                            <option value="performance">Performance Summary</option>
-                            <option value="compliance">Compliance Report</option>
-                            <option value="cpri">CPRI Certification Report</option>
-                            <option value="monthly">Monthly Testing Summary</option>
+                            <?php foreach ($reportTypes as $type): ?>
+                                <option value="<?= htmlspecialchars($type['type_name']) ?>"><?= htmlspecialchars($type['type_name']) ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
+
+
                     <div class="form-group">
                         <label class="form-label" for="startDate">Start Date</label>
                         <input type="date" class="form-control" id="startDate" value="">
@@ -998,92 +1011,167 @@ if ($scheduledResult) {
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // --- GENERATE REPORT ---
-            document.getElementById("generateReportBtn").addEventListener("click", function() {
-                const formData = new FormData();
-                formData.append("report_type", document.getElementById("reportType").value);
-                formData.append("start_date", document.getElementById("startDate").value);
-                formData.append("end_date", document.getElementById("endDate").value);
-                formData.append("product_type", document.getElementById("productType").value);
-                formData.append("test_status", document.getElementById("testStatus").value);
-                formData.append("format", document.getElementById("format").value);
+        // --- GENERATE REPORT ---
+        document.getElementById("generateReportBtn").addEventListener("click", async function(e) {
+            e.preventDefault();
 
-                fetch("api/insert_report.php", {
-                        method: "POST",
-                        body: formData
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert("Report generated successfully!");
-                            location.reload();
-                        } else {
-                            alert("Error: " + data.message);
-                        }
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("Error generating report.");
-                    });
-            });
+            const reportName = document.getElementById("reportName").value.trim();
+            const reportType = document.getElementById("reportType").value;
+            const productType = document.getElementById("productType").value;
+            const format = document.getElementById("format").value;
 
-            // --- SCHEDULE REPORT ---
-            document.getElementById("scheduleReportBtn").addEventListener("click", function() {
-                const formData = new FormData();
-                formData.append("report_type", document.getElementById("reportType").value);
-                formData.append("start_date", document.getElementById("startDate").value);
-                formData.append("end_date", document.getElementById("endDate").value);
-                formData.append("product_type", document.getElementById("productType").value);
-                formData.append("test_status", document.getElementById("testStatus").value);
-                formData.append("format", document.getElementById("format").value);
+            if (!reportName) return alert("Please enter a report name.");
+            if (!reportType) return alert("Please select a report type.");
 
-                fetch("api/insert_schedule.php", {
-                        method: "POST",
-                        body: formData
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert("Report scheduled successfully!");
-                            location.reload();
-                        } else {
-                            alert("Error: " + data.message);
-                        }
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("Error scheduling report.");
-                    });
-            });
+            const formData = new FormData();
+            formData.append("report_name", reportName);
+            formData.append("report_type", reportType);
+            formData.append("product_type", productType);
+            formData.append("format", format);
 
-            // // Delete & View Buttons
-            // document.querySelectorAll(".delete-btn").forEach(btn => {
-            //     btn.addEventListener("click", function() {
-            //         const id = this.dataset.id;
-            //         if (confirm("Are you sure?")) {
-            //             fetch("api/delete_report.php", {
-            //                     method: "POST",
-            //                     body: new URLSearchParams({
-            //                         id
-            //                     })
-            //                 })
-            //                 .then(res => res.json())
-            //                 .then(data => {
-            //                     if (data.success) {
-            //                         alert("Deleted successfully");
-            //                         location.reload();
-            //                     } else {
-            //                         alert("Error: " + data.message);
-            //                     }
-            //                 });
-            //         }
-            //     });
-            // });
-            document.querySelectorAll(".view-btn").forEach(btn => {
-                btn.addEventListener("click", function() {
+            try {
+                const res = await fetch("api/insert_report.php", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (!res.ok) return alert("Server error: " + res.status);
+
+                const data = await res.json();
+
+                if (!data.success) {
+                    alert("⚠️ Error: " + data.message);
+                    if (data.stmt_error) console.error("DB Error:", data.stmt_error);
+                    return;
+                }
+
+                alert("✅ Report generated successfully!");
+
+                // Add new row to table dynamically
+                const tableBody = document.querySelector("#recentReportsTable tbody");
+                const emptyRow = tableBody.querySelector("tr td[colspan='6']");
+                if (emptyRow) emptyRow.parentElement.remove();
+
+                const tr = document.createElement("tr");
+
+                const generatedDate = new Date(data.date_generated);
+                const dateStr = generatedDate.toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                });
+
+                let statusClass = "status-processing";
+                if (data.status === "completed") statusClass = "status-completed";
+                else if (data.status === "failed") statusClass = "status-failed";
+                else if (data.status === "pending") statusClass = "status-pending";
+
+                tr.innerHTML = `
+            <td>${reportName}</td>
+            <td>${data.report_type}</td>
+            <td>${dateStr}</td>
+            <td>${format.toUpperCase()}</td>
+            <td><span class="status-badge ${statusClass}">${data.status.replace("-", " ")}</span></td>
+            <td>
+                <div class="action-buttons">
+                    <button class="action-btn view-btn" data-id="${data.report_id}"><i class="fas fa-eye"></i> View</button>
+                    <button class="action-btn delete-btn" data-id="${data.report_id}"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </td>
+        `;
+
+                tableBody.prepend(tr);
+
+                // Attach button events
+                tr.querySelector(".view-btn").addEventListener("click", function() {
                     window.open("api/view_report.php?id=" + this.dataset.id, "_blank");
                 });
+
+                tr.querySelector(".delete-btn").addEventListener("click", function() {
+                    const reportId = this.dataset.id;
+                    if (confirm("Are you sure you want to delete this report?")) {
+                        fetch("api/delete_report.php", {
+                                method: "POST",
+                                body: new URLSearchParams({
+                                    report_id: reportId
+                                })
+                            })
+                            .then(res => res.json())
+                            .then(delData => {
+                                if (delData.success) tr.remove();
+                                else alert("Error: " + delData.message);
+                            });
+                    }
+                });
+
+                // Reset form
+                document.getElementById("reportName").value = "";
+                document.getElementById("reportType").value = "";
+                document.getElementById("productType").value = "";
+                document.getElementById("format").value = "pdf";
+
+            } catch (err) {
+                console.error(err);
+                alert("❌ Unexpected error occurred.");
+            }
+        });
+
+
+        // --- SCHEDULE REPORT ---
+        document.getElementById("scheduleReportBtn").addEventListener("click", function() {
+            const formData = new FormData();
+            formData.append("report_type", document.getElementById("reportType").value);
+            formData.append("start_date", document.getElementById("startDate").value);
+            formData.append("end_date", document.getElementById("endDate").value);
+            formData.append("product_type", document.getElementById("productType").value);
+            formData.append("test_status", document.getElementById("testStatus").value);
+            formData.append("format", document.getElementById("format").value);
+
+            fetch("api/insert_schedule.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Report scheduled successfully!");
+                        location.reload();
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Error scheduling report.");
+                });
+        });
+
+        // // Delete & View Buttons
+        // document.querySelectorAll(".delete-btn").forEach(btn => {
+        // btn.addEventListener("click", function() {
+        // const id = this.dataset.id;
+        // if (confirm("Are you sure?")) {
+        // fetch("api/delete_report.php", {
+        // method: "POST",
+        // body: new URLSearchParams({
+        // id
+        // })
+        // })
+        // .then(res => res.json())
+        // .then(data => {
+        // if (data.success) {
+        // alert("Deleted successfully");
+        // location.reload();
+        // } else {
+        // alert("Error: " + data.message);
+        // }
+        // });
+        // }
+        // });
+        // });
+        document.querySelectorAll(".view-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                window.open("api/view_report.php?id=" + this.dataset.id, "_blank");
             });
         });
 

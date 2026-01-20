@@ -228,6 +228,7 @@
 
         .login-btn {
             /* background-color: var(--accent-blue); */
+            line-height: 1;
             color: white;
             padding: 10px 25px;
             border-radius: 4px;
@@ -399,6 +400,7 @@
 
         .social-login {
             display: flex;
+            align-items: center;
             justify-content: center;
             gap: 15px;
             margin-bottom: 25px;
@@ -821,6 +823,22 @@
             text-decoration: none;
             transition: var(--transition);
         }
+
+        /* Footer social icons fix */
+        .social-links a,
+        .social-icons a,
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-links a i,
+        .social-icons a i,
+        .footer-social a i {
+            line-height: 1;
+        }
+
 
         .social-icon:hover {
             background-color: var(--accent-blue);

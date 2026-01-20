@@ -1282,6 +1282,9 @@
                         featured: p.featured
                     }));
 
+                    // ✅ CRITICAL FIX
+                    filteredProducts = [...allProducts];
+
                     loadProducts();
                 } else {
                     showNotification('Failed to load products: ' + data.message, 'error');
