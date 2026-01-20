@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2026 at 09:23 PM
+-- Generation Time: Jan 20, 2026 at 08:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1359,7 +1359,7 @@ AUTO_INCREMENT = 5;
 --
 ALTER TABLE `testers`
 MODIFY `tester_id` int(11) NOT NULL AUTO_INCREMENT,
-AUTO_INCREMENT = 14;
+AUTO_INCREMENT = 9;
 
 --
 -- AUTO_INCREMENT for table `testing_records`
@@ -1373,7 +1373,7 @@ AUTO_INCREMENT = 11;
 --
 ALTER TABLE `tests`
 MODIFY `test_id` int(11) NOT NULL AUTO_INCREMENT,
-AUTO_INCREMENT = 9;
+AUTO_INCREMENT = 6;
 
 --
 -- AUTO_INCREMENT for table `test_results`
