@@ -742,7 +742,7 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="index.html" class="logo">
+                <a href="index.php" class="logo">
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
@@ -752,17 +752,17 @@
                 </div>
                 
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php" class="active">About</a></li>
                     <li class="dropdown">
-                        <a href="lab-testing.html">Lab Testing <i class="fas fa-chevron-down"></i></a>
+                        <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="report.html">Reports</a>
-                            <a href="cpri.html">CPRI Testing</a>
+                            <a href="report.php">Reports</a>
+                            <a href="cpri.php">CPRI Testing</a>
                         </div>
                     </li>
-                    <li><a href="product.html">Product Catalog</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="product.php">Product Catalog</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
                 </ul>
             </nav>
         </div>
@@ -995,7 +995,7 @@
         <section class="contact-cta">
             <h2>Ready to Test Your Electrical Products?</h2>
             <p>Partner with India's trusted electrical testing laboratory. Get accurate testing, CPRI certification, and comprehensive reports for your products.</p>
-            <a href="contact.html" class="cta-button">Contact Our Team</a>
+            <a href="contact.php" class="cta-button">Contact Our Team</a>
         </section>
     </div>
 
@@ -1025,11 +1025,11 @@
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
-                     <a href="about.html">About Us</a>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="cpri.html">CPRI Certification</a>
-                    <a href="faqs.html">FAQs</a>
-                    <a href="report.html">Testing Reports</a>
+                     <a href="about.php">About Us</a>
+                    <a href="contact.php">Contact Us</a>
+                    <a href="cpri.php">CPRI Certification</a>
+                    <a href="faqs.php">FAQs</a>
+                    <a href="report.php">Testing Reports</a>
                 </div>
                 
                 <!-- Column 3: Social Media -->

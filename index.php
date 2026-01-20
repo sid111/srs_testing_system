@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -270,8 +271,15 @@
         }
 
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .close-modal {
@@ -650,10 +658,21 @@
             margin: 10px 0;
         }
 
-        .bar-1 { width: 85%; }
-        .bar-2 { width: 70%; }
-        .bar-3 { width: 95%; }
-        .bar-4 { width: 60%; }
+        .bar-1 {
+            width: 85%;
+        }
+
+        .bar-2 {
+            width: 70%;
+        }
+
+        .bar-3 {
+            width: 95%;
+        }
+
+        .bar-4 {
+            width: 60%;
+        }
 
         .mock-stats {
             display: flex;
@@ -753,7 +772,8 @@
             left: 0;
         }
 
-        .footer-column p, .footer-column a {
+        .footer-column p,
+        .footer-column a {
             color: #bdc3c7;
             margin-bottom: 15px;
             display: block;
@@ -820,15 +840,15 @@
             .dashboard-container {
                 flex-direction: column;
             }
-            
+
             .slide-content h1 {
                 font-size: 2.5rem;
             }
-            
+
             .section-title h2 {
                 font-size: 2.2rem;
             }
-            
+
             .login-container {
                 max-width: 400px;
                 padding: 30px;
@@ -839,7 +859,7 @@
             .mobile-toggle {
                 display: block;
             }
-            
+
             .nav-menu {
                 position: fixed;
                 top: 80px;
@@ -853,34 +873,34 @@
                 transition: transform 0.5s ease;
                 z-index: 999;
             }
-            
+
             .nav-menu.active {
                 transform: translateY(0);
             }
-            
+
             .nav-menu li {
                 margin: 0 0 20px 0;
             }
-            
+
             .hero-buttons {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
             }
-            
+
             .newsletter-form {
                 flex-direction: column;
             }
-            
+
             .newsletter-form input {
                 border-radius: 4px;
                 margin-bottom: 10px;
             }
-            
+
             .newsletter-form button {
                 border-radius: 4px;
             }
@@ -890,28 +910,28 @@
             section {
                 padding: 60px 0;
             }
-            
+
             .slide-content h1 {
                 font-size: 2rem;
             }
-            
+
             .slide-content p {
                 font-size: 1.1rem;
             }
-            
+
             .section-title h2 {
                 font-size: 1.8rem;
             }
-            
+
             .products-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .login-container {
                 max-width: 90%;
                 padding: 25px;
             }
-            
+
             .form-options {
                 flex-direction: column;
                 align-items: flex-start;
@@ -920,32 +940,33 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header & Navigation -->
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="index (2).html" class="logo">
+                <a href="index.php" class="logo">
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
-                
+
                 <div class="mobile-toggle" id="mobileToggle">
                     <i class="fas fa-bars"></i>
                 </div>
-                
+
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php">About</a></li>
                     <li class="dropdown">
-                        <a href="lab-testing.html">Lab Testing <i class="fas fa-chevron-down"></i></a>
+                        <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="report.html">Report</a>
-                            <a href="contact.html">CPRI Testing</a>
+                            <a href="report.php">Report</a>
+                            <a href="contact.php">CPRI Testing</a>
                         </div>
                     </li>
-                    <li><a href="product.html">Product Catalog</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="product.php">Product Catalog</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
                     <li><a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a></li>
                 </ul>
             </nav>
@@ -956,23 +977,23 @@
     <div class="login-modal" id="loginModal">
         <div class="login-container">
             <div class="close-modal" id="closeModal">&times;</div>
-            
+
             <div class="login-header">
                 <h2>Welcome Back</h2>
                 <p>Login to access your testing dashboard and reports</p>
             </div>
-            
+
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" class="form-control" placeholder="Enter your username" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
                 </div>
-                
+
                 <div class="form-options">
                     <div class="remember-me">
                         <input type="checkbox" id="remember">
@@ -980,11 +1001,11 @@
                     </div>
                     <a href="#" class="forgot-password">Forgot Password?</a>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary login-form-btn">Login to Dashboard</button>
-                
+
                 <div class="divider">Or continue with</div>
-                
+
                 <div class="social-login">
                     <button type="button" class="social-btn google-btn">
                         <i class="fab fa-google"></i>
@@ -993,7 +1014,7 @@
                         <i class="fab fa-linkedin-in"></i>
                     </button>
                 </div>
-                
+
                 <div class="register-link">
                     Don't have an account? <a href="register.php" id="registerLink">Register here</a>
                 </div>
@@ -1011,12 +1032,12 @@
                     <h1>Reliable Electrical Testing and Lab Automation</h1>
                     <p>In-house testing and CPRI approved solutions for industrial and commercial applications</p>
                     <div class="hero-buttons">
-                        <a href="lab-testing.html" class="btn btn-primary">View Testing Services</a>
+                        <a href="lab-testing.php" class="btn btn-primary">View Testing Services</a>
                         <a href="dashboard.php" class="btn btn-secondary">Explore Dashboard</a>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 2 -->
             <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');">
                 <div class="slide-overlay"></div>
@@ -1024,12 +1045,12 @@
                     <h1>Precision Switchgear Testing</h1>
                     <p>Advanced testing facilities for high and low voltage switchgear with certified results</p>
                     <div class="hero-buttons">
-                        <a href="lab-testing.html" class="btn btn-primary">View Testing Services</a>
+                        <a href="lab-testing.php" class="btn btn-primary">View Testing Services</a>
                         <a href="dashboard.php" class="btn btn-secondary">Explore Dashboard</a>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 3 -->
             <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
                 <div class="slide-overlay"></div>
@@ -1037,12 +1058,12 @@
                     <h1>Automation Control Panels</h1>
                     <p>State-of-the-art automation solutions for industrial processes and quality control</p>
                     <div class="hero-buttons">
-                        <a href="lab-testing.html" class="btn btn-primary">View Testing Services</a>
+                        <a href="lab-testing.php" class="btn btn-primary">View Testing Services</a>
                         <a href="dashboard.php" class="btn btn-secondary">Explore Dashboard</a>
                     </div>
                 </div>
             </div>
-            
+
             <div class="slider-indicators">
                 <div class="indicator active" data-slide="0"></div>
                 <div class="indicator" data-slide="1"></div>
@@ -1058,7 +1079,7 @@
                 <h2>Our Products</h2>
                 <p>Tested. Certified. Reliable. Industry-standard electrical components and equipment</p>
             </div>
-            
+
             <div class="products-grid">
                 <!-- Product 1 -->
                 <div class="product-card">
@@ -1070,7 +1091,7 @@
                         <p>High and low voltage switchgear with complete testing certification</p>
                     </div>
                 </div>
-                
+
                 <!-- Product 2 -->
                 <div class="product-card">
                     <div class="product-img">
@@ -1081,7 +1102,7 @@
                         <p>Certified fuses for industrial and commercial electrical protection</p>
                     </div>
                 </div>
-                
+
                 <!-- Product 3 -->
                 <div class="product-card">
                     <div class="product-img">
@@ -1092,7 +1113,7 @@
                         <p>Power factor correction capacitors with testing compliance</p>
                     </div>
                 </div>
-                
+
                 <!-- Product 4 -->
                 <div class="product-card">
                     <div class="product-img">
@@ -1103,7 +1124,7 @@
                         <p>Precision resistors for electrical circuits and control systems</p>
                     </div>
                 </div>
-                
+
                 <!-- Product 5 -->
                 <div class="product-card">
                     <div class="product-img">
@@ -1114,7 +1135,7 @@
                         <p>Custom automation and control panels for industrial applications</p>
                     </div>
                 </div>
-                
+
                 <!-- Product 6 -->
                 <div class="product-card">
                     <div class="product-img">
@@ -1136,12 +1157,12 @@
                 <h2>Smart Testing Dashboard</h2>
                 <p>Monitor tests, reports, and approvals in one place with our comprehensive dashboard</p>
             </div>
-            
+
             <div class="dashboard-container">
                 <div class="dashboard-content">
                     <h2>Access Your Testing Dashboard</h2>
                     <p>Login to monitor real-time testing progress, access certification documents, and manage your electrical testing requirements efficiently. Our dashboard provides complete visibility into your testing projects.</p>
-                    
+
                     <div class="dashboard-features">
                         <div class="feature">
                             <i class="fas fa-check-circle"></i>
@@ -1160,10 +1181,10 @@
                             <span>Automated alerts</span>
                         </div>
                     </div>
-                    
+
                     <a href="#" class="btn btn-primary" id="dashboardLoginBtn" style="margin-top: 30px;">Login to Dashboard</a>
                 </div>
-                
+
                 <div class="dashboard-mock">
                     <div class="mock-chart">
                         <h4>Test Completion Status</h4>
@@ -1172,7 +1193,7 @@
                         <div class="chart-bar bar-3"></div>
                         <div class="chart-bar bar-4"></div>
                     </div>
-                    
+
                     <div class="mock-stats">
                         <div class="stat">
                             <div class="stat-value">98%</div>
@@ -1198,7 +1219,7 @@
             <div class="newsletter-box">
                 <h3>Stay Updated on Testing Standards</h3>
                 <p>Get updates on testing standards, CPRI approvals, and industry best practices directly to your inbox.</p>
-                
+
                 <form class="newsletter-form">
                     <input type="email" placeholder="Enter your email address" required>
                     <button type="submit" class="btn btn-accent">Subscribe</button>
@@ -1229,22 +1250,22 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
-                    <a href="about.html">About Us</a>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="cpri.html">CPRI Certification</a>
-                    <a href="faqs.html">FAQs</a>
-                    <a href="report.html">Testing Reports</a>
+                    <a href="about.php">About Us</a>
+                    <a href="contact.php">Contact Us</a>
+                    <a href="cpri.php">CPRI Certification</a>
+                    <a href="faqs.php">FAQs</a>
+                    <a href="report.php">Testing Reports</a>
                 </div>
-                
+
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
                     <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
-                    
+
                     <div class="social-links">
                         <a href="https://www.facebook.com/" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
@@ -1261,7 +1282,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
             </div>
@@ -1272,14 +1293,14 @@
         // Mobile Navigation Toggle
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
-        
+
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileToggle.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            mobileToggle.innerHTML = navMenu.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' :
+                '<i class="fas fa-bars"></i>';
         });
-        
+
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -1287,33 +1308,33 @@
                 mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
-        
+
         // Login Modal Functionality
         const loginModal = document.getElementById('loginModal');
         const loginBtn = document.getElementById('loginBtn');
         const dashboardLoginBtn = document.getElementById('dashboardLoginBtn');
         const closeModal = document.getElementById('closeModal');
         const registerLink = document.getElementById('registerLink');
-        
+
         // Open modal when clicking login buttons
         loginBtn.addEventListener('click', (e) => {
             e.preventDefault();
             loginModal.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Prevent scrolling
         });
-        
+
         dashboardLoginBtn.addEventListener('click', (e) => {
             e.preventDefault();
             loginModal.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Prevent scrolling
         });
-        
+
         // Close modal
         closeModal.addEventListener('click', () => {
             loginModal.style.display = 'none';
             document.body.style.overflow = 'auto';
         });
-        
+
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === loginModal) {
@@ -1321,93 +1342,93 @@
                 document.body.style.overflow = 'auto';
             }
         });
-        
+
         // Login form submission
         const loginForm = document.getElementById('loginForm');
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const remember = document.getElementById('remember').checked;
-            
+
             // Send login request to server
             const formData = new FormData();
             formData.append('username', username);
             formData.append('password', password);
             formData.append('remember', remember ? 1 : 0);
-            
+
             fetch('login_handler.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    sessionStorage.setItem('admin_logged_in', 'true');
-                    sessionStorage.setItem('admin_username', data.username);
-                    window.location.href = 'dashboard.php';
-                } else {
-                    alert(data.message || 'Login failed');
-                }
-                
-                // Close modal
-                loginModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-                
-                // Reset form
-                loginForm.reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred during login');
-                
-                // Close modal
-                loginModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-                
-                // Reset form
-                loginForm.reset();
-            });
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        sessionStorage.setItem('admin_logged_in', 'true');
+                        sessionStorage.setItem('admin_username', data.username);
+                        window.location.href = 'dashboard.php';
+                    } else {
+                        alert(data.message || 'Login failed');
+                    }
+
+                    // Close modal
+                    loginModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+
+                    // Reset form
+                    loginForm.reset();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred during login');
+
+                    // Close modal
+                    loginModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+
+                    // Reset form
+                    loginForm.reset();
+                });
         });
-        
+
         // Register link removed - now direct link
-        
+
         // Hero Slider
         const slides = document.querySelectorAll('.slide');
         const indicators = document.querySelectorAll('.indicator');
         let currentSlide = 0;
-        
+
         function showSlide(index) {
             // Hide all slides
             slides.forEach(slide => {
                 slide.classList.remove('active');
             });
-            
+
             // Remove active class from all indicators
             indicators.forEach(indicator => {
                 indicator.classList.remove('active');
             });
-            
+
             // Show the selected slide
             slides[index].classList.add('active');
             indicators[index].classList.add('active');
             currentSlide = index;
         }
-        
+
         // Add click event to indicators
         indicators.forEach((indicator, index) => {
             indicator.addEventListener('click', () => {
                 showSlide(index);
             });
         });
-        
+
         // Auto slide every 5 seconds
         setInterval(() => {
             let nextSlide = (currentSlide + 1) % slides.length;
             showSlide(nextSlide);
         }, 5000);
-        
+
         // Newsletter form submission
         const newsletterForm = document.querySelector('.newsletter-form');
         newsletterForm.addEventListener('submit', (e) => {
@@ -1416,17 +1437,17 @@
             alert(`Thank you for subscribing with ${email}. You will receive updates on testing standards and approvals.`);
             newsletterForm.reset();
         });
-        
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
+
                 const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
+                if (targetId === '#') return;
+
                 const targetElement = document.querySelector(targetId);
-                if(targetElement) {
+                if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
@@ -1436,4 +1457,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -181,7 +182,7 @@
             margin-bottom: 30px;
             position: relative;
             top: auto;
-             z-index: 900;
+            z-index: 900;
         }
 
         .page-title {
@@ -208,7 +209,7 @@
         }
 
         /* Product Catalog Specific Styles */
-        
+
         /* Hero Section */
         .hero-section {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
@@ -695,7 +696,8 @@
             left: 0;
         }
 
-        .footer-column p, .footer-column a {
+        .footer-column p,
+        .footer-column a {
             color: #bdc3c7;
             margin-bottom: 15px;
             display: block;
@@ -817,15 +819,15 @@
             .page-title {
                 font-size: 2.2rem;
             }
-            
+
             .hero-content h1 {
                 font-size: 2.2rem;
             }
-            
+
             .product-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
-            
+
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -835,7 +837,7 @@
             .mobile-toggle {
                 display: block;
             }
-            
+
             .nav-menu {
                 position: fixed;
                 top: 80px;
@@ -849,58 +851,58 @@
                 transition: transform 0.5s ease;
                 z-index: 999;
             }
-            
+
             .nav-menu.active {
                 transform: translateY(0);
             }
-            
+
             .nav-menu li {
                 margin: 0 0 20px 0;
             }
-            
+
             .page-title {
                 font-size: 1.8rem;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
             }
-            
+
             .hero-section {
                 padding: 60px 20px;
             }
-            
+
             .hero-content h1 {
                 font-size: 1.8rem;
             }
-            
+
             .hero-content p {
                 font-size: 1rem;
             }
-            
+
             .filters-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .product-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .product-footer {
                 flex-direction: column;
                 gap: 15px;
                 align-items: stretch;
             }
-            
+
             .product-footer .btn {
                 width: 100%;
                 justify-content: center;
             }
-            
+
             .features-section {
                 padding: 30px 20px;
             }
-            
+
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -911,24 +913,24 @@
             .page-title {
                 font-size: 1.6rem;
             }
-            
+
             .hero-section {
                 padding: 50px 15px;
             }
-            
+
             .filters-section {
                 padding: 20px;
             }
-            
+
             .product-content {
                 padding: 20px;
             }
-            
+
             .modal {
                 width: 95%;
                 margin: 10px;
             }
-            
+
             .btn {
                 padding: 8px 20px;
                 font-size: 0.9rem;
@@ -936,33 +938,34 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header & Navigation -->
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="index.html" class="logo">
+                <a href="index.php" class="logo">
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
-                
+
                 <div class="mobile-toggle" id="mobileToggle">
                     <i class="fas fa-bars"></i>
                 </div>
-                
+
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php">About</a></li>
                     <li class="dropdown">
-                        <a href="lab-testing.html">Lab Testing <i class="fas fa-chevron-down"></i></a>
+                        <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="reoprt.html">Reports</a>
-                            <a href="cpri.html">CPRI Testing</a>
+                            <a href="report.php">Reports</a>
+                            <a href="cpri.php">CPRI Testing</a>
                         </div>
                     </li>
-                    <li><a href="product.html" class="active">Product Catalog</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                   
+                    <li><a href="product.php" class="active">Product Catalog</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
+
                 </ul>
             </nav>
         </div>
@@ -1055,7 +1058,7 @@
                     Reset Filters
                 </button>
             </div>
-            
+
             <div class="filters-grid">
                 <div class="filter-group">
                     <label class="filter-label">Product Category</label>
@@ -1069,7 +1072,7 @@
                         <option value="safety">Safety Equipment</option>
                     </select>
                 </div>
-                
+
                 <div class="filter-group">
                     <label class="filter-label">Voltage Rating</label>
                     <select class="filter-select" id="voltageFilter">
@@ -1079,7 +1082,7 @@
                         <option value="hv">High Voltage (>33kV)</option>
                     </select>
                 </div>
-                
+
                 <div class="filter-group">
                     <label class="filter-label">Certification</label>
                     <select class="filter-select" id="certificationFilter">
@@ -1089,7 +1092,7 @@
                         <option value="iec">IEC Compliant</option>
                     </select>
                 </div>
-                
+
                 <div class="filter-group">
                     <label class="filter-label">Sort By</label>
                     <select class="filter-select" id="sortFilter">
@@ -1109,7 +1112,7 @@
             <div class="product-grid" id="productGrid">
                 <!-- Products loaded via JavaScript -->
             </div>
-            
+
             <!-- Pagination -->
             <div class="pagination" id="pagination">
                 <!-- Pagination loaded via JavaScript -->
@@ -1127,7 +1130,7 @@
                     <h3>CPRI Certified</h3>
                     <p>All products tested and certified by Central Power Research Institute</p>
                 </div>
-                
+
                 <div class="feature-item">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
@@ -1135,7 +1138,7 @@
                     <h3>Quality Assurance</h3>
                     <p>Stringent quality control and testing at every production stage</p>
                 </div>
-                
+
                 <div class="feature-item">
                     <div class="feature-icon">
                         <i class="fas fa-tools"></i>
@@ -1143,7 +1146,7 @@
                     <h3>Technical Support</h3>
                     <p>Comprehensive technical support and installation guidance</p>
                 </div>
-                
+
                 <div class="feature-item">
                     <div class="feature-icon">
                         <i class="fas fa-truck"></i>
@@ -1161,17 +1164,17 @@
                     <h3>200+</h3>
                     <p>Products in Catalog</p>
                 </div>
-                
+
                 <div class="stat-item">
                     <h3>98%</h3>
                     <p>Customer Satisfaction</p>
                 </div>
-                
+
                 <div class="stat-item">
                     <h3>5000+</h3>
                     <p>Units Delivered</p>
                 </div>
-                
+
                 <div class="stat-item">
                     <h3>15+</h3>
                     <p>Years Experience</p>
@@ -1187,7 +1190,7 @@
                 <h3 class="modal-title" id="modalProductTitle">Product Details</h3>
                 <button class="modal-close" id="closeProductModal">&times;</button>
             </div>
-            
+
             <div class="modal-body" id="modalProductContent">
                 <!-- Product details loaded via JavaScript -->
             </div>
@@ -1216,22 +1219,22 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
-                    <a href="about.html">About Us</a>
-                    <a href="lab-testing.html">Lab Testing</a>
-                    <a href="cpri.html">CPRI Testing</a>
-                    <a href="product.html" class="active">Product Catalog</a>
-                    <a href="faqs.html">FAQs</a>
+                    <a href="about.php">About Us</a>
+                    <a href="lab-testing.php">Lab Testing</a>
+                    <a href="cpri.php">CPRI Testing</a>
+                    <a href="product.php" class="active">Product Catalog</a>
+                    <a href="faqs.php">FAQs</a>
                 </div>
-                
+
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
                     <p>Follow us for product updates, industry news, and special offers.</p>
-                    
+
                     <div class="social-links">
                         <a href="#" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
@@ -1248,7 +1251,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
             </div>
@@ -1263,7 +1266,7 @@
             try {
                 const response = await fetch('api/get_products.php');
                 const data = await response.json();
-                
+
                 if (data.success) {
                     allProducts = data.products.map(p => ({
                         id: p.product_id,
@@ -1278,7 +1281,7 @@
                         stock: p.stock,
                         featured: p.featured
                     }));
-                    
+
                     loadProducts();
                 } else {
                     showNotification('Failed to load products: ' + data.message, 'error');
@@ -1292,14 +1295,14 @@
         // Mobile Navigation Toggle
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
-        
+
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileToggle.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            mobileToggle.innerHTML = navMenu.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' :
+                '<i class="fas fa-bars"></i>';
         });
-        
+
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -1339,7 +1342,7 @@
                         </button>
                     </div>
                 `;
-                
+
                 document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
                 document.getElementById('pagination').innerHTML = '';
                 return;
@@ -1348,8 +1351,8 @@
             paginatedProducts.forEach(product => {
                 let badgeClass = '';
                 let badgeText = '';
-                
-                switch(product.badge) {
+
+                switch (product.badge) {
                     case 'new':
                         badgeClass = 'badge-new';
                         badgeText = 'New';
@@ -1416,7 +1419,7 @@
                         </div>
                     </div>
                 `;
-                
+
                 productGrid.appendChild(productCard);
             });
 
@@ -1476,14 +1479,14 @@
         function loadPagination() {
             const pagination = document.getElementById('pagination');
             const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-            
+
             if (totalPages <= 1) {
                 pagination.innerHTML = '';
                 return;
             }
 
             let paginationHTML = '';
-            
+
             // Previous button
             if (currentPage > 1) {
                 paginationHTML += `
@@ -1494,7 +1497,7 @@
             } else {
                 paginationHTML += `<span class="page-link disabled"><i class="fas fa-chevron-left"></i></span>`;
             }
-            
+
             // Page numbers
             for (let i = 1; i <= totalPages; i++) {
                 if (i === currentPage) {
@@ -1503,7 +1506,7 @@
                     paginationHTML += `<a href="#" class="page-link" data-page="${i}">${i}</a>`;
                 }
             }
-            
+
             // Next button
             if (currentPage < totalPages) {
                 paginationHTML += `
@@ -1514,16 +1517,19 @@
             } else {
                 paginationHTML += `<span class="page-link disabled"><i class="fas fa-chevron-right"></i></span>`;
             }
-            
+
             pagination.innerHTML = paginationHTML;
-            
+
             // Add event listeners to pagination links
             document.querySelectorAll('.page-link[data-page]').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     currentPage = parseInt(e.currentTarget.getAttribute('data-page'));
                     loadProducts();
-                    window.scrollTo({ top: document.querySelector('.product-grid').offsetTop - 100, behavior: 'smooth' });
+                    window.scrollTo({
+                        top: document.querySelector('.product-grid').offsetTop - 100,
+                        behavior: 'smooth'
+                    });
                 });
             });
         }
@@ -1539,26 +1545,26 @@
             filteredProducts = allProducts.filter(product => {
                 // Category filter
                 if (currentCategory !== 'all' && product.category !== currentCategory) return false;
-                
+
                 // Voltage filter
                 if (currentVoltage !== 'all' && product.voltage !== currentVoltage) return false;
-                
+
                 // Certification filter
                 if (currentCertification !== 'all' && product.certification !== currentCertification) return false;
-                
+
                 return true;
             });
 
             // Sort products
             sortProducts();
-            
+
             // Load products
             loadProducts();
         }
 
         // Sort products
         function sortProducts() {
-            switch(currentSort) {
+            switch (currentSort) {
                 case 'name':
                     filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
                     break;
@@ -1593,7 +1599,7 @@
             if (!product) return;
 
             document.getElementById('modalProductTitle').textContent = product.name;
-            
+
             let specsHTML = '';
             for (const [key, value] of Object.entries(product.specs)) {
                 specsHTML += `
@@ -1655,9 +1661,9 @@
                 document.getElementById('modalQuoteBtn').addEventListener('click', () => {
                     requestQuote(productId);
                 });
-                
+
                 document.getElementById('modalContactBtn').addEventListener('click', () => {
-                    window.location.href = 'contact.html';
+                    window.location.href = 'contact.php';
                 });
             }, 100);
 
@@ -1690,7 +1696,7 @@
                 align-items: center;
                 gap: 10px;
             `;
-            
+
             if (type === 'success') {
                 notification.style.backgroundColor = 'var(--success-green)';
                 notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
@@ -1698,16 +1704,16 @@
                 notification.style.backgroundColor = 'var(--danger-red)';
                 notification.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
             }
-            
+
             document.body.appendChild(notification);
-            
+
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => {
                     document.body.removeChild(notification);
                 }, 300);
             }, 3000);
-            
+
             if (!document.querySelector('#notification-styles')) {
                 const style = document.createElement('style');
                 style.id = 'notification-styles';
@@ -1729,26 +1735,26 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Fetch and load products from API
             fetchProducts();
-            
+
             // Add event listeners to filters
             document.getElementById('categoryFilter').addEventListener('change', filterProducts);
             document.getElementById('voltageFilter').addEventListener('change', filterProducts);
             document.getElementById('certificationFilter').addEventListener('change', filterProducts);
             document.getElementById('sortFilter').addEventListener('change', filterProducts);
             document.getElementById('resetFilters').addEventListener('click', resetFilters);
-            
+
             // Modal close button
             document.getElementById('closeProductModal').addEventListener('click', () => {
                 document.getElementById('productModal').style.display = 'none';
             });
-            
+
             // Close modal when clicking outside
             document.getElementById('productModal').addEventListener('click', (e) => {
                 if (e.target === document.getElementById('productModal')) {
                     document.getElementById('productModal').style.display = 'none';
                 }
             });
-            
+
             // Update year in footer
             const currentYear = new Date().getFullYear();
             const yearElement = document.querySelector('.footer-bottom p');
@@ -1756,4 +1762,5 @@
         });
     </script>
 </body>
+
 </html>

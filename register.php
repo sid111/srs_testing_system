@@ -268,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="register-container">
         <div class="back-link">
-            <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            <a href="index.php"><i class="fas fa-arrow-left"></i> Back to Home</a>
         </div>
 
         <div class="register-header">
@@ -286,7 +286,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="alert alert-success show">
                 <i class="fas fa-check-circle"></i> <?php echo $success; ?>
                 <p style="margin-top: 10px;">
-                    <a href="index.html" style="color: #155724; font-weight: bold;">Click here to login</a>
+                    <a href="index.php" style="color: #155724; font-weight: bold;">Click here to login</a>
                 </p>
             </div>
         <?php endif; ?>
@@ -351,7 +351,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <div class="login-link">
-            Already have an account? <a href="index.html" onclick="document.getElementById('loginForm').submit(); return false;">Login here</a>
+            Already have an account? <a href="index.php" onclick="document.getElementById('loginForm').submit(); return false;">Login here</a>
         </div>
     </div>
 </body>

@@ -1032,7 +1032,7 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="index.html" class="logo">
+                <a href="index.php" class="logo">
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
@@ -1042,17 +1042,17 @@
                 </div>
                 
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php">About</a></li>
                     <li class="dropdown">
-                        <a href="lab-testing.html" class="active">Lab Testing <i class="fas fa-chevron-down"></i></a>
+                        <a href="lab-testing.php" class="active">Lab Testing <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="report.html">Reports</a>
-                            <a href="cpri.html">CPRI Testing</a>
+                            <a href="report.php">Reports</a>
+                            <a href="cpri.php">CPRI Testing</a>
                         </div>
                     </li>
-                    <li><a href="product.html">Product Catalog</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="product.php">Product Catalog</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
                  
                 </ul>
             </nav>
@@ -1513,11 +1513,11 @@
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
-                    <a href="about.html">About Us</a>
-                    <a href="lab-testing.html">Lab Testing</a>
-                    <a href="cpri.html" class="active">CPRI Testing</a>
-                    <a href="faqs.html">FAQs</a>
-                    <a href="report.html">Testing Reports</a>
+                    <a href="about.php">About Us</a>
+                    <a href="lab-testing.php">Lab Testing</a>
+                    <a href="cpri.php" class="active">CPRI Testing</a>
+                    <a href="faqs.php">FAQs</a>
+                    <a href="report.php">Testing Reports</a>
                 </div>
                 
                 <!-- Column 3: Social Media -->

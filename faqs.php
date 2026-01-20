@@ -632,7 +632,7 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="index.html" class="logo">
+                <a href="index.php" class="logo">
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
@@ -642,17 +642,17 @@
                 </div>
                 
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php">About</a></li>
                     <li class="dropdown">
-                        <a href="lab-testing.html">Lab Testing <i class="fas fa-chevron-down"></i></a>
+                        <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="report.html">Reports</a>
-                            <a href="cpri.html">CPRI Testing</a>
+                            <a href="report.php">Reports</a>
+                            <a href="cpri.php">CPRI Testing</a>
                         </div>
                     </li>
-                    <li><a href="product.html">Product Catalog</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="product.php">Product Catalog</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
             
                 </ul>
             </nav>
@@ -887,7 +887,7 @@
         <section class="contact-cta">
             <h2>Still Have Questions?</h2>
             <p>Can't find the answer you're looking for? Our technical support team is here to help you with specific questions about your electrical testing needs.</p>
-            <a href="contact.html" class="cta-button">Contact Our Support Team</a>
+            <a href="contact.php" class="cta-button">Contact Our Support Team</a>
         </section>
     </div>
 
@@ -917,11 +917,11 @@
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
-                    <a href="about.html">About Us</a>
-                    <a href="lab-testing.html">Lab Testing</a>
-                    <a href="cpri.html">CPRI Certification</a>
-                    <a href="faqs.html" class="active">FAQs</a>
-                    <a href="reoprt.html">Testing Reports</a>
+                    <a href="about.php">About Us</a>
+                    <a href="lab-testing.php">Lab Testing</a>
+                    <a href="cpri.php">CPRI Certification</a>
+                    <a href="faqs.php" class="active">FAQs</a>
+                    <a href="reoprt.php">Testing Reports</a>
                 </div>
                 
                 <!-- Column 3: Social Media -->
