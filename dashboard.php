@@ -1,6 +1,7 @@
 <?php include 'dashboard_auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -189,9 +190,9 @@
             padding: 30px 0;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 30px;
-            position: relative; 
-            top: auto; 
-             z-index: 900;
+            position: relative;
+            top: auto;
+            z-index: 900;
         }
 
         .page-title {
@@ -239,10 +240,21 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .stat-card-1 { border-top: 4px solid var(--success-green); }
-        .stat-card-2 { border-top: 4px solid var(--danger-red); }
-        .stat-card-3 { border-top: 4px solid var(--accent-blue); }
-        .stat-card-4 { border-top: 4px solid #9c27b0; }
+        .stat-card-1 {
+            border-top: 4px solid var(--success-green);
+        }
+
+        .stat-card-2 {
+            border-top: 4px solid var(--danger-red);
+        }
+
+        .stat-card-3 {
+            border-top: 4px solid var(--accent-blue);
+        }
+
+        .stat-card-4 {
+            border-top: 4px solid #9c27b0;
+        }
 
         .stat-icon {
             font-size: 2.5rem;
@@ -250,10 +262,21 @@
             opacity: 0.8;
         }
 
-        .stat-card-1 .stat-icon { color: var(--success-green); }
-        .stat-card-2 .stat-icon { color: var(--danger-red); }
-        .stat-card-3 .stat-icon { color: var(--accent-blue); }
-        .stat-card-4 .stat-icon { color: #9c27b0; }
+        .stat-card-1 .stat-icon {
+            color: var(--success-green);
+        }
+
+        .stat-card-2 .stat-icon {
+            color: var(--danger-red);
+        }
+
+        .stat-card-3 .stat-icon {
+            color: var(--accent-blue);
+        }
+
+        .stat-card-4 .stat-icon {
+            color: #9c27b0;
+        }
 
         .stat-value {
             font-size: 2.5rem;
@@ -335,8 +358,13 @@
         }
 
         @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
         }
 
         /* Progress Bars */
@@ -380,9 +408,17 @@
             transition: width 1.5s ease;
         }
 
-        .fill-success { background-color: var(--success-green); }
-        .fill-warning { background-color: #ffc107; }
-        .fill-info { background-color: #17a2b8; }
+        .fill-success {
+            background-color: var(--success-green);
+        }
+
+        .fill-warning {
+            background-color: #ffc107;
+        }
+
+        .fill-info {
+            background-color: #17a2b8;
+        }
 
         /* Recent Activity */
         .activity-container {
@@ -530,6 +566,7 @@
                 transform: translateY(-50px);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -667,7 +704,8 @@
             left: 0;
         }
 
-        .footer-column p, .footer-column a {
+        .footer-column p,
+        .footer-column a {
             color: #bdc3c7;
             margin-bottom: 15px;
             display: block;
@@ -734,7 +772,7 @@
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .dashboard-layout {
                 grid-template-columns: 1fr;
             }
@@ -744,7 +782,7 @@
             .page-title {
                 font-size: 2.2rem;
             }
-            
+
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -754,7 +792,7 @@
             .mobile-toggle {
                 display: block;
             }
-            
+
             .nav-menu {
                 position: fixed;
                 top: 80px;
@@ -768,35 +806,35 @@
                 transition: transform 0.5s ease;
                 z-index: 999;
             }
-            
+
             .nav-menu.active {
                 transform: translateY(0);
             }
-            
+
             .nav-menu li {
                 margin: 0 0 20px 0;
             }
-            
+
             .page-title {
                 font-size: 1.8rem;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
             }
-            
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .stat-value {
                 font-size: 2.2rem;
             }
-            
+
             .actions-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
-            
+
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -807,25 +845,26 @@
             .page-title {
                 font-size: 1.6rem;
             }
-            
+
             .actions-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .action-btn {
                 padding: 15px 5px;
             }
-            
+
             .action-icon {
                 font-size: 1.5rem;
             }
-            
+
             .action-text {
                 font-size: 0.8rem;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Header & Navigation  -->
     <header>
@@ -835,11 +874,11 @@
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
-                
+
                 <div class="mobile-toggle" id="mobileToggle">
                     <i class="fas fa-bars"></i>
                 </div>
-                
+
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
@@ -871,7 +910,7 @@
         <!-- Stats Cards Section -->
         <section>
             <h2 class="section-title">Testing Overview</h2>
-            
+
             <div class="stats-grid">
                 <div class="stat-card stat-card-1">
                     <div class="stat-icon">
@@ -884,7 +923,7 @@
                         <span>+2.3% from last month</span>
                     </div>
                 </div>
-                
+
                 <div class="stat-card stat-card-2">
                     <div class="stat-icon">
                         <i class="fas fa-exclamation-triangle"></i>
@@ -896,7 +935,7 @@
                         <span>-1.1% from last month</span>
                     </div>
                 </div>
-                
+
                 <div class="stat-card stat-card-3">
                     <div class="stat-icon">
                         <i class="fas fa-boxes"></i>
@@ -908,7 +947,7 @@
                         <span>+128 this month</span>
                     </div>
                 </div>
-                
+
                 <div class="stat-card stat-card-4">
                     <div class="stat-icon">
                         <i class="fas fa-certificate"></i>
@@ -926,7 +965,7 @@
         <!-- Dashboard Content Section -->
         <section>
             <h2 class="section-title">Performance Analytics</h2>
-            
+
             <div class="dashboard-layout">
                 <!-- Left Column: Charts and Progress -->
                 <div>
@@ -953,7 +992,7 @@
                                 <div class="progress-fill fill-success" style="width: 85%;"></div>
                             </div>
                         </div>
-                        
+
                         <div class="progress-item">
                             <div class="progress-header">
                                 <span class="progress-label">Control Panels</span>
@@ -963,7 +1002,7 @@
                                 <div class="progress-fill fill-warning" style="width: 72%;"></div>
                             </div>
                         </div>
-                        
+
                         <div class="progress-item">
                             <div class="progress-header">
                                 <span class="progress-label">Capacitor Banks</span>
@@ -973,7 +1012,7 @@
                                 <div class="progress-fill fill-info" style="width: 45%;"></div>
                             </div>
                         </div>
-                        
+
                         <div class="progress-item">
                             <div class="progress-header">
                                 <span class="progress-label">Fuse Testing</span>
@@ -1048,10 +1087,13 @@
                                 <i class="fas fa-flask action-icon"></i>
                                 <span class="action-text">Start Test</span>
                             </button>
-                            <a href="report.php" class="action-btn">
-                                <i class="fas fa-file-download action-icon"></i>
-                                <span class="action-text">Generate Report</span>
-                            </a>
+                            <?php if (isset($_SESSION['admin_id'])): ?>
+                                <a href="report.php?from=dashboard#generate-report" class="action-btn">
+                                    <i class="fas fa-file-download action-icon"></i>
+                                    <span class="action-text">Generate Report</span>
+                                </a>
+                            <?php endif; ?>
+
                             <button class="action-btn" onclick="openAddProductModal()">
                                 <i class="fas fa-box-open action-icon"></i>
                                 <span class="action-text">Add Product</span>
@@ -1249,22 +1291,22 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
-                   <a href="about.php">About Us</a>
+                    <a href="about.php">About Us</a>
                     <a href="contact.php">Contact Us</a>
                     <a href="cpri.php">CPRI Certification</a>
                     <a href="faqs.php">FAQs</a>
                     <a href="report.php">Testing Reports</a>
                 </div>
-                
+
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
                     <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
-                    
+
                     <div class="social-links">
                         <a href="https://www.facebook.com/" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
@@ -1281,7 +1323,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
             </div>
@@ -1292,14 +1334,14 @@
         // Mobile Navigation Toggle - EXACTLY SAME AS OTHER PAGES
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
-        
+
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileToggle.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            mobileToggle.innerHTML = navMenu.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' :
+                '<i class="fas fa-bars"></i>';
         });
-        
+
         // Modal Functions for Add Product
         function openAddProductModal() {
             document.getElementById("addProductModal").style.display = "block";
@@ -1358,11 +1400,11 @@
         }
 
         // Add New Tester logic
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const addTesterBtn = document.getElementById('addTesterBtn');
             const newTesterInput = document.getElementById('newTesterInput');
             const testerSelect = document.getElementById('testerSelect');
-            addTesterBtn.addEventListener('click', function () {
+            addTesterBtn.addEventListener('click', function() {
                 if (newTesterInput.style.display === 'none') {
                     newTesterInput.style.display = '';
                     testerSelect.style.display = 'none';
@@ -1401,10 +1443,10 @@
         }
 
         // Auto-select product type on product select
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const productSelect = document.getElementById('productId');
             const productTypeSelect = document.getElementById('productType');
-            productSelect.addEventListener('change', function () {
+            productSelect.addEventListener('change', function() {
                 const selected = productSelect.options[productSelect.selectedIndex];
                 if (selected && selected.dataset.type) {
                     productTypeSelect.value = selected.dataset.type;
@@ -1417,33 +1459,33 @@
         // Handle Add Product Form Submission
         document.getElementById("addProductForm").addEventListener("submit", function(e) {
             e.preventDefault();
-            
+
             const formData = new FormData(this);
             const submitBtn = this.querySelector('[type="submit"]');
             submitBtn.disabled = true;
             submitBtn.textContent = 'Adding...';
-            
+
             fetch('api/add_product.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    closeAddProductModal();
-                    document.getElementById("addProductForm").reset();
-                } else {
-                    alert('Error: ' + data.message);
-                }
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Add Product';
-            })
-            .catch(error => {
-                alert('Error: ' + error.message);
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Add Product';
-            });
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        closeAddProductModal();
+                        document.getElementById("addProductForm").reset();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Add Product';
+                })
+                .catch(error => {
+                    alert('Error: ' + error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Add Product';
+                });
         });
 
         // Handle Start Test Form Submission
@@ -1470,35 +1512,35 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Starting...';
             fetch('api/add_test_result.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    statusMessage.textContent = data.message;
-                    statusMessage.style.display = 'block';
-                    statusMessage.style.color = 'green';
-                    setTimeout(() => {
-                        closeStartTestModal();
-                    }, 2000);
-                } else {
-                    statusMessage.textContent = 'Error: ' + data.message;
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        statusMessage.textContent = data.message;
+                        statusMessage.style.display = 'block';
+                        statusMessage.style.color = 'green';
+                        setTimeout(() => {
+                            closeStartTestModal();
+                        }, 2000);
+                    } else {
+                        statusMessage.textContent = 'Error: ' + data.message;
+                        statusMessage.style.display = 'block';
+                        statusMessage.style.color = 'red';
+                    }
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Start Test';
+                })
+                .catch(error => {
+                    statusMessage.textContent = 'Error: ' + error.message;
                     statusMessage.style.display = 'block';
                     statusMessage.style.color = 'red';
-                }
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Start Test';
-            })
-            .catch(error => {
-                statusMessage.textContent = 'Error: ' + error.message;
-                statusMessage.style.display = 'block';
-                statusMessage.style.color = 'red';
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Start Test';
-            });
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Start Test';
+                });
         });
-        
+
         // Close mobile menu when clicking on a link - EXACTLY SAME AS OTHER PAGES
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -1506,14 +1548,14 @@
                 mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
-        
+
         // Animate progress bars on page load
         document.addEventListener('DOMContentLoaded', function() {
             // Update year in footer - Same as other pages
             const currentYear = new Date().getFullYear();
             const yearElement = document.querySelector('.footer-bottom p');
             yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
-            
+
             // Animate progress bars
             setTimeout(() => {
                 document.querySelectorAll('.progress-fill').forEach(bar => {
@@ -1527,4 +1569,5 @@
         });
     </script>
 </body>
+
 </html>

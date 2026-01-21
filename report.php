@@ -843,73 +843,75 @@ if ($scheduledResult) {
             </div>
         </section>
 
-        <!-- Custom Report Section -->
-        <section>
-            <div class="form-section">
-                <h2 class="section-title">Generate Custom Report</h2>
-                <div class="filter-grid">
-                    <div class="form-group">
-                        <label class="form-label" for="reportName">Report Name</label>
-                        <input type="text" class="form-control" id="reportName" placeholder="Enter new report name">
-                    </div>
+        <?php if ($isAdminLoggedIn): ?>
+            <!-- Custom Report Section -->
+            <section id="generate-report" class="generate-report-wrapper">
+                <div class="form-section generate-report-card">
+                    <h2 class="section-title">Generate Custom Report</h2>
+                    <div class="filter-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="reportName">Report Name</label>
+                            <input type="text" class="form-control" id="reportName" placeholder="Enter new report name">
+                        </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="reportType">Report Type</label>
-                        <select class="form-control" id="reportType">
-                            <option value="">Select Report Type</option>
-                            <?php foreach ($reportTypes as $type): ?>
-                                <option value="<?= htmlspecialchars($type['type_name']) ?>"><?= htmlspecialchars($type['type_name']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label class="form-label" for="reportType">Report Type</label>
+                            <select class="form-control" id="reportType">
+                                <option value="">Select Report Type</option>
+                                <?php foreach ($reportTypes as $type): ?>
+                                    <option value="<?= htmlspecialchars($type['type_name']) ?>"><?= htmlspecialchars($type['type_name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
 
-                    <div class="form-group">
-                        <label class="form-label" for="startDate">Start Date</label>
-                        <input type="date" class="form-control" id="startDate" value="">
+                        <div class="form-group">
+                            <label class="form-label" for="startDate">Start Date</label>
+                            <input type="date" class="form-control" id="startDate" value="">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="endDate">End Date</label>
+                            <input type="date" class="form-control" id="endDate" value="">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="productType">Product Type</label>
+                            <select class="form-control" id="productType">
+                                <option value="">All Product Types</option>
+                                <option value="switchgear">Switchgear</option>
+                                <option value="control-panels">Control Panels</option>
+                                <option value="capacitors">Capacitors</option>
+                                <option value="fuses">Fuses</option>
+                                <option value="resistors">Resistors</option>
+                                <option value="testing-equipment">Testing Equipment</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="testStatus">Test Status</label>
+                            <select class="form-control" id="testStatus">
+                                <option value="">All Statuses</option>
+                                <option value="passed">Passed</option>
+                                <option value="failed">Failed</option>
+                                <option value="pending">Pending</option>
+                                <option value="in-progress">In Progress</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="format">Report Format</label>
+                            <select class="form-control" id="format">
+                                <option value="pdf">PDF Document</option>
+                                <option value="doc">Word Document</option>
+                                <option value="excel">Excel Spreadsheet</option>
+                                <option value="csv">CSV Data</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="endDate">End Date</label>
-                        <input type="date" class="form-control" id="endDate" value="">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="productType">Product Type</label>
-                        <select class="form-control" id="productType">
-                            <option value="">All Product Types</option>
-                            <option value="switchgear">Switchgear</option>
-                            <option value="control-panels">Control Panels</option>
-                            <option value="capacitors">Capacitors</option>
-                            <option value="fuses">Fuses</option>
-                            <option value="resistors">Resistors</option>
-                            <option value="testing-equipment">Testing Equipment</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="testStatus">Test Status</label>
-                        <select class="form-control" id="testStatus">
-                            <option value="">All Statuses</option>
-                            <option value="passed">Passed</option>
-                            <option value="failed">Failed</option>
-                            <option value="pending">Pending</option>
-                            <option value="in-progress">In Progress</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="format">Report Format</label>
-                        <select class="form-control" id="format">
-                            <option value="pdf">PDF Document</option>
-                            <option value="doc">Word Document</option>
-                            <option value="excel">Excel Spreadsheet</option>
-                            <option value="csv">CSV Data</option>
-                        </select>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" id="generateReportBtn"><i class="fas fa-file-download"></i> Generate Report</button>
+                        <button class="btn btn-secondary" id="scheduleReportBtn"><i class="fas fa-calendar-plus"></i> Schedule Report</button>
                     </div>
                 </div>
-                <div class="form-actions">
-                    <button class="btn btn-primary" id="generateReportBtn"><i class="fas fa-file-download"></i> Generate Report</button>
-                    <button class="btn btn-secondary" id="scheduleReportBtn"><i class="fas fa-calendar-plus"></i> Schedule Report</button>
-                </div>
-            </div>
-        </section>
+            </section>
+        <?php endif; ?>
 
         <!-- Recent Reports Table -->
         <section>
@@ -1209,6 +1211,30 @@ if ($scheduledResult) {
                 }
             });
         });
+
+        <?php if ($isAdminLoggedIn): ?>
+            document.addEventListener("DOMContentLoaded", function() {
+                const params = new URLSearchParams(window.location.search);
+
+                // Only scroll when coming from dashboard
+                if (params.get("from") !== "dashboard") return;
+
+                const section = document.getElementById("generate-report");
+                if (!section) return;
+
+                // Scroll slightly ABOVE the heading
+                const yOffset = -140; // tweak if needed
+                const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+                window.scrollTo({
+                    top: y,
+                    behavior: "smooth"
+                });
+
+                // Remove query param so refresh does NOT scroll again
+                history.replaceState({}, document.title, window.location.pathname);
+            });
+        <?php endif; ?>
     </script>
 </body>
 
