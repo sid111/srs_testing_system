@@ -1061,7 +1061,13 @@
                     <p>In-house testing and CPRI approved solutions for industrial and commercial applications</p>
                     <div class="hero-buttons">
                         <a href="lab-testing.php" class="btn btn-primary">View Testing Services</a>
-                        <a href="dashboard.php" class="btn btn-secondary">Explore Dashboard</a>
+                        <a href="<?php echo $isAdminLoggedIn ? 'dashboard.php' : '#'; ?>"
+                            class="btn btn-secondary"
+                            <?php if (!$isAdminLoggedIn): ?>
+                            onclick="alert('Please login to access dashboard'); return false;"
+                            <?php endif; ?>>
+                            Explore Dashboard
+                        </a>
                     </div>
                 </div>
             </div>
