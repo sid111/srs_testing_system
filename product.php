@@ -1,3 +1,5 @@
+<?php include 'config/admin_session.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -965,6 +967,13 @@
                     </li>
                     <li><a href="product.php" class="active">Product Catalog</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
+                    <li>
+                        <?php if ($isAdminLoggedIn): ?>
+                            <a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
+                        <?php else: ?>
+                            <a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a>
+                        <?php endif; ?>
+                    </li>
 
                 </ul>
             </nav>

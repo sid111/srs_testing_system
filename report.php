@@ -1,6 +1,6 @@
+<?php include 'config/admin_session.php'; ?>
+
 <?php
-// report.php
-session_start();
 include("config/conn.php");
 
 // --- Fetch Analytics Cards ---
@@ -808,7 +808,7 @@ if ($scheduledResult) {
                     </li>
                     <li><a href="product.php">Product Catalog</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
-                    <li><a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a></li>
+
                 </ul>
             </nav>
         </div>

@@ -1,5 +1,8 @@
+<?php include 'dashboard_auth.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -136,7 +139,7 @@
 
         .dropdown {
             position: relative;
-         
+
         }
 
         .dropdown-content {
@@ -193,7 +196,7 @@
             margin-bottom: 30px;
             position: relative;
             top: auto;
-             z-index: 900;
+            z-index: 900;
         }
 
         .page-title {
@@ -220,7 +223,7 @@
         }
 
         /* CPRI Dashboard Specific Styles */
-        
+
         /* Hero Section */
         .hero-section {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
@@ -812,7 +815,8 @@
             left: 0;
         }
 
-        .footer-column p, .footer-column a {
+        .footer-column p,
+        .footer-column a {
             color: #bdc3c7;
             margin-bottom: 15px;
             display: block;
@@ -879,24 +883,24 @@
             .page-title {
                 font-size: 2.2rem;
             }
-            
+
             .hero-content h1 {
                 font-size: 2.2rem;
             }
-            
+
             .cpri-details-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .table-actions {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .search-box input {
                 width: 200px;
             }
@@ -906,7 +910,7 @@
             .mobile-toggle {
                 display: block;
             }
-            
+
             .nav-menu {
                 position: absolute;
                 top: 80px;
@@ -920,72 +924,72 @@
                 transition: transform 0.5s ease;
                 z-index: 999;
             }
-            
+
             .nav-menu.active {
                 transform: translateY(0);
             }
-            
+
             .nav-menu li {
                 margin: 0 0 20px 0;
             }
-            
+
             .page-title {
                 font-size: 1.8rem;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
             }
-            
+
             .hero-section {
                 padding: 60px 20px;
             }
-            
+
             .hero-content h1 {
                 font-size: 1.8rem;
             }
-            
+
             .hero-content p {
                 font-size: 1rem;
             }
-            
+
             .card-header {
                 flex-direction: column;
                 gap: 15px;
                 align-items: flex-start;
             }
-            
+
             .cpri-details-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .btn-group {
                 flex-wrap: wrap;
             }
-            
+
             .table-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
             }
-            
+
             .table-actions {
                 width: 100%;
             }
-            
+
             .search-box input {
                 width: 100%;
             }
-            
+
             .data-table {
                 display: block;
                 overflow-x: auto;
             }
-            
+
             .action-buttons {
                 flex-wrap: wrap;
             }
-            
+
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -996,30 +1000,30 @@
             .page-title {
                 font-size: 1.6rem;
             }
-            
+
             .hero-section {
                 padding: 50px 15px;
             }
-            
+
             .card {
                 padding: 20px;
             }
-            
+
             .modal {
                 width: 95%;
                 margin: 10px;
             }
-            
+
             .btn {
                 padding: 8px 20px;
                 font-size: 0.9rem;
             }
-            
+
             .btn-group {
                 flex-direction: column;
                 align-items: stretch;
             }
-            
+
             .btn-group .btn {
                 width: 100%;
                 justify-content: center;
@@ -1027,6 +1031,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header & Navigation -->
     <header>
@@ -1036,11 +1041,11 @@
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
-                
+
                 <div class="mobile-toggle" id="mobileToggle">
                     <i class="fas fa-bars"></i>
                 </div>
-                
+
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
@@ -1053,7 +1058,7 @@
                     </li>
                     <li><a href="product.php">Product Catalog</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
-                 
+
                 </ul>
             </nav>
         </div>
@@ -1097,7 +1102,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -1120,7 +1125,7 @@
         <!-- CPRI Approval Status -->
         <section>
             <h2 class="section-title">CPRI Approval Status</h2>
-            
+
             <!-- Approved Card -->
             <div class="card cpri-card approved">
                 <div class="card-header">
@@ -1132,7 +1137,7 @@
                     </div>
                     <span class="status-badge status-approved">Approved</span>
                 </div>
-                
+
                 <div class="cpri-details-grid">
                     <div class="detail-item">
                         <span class="detail-label">CPRI Reference</span>
@@ -1151,7 +1156,7 @@
                         <span class="detail-value">CPRI Central Lab, Bangalore</span>
                     </div>
                 </div>
-                
+
                 <div style="margin: 20px 0;">
                     <h4 style="color: var(--primary-blue); margin-bottom: 15px;">Tests Performed:</h4>
                     <div class="checklist-item completed">
@@ -1182,7 +1187,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="btn-group">
                     <button class="btn btn-success">
                         <i class="fas fa-download"></i>
@@ -1198,7 +1203,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Pending Card -->
             <div class="card cpri-card pending">
                 <div class="card-header">
@@ -1210,7 +1215,7 @@
                     </div>
                     <span class="status-badge status-pending">Testing in Progress</span>
                 </div>
-                
+
                 <div class="cpri-details-grid">
                     <div class="detail-item">
                         <span class="detail-label">Current Status</span>
@@ -1229,7 +1234,7 @@
                         <span class="detail-value" style="color: var(--warning-orange);">High</span>
                     </div>
                 </div>
-                
+
                 <div style="margin: 20px 0;">
                     <h4 style="color: var(--primary-blue); margin-bottom: 10px;">Test Progress</h4>
                     <div class="progress">
@@ -1240,7 +1245,7 @@
                         <span>60% complete</span>
                     </div>
                 </div>
-                
+
                 <div class="btn-group">
                     <button class="btn btn-warning" id="trackStatusBtn">
                         <i class="fas fa-sync-alt"></i>
@@ -1260,7 +1265,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Rejected Card -->
             <div class="card cpri-card rejected">
                 <div class="card-header">
@@ -1272,7 +1277,7 @@
                     </div>
                     <span class="status-badge status-failed">Rejected</span>
                 </div>
-                
+
                 <div class="cpri-details-grid">
                     <div class="detail-item">
                         <span class="detail-label">CPRI Reference</span>
@@ -1291,7 +1296,7 @@
                         <span class="detail-value">TR-2023-1123-MTR</span>
                     </div>
                 </div>
-                
+
                 <div style="background: rgba(220, 53, 69, 0.05); padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid rgba(220, 53, 69, 0.2);">
                     <h4 style="color: var(--danger-red); margin-bottom: 10px;">Rejection Reasons</h4>
                     <ul style="margin-left: 20px; margin-bottom: 10px;">
@@ -1303,7 +1308,7 @@
                         <strong>Recommendation:</strong> Redesign measurement circuit and improve display backlight.
                     </p>
                 </div>
-                
+
                 <div class="btn-group">
                     <button class="btn btn-primary" id="resubmitBtn">
                         <i class="fas fa-redo"></i>
@@ -1333,7 +1338,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -1413,7 +1418,7 @@
                 <h3 class="modal-title">Submit Product to CPRI</h3>
                 <button class="modal-close" id="closeCPRIModal">&times;</button>
             </div>
-            
+
             <div class="modal-body">
                 <form id="submitCPRIForm">
                     <div class="form-group">
@@ -1425,7 +1430,7 @@
                             <option value="PRD-009">PRD-009 - Protection Relay</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Required Tests</label>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 8px;">
@@ -1449,7 +1454,7 @@
                             </label>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="cpriPriority">Priority Level</label>
                         <select id="cpriPriority" class="form-control select" required>
@@ -1458,7 +1463,7 @@
                             <option value="urgent">Urgent (1 week, extra charges apply)</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="cpriLab">Preferred CPRI Lab</label>
                         <select id="cpriLab" class="form-control select" required>
@@ -1468,14 +1473,14 @@
                             <option value="kolkata">Kolkata (Regional Lab)</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="cpriNotes">Additional Notes</label>
                         <textarea id="cpriNotes" class="form-control" rows="3" placeholder="Any special instructions for CPRI lab..."></textarea>
                     </div>
                 </form>
             </div>
-            
+
             <div class="modal-footer">
                 <button class="btn btn-secondary" id="cancelCPRIBtn">Cancel</button>
                 <button class="btn btn-primary" id="saveCPRIBtn">Submit to CPRI</button>
@@ -1509,7 +1514,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
@@ -1519,12 +1524,12 @@
                     <a href="faqs.php">FAQs</a>
                     <a href="report.php">Testing Reports</a>
                 </div>
-                
+
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
                     <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
-                    
+
                     <div class="social-links">
                         <a href="https://www.facebook.com/" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
@@ -1541,7 +1546,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
             </div>
@@ -1552,14 +1557,14 @@
         // Mobile Navigation Toggle - EXACTLY SAME AS OTHER PAGES
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
-        
+
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileToggle.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            mobileToggle.innerHTML = navMenu.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' :
+                '<i class="fas fa-bars"></i>';
         });
-        
+
         // Close mobile menu when clicking on a link - EXACTLY SAME AS OTHER PAGES
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -1569,8 +1574,7 @@
         });
 
         // CPRI Testing specific JavaScript
-        const cpriSubmissions = [
-            {
+        const cpriSubmissions = [{
                 id: 'PRD-001',
                 name: 'HV Circuit Breaker',
                 submissionDate: '2023-10-20',
@@ -1603,8 +1607,8 @@
             cpriSubmissions.forEach(submission => {
                 let statusClass = '';
                 let statusText = '';
-                
-                switch(submission.status) {
+
+                switch (submission.status) {
                     case 'approved':
                         statusClass = 'status-approved';
                         statusText = 'Approved';
@@ -1641,7 +1645,7 @@
                         </div>
                     </td>
                 `;
-                
+
                 tbody.appendChild(row);
             });
         }
@@ -1679,27 +1683,27 @@
             const priority = document.getElementById('cpriPriority').value;
             const lab = document.getElementById('cpriLab').value;
             const notes = document.getElementById('cpriNotes').value;
-            
+
             if (!productSelect.value) {
                 showNotification('Please select a product', 'error');
                 return;
             }
-            
+
             // Get selected tests
             const selectedTests = Array.from(document.querySelectorAll('input[name="cpriTest"]:checked'))
                 .map(cb => cb.value);
-            
+
             if (selectedTests.length === 0) {
                 showNotification('Please select at least one test', 'error');
                 return;
             }
-            
+
             // Simulate submission
             setTimeout(() => {
                 const productId = productSelect.value;
                 const productName = productSelect.options[productSelect.selectedIndex].text;
                 const cpriRef = 'CPRI-2023-' + (Math.floor(Math.random() * 9000) + 1000);
-                
+
                 // Add to submissions
                 cpriSubmissions.unshift({
                     id: productId,
@@ -1709,16 +1713,16 @@
                     testDate: '',
                     status: 'pending'
                 });
-                
+
                 // Update table
                 loadCPRITable();
-                
+
                 // Close modal
                 document.getElementById('submitCPRIModal').style.display = 'none';
-                
+
                 // Reset form
                 document.getElementById('submitCPRIForm').reset();
-                
+
                 // Show success
                 let message = `Product submitted to CPRI successfully! Reference: ${cpriRef}.`;
                 if (generateReport) {
@@ -1734,7 +1738,7 @@
         // Track status button
         document.getElementById('trackStatusBtn').addEventListener('click', () => {
             showNotification('Fetching latest status from CPRI...', 'success');
-            
+
             setTimeout(() => {
                 showNotification('Status updated: Dielectric test completed, starting temperature rise test.', 'success');
             }, 2000);
@@ -1767,14 +1771,14 @@
                     showNotification(`Report for ${productName} generated successfully!`, 'success');
                 }, 1500);
             }
-            
+
             if (e.target.closest('.btn-icon.btn-download')) {
                 const row = e.target.closest('tr');
                 const productId = row.cells[0].textContent;
                 const productName = row.cells[1].textContent;
                 showNotification(`Downloading certificate for ${productName}...`, 'success');
             }
-            
+
             if (e.target.closest('.btn-icon.btn-view')) {
                 const row = e.target.closest('tr');
                 const productId = row.cells[0].textContent;
@@ -1802,7 +1806,7 @@
                 align-items: center;
                 gap: 10px;
             `;
-            
+
             if (type === 'success') {
                 notification.style.backgroundColor = 'var(--success-green)';
                 notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
@@ -1816,9 +1820,9 @@
                 notification.style.backgroundColor = 'var(--accent-blue)';
                 notification.innerHTML = `<i class="fas fa-bell"></i> ${message}`;
             }
-            
+
             document.body.appendChild(notification);
-            
+
             // Remove after 3 seconds
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s ease';
@@ -1826,7 +1830,7 @@
                     document.body.removeChild(notification);
                 }, 300);
             }, 3000);
-            
+
             // Add CSS for animations
             if (!document.querySelector('#notification-styles')) {
                 const style = document.createElement('style');
@@ -1851,7 +1855,7 @@
             const currentYear = new Date().getFullYear();
             const yearElement = document.querySelector('.footer-bottom p');
             yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
-            
+
             // Add event listeners to all report buttons
             document.querySelectorAll('.btn-report').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1861,4 +1865,5 @@
         });
     </script>
 </body>
+
 </html>

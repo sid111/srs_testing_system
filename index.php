@@ -1,3 +1,5 @@
+<?php include 'config/admin_session.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +27,7 @@
             --white: #ffffff;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
+            --danger-red: #d32f2f;
         }
 
         html {
@@ -985,7 +988,14 @@
                     </li>
                     <li><a href="product.php">Product Catalog</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
-                    <li><a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a></li>
+                    <li>
+                        <?php if ($isAdminLoggedIn): ?>
+                            <a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
+                        <?php else: ?>
+                            <a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a>
+                        <?php endif; ?>
+                    </li>
+
                 </ul>
             </nav>
         </div>
