@@ -953,6 +953,15 @@ if ($scheduledResult) {
                                         <td>
                                             <div class="action-buttons">
                                                 <button class="action-btn view-btn" data-id="<?= $report['report_id'] ?>"><i class="fas fa-eye"></i> View</button>
+                                                <button class="action-btn edit-btn"
+                                                    data-type="generated"
+                                                    data-id="<?= $report['report_id'] ?>"
+                                                    data-name="<?= htmlspecialchars($report['report_name']) ?>"
+                                                    data-rtype="<?= htmlspecialchars($report['report_type']) ?>"
+                                                    data-format="<?= $report['format'] ?>"
+                                                    data-status="<?= $report['status'] ?>">
+                                                    <i class="fas fa-edit"></i>Edit
+                                                </button>
                                                 <button class="action-btn delete-btn" data-id="<?= $report['report_id'] ?>"><i class="fas fa-trash"></i> Delete</button>
                                             </div>
                                         </td>
@@ -998,7 +1007,17 @@ if ($scheduledResult) {
                                         </td>
                                         <td>
                                             <div class="action-buttons">
-                                                <button class="action-btn edit-btn" data-id="<?= $schedule['schedule_id'] ?>"><i class="fas fa-edit"></i> Edit</button>
+                                                <button class="action-btn edit-btn"
+                                                    data-type="scheduled"
+                                                    data-id="<?= $schedule['schedule_id'] ?>"
+                                                    data-name="<?= htmlspecialchars($schedule['schedule_name']) ?>"
+                                                    data-frequency="<?= $schedule['frequency'] ?>"
+                                                    data-next="<?= $schedule['next_run'] ?>"
+                                                    data-status="<?= $schedule['status'] ?>"
+                                                    data-rtype="<?= $schedule['report_type'] ?>">
+
+                                                    <i class="fas fa-edit"></i>Edit
+                                                </button>
                                                 <button class="action-btn delete-btn" data-id="<?= $schedule['schedule_id'] ?>"><i class="fas fa-trash"></i> Delete</button>
                                             </div>
                                         </td>
@@ -1174,6 +1193,48 @@ if ($scheduledResult) {
         document.querySelectorAll(".view-btn").forEach(btn => {
             btn.addEventListener("click", function() {
                 window.open("api/view_report.php?id=" + this.dataset.id, "_blank");
+            });
+        });
+
+        //EDIT BUTTONS
+        document.querySelectorAll(".edit-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+
+                const type = btn.dataset.type;
+                const fd = new URLSearchParams();
+                fd.append("edit_type", type);
+
+                if (type === "generated") {
+
+                    fd.append("report_id", btn.dataset.id);
+                    fd.append("report_name", prompt("Report name:", btn.dataset.name));
+                    fd.append("report_type", prompt("Report type:", btn.dataset.rtype));
+                    fd.append("format", prompt("Format:", btn.dataset.format));
+                    fd.append("status", prompt("Status:", btn.dataset.status));
+
+                } else {
+
+                    fd.append("schedule_id", btn.dataset.id);
+                    fd.append("schedule_name", prompt("Schedule name:", btn.dataset.name));
+                    fd.append("frequency", prompt("Frequency:", btn.dataset.frequency));
+                    fd.append("next_run", prompt("Next run (YYYY-MM-DD HH:MM:SS):", btn.dataset.next));
+                    fd.append("status", prompt("Status:", btn.dataset.status));
+                    fd.append("report_type", prompt("Report type:", btn.dataset.rtype));
+                }
+
+                fetch("api/update_report.php", {
+                        method: "POST",
+                        body: fd
+                    })
+                    .then(r => r.json())
+                    .then(res => {
+                        if (res.success) {
+                            alert("✅ Updated successfully");
+                            location.reload();
+                        } else {
+                            alert("❌ " + res.message);
+                        }
+                    });
             });
         });
 
