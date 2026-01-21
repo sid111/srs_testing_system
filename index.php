@@ -1080,7 +1080,13 @@
                     <p>Advanced testing facilities for high and low voltage switchgear with certified results</p>
                     <div class="hero-buttons">
                         <a href="lab-testing.php" class="btn btn-primary">View Testing Services</a>
-                        <a href="dashboard.php" class="btn btn-secondary">Explore Dashboard</a>
+                        <a href="<?php echo $isAdminLoggedIn ? 'dashboard.php' : '#'; ?>"
+                            class="btn btn-secondary"
+                            <?php if (!$isAdminLoggedIn): ?>
+                            onclick="alert('Please login to access dashboard'); return false;"
+                            <?php endif; ?>>
+                            Explore Dashboard
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1093,7 +1099,13 @@
                     <p>State-of-the-art automation solutions for industrial processes and quality control</p>
                     <div class="hero-buttons">
                         <a href="lab-testing.php" class="btn btn-primary">View Testing Services</a>
-                        <a href="dashboard.php" class="btn btn-secondary">Explore Dashboard</a>
+                        <a href="<?php echo $isAdminLoggedIn ? 'dashboard.php' : '#'; ?>"
+                            class="btn btn-secondary"
+                            <?php if (!$isAdminLoggedIn): ?>
+                            onclick="alert('Please login to access dashboard'); return false;"
+                            <?php endif; ?>>
+                            Explore Dashboard
+                        </a>
                     </div>
                 </div>
             </div>

@@ -33,6 +33,10 @@ if (empty($tester_name) || empty($product_type) || empty($product_id) || empty($
     exit();
 }
 
+// Capitalize product_type
+$product_type = ucwords(str_replace('-', ' ', $product_type));
+
+
 // Map test_type to test_name in DB
 $test_name_map = [
     'electrical'   => 'Voltage Test',
@@ -52,6 +56,20 @@ if (empty($test_name_actual)) {
 $test_date = date('Y-m-d');
 
 try {
+    // Check if tester exists, if not, add them
+    $stmt = $conn->prepare("SELECT id FROM testers WHERE tester_name = ?");
+    $stmt->bind_param("s", $tester_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        $stmt->close();
+        $stmt = $conn->prepare("INSERT INTO testers (tester_name) VALUES (?)");
+        $stmt->bind_param("s", $tester_name);
+        $stmt->execute();
+    }
+    $stmt->close();
+
+
     $stmt = $conn->prepare("
         INSERT INTO testing_records (
             product_id,
@@ -69,7 +87,7 @@ try {
     }
 
     $stmt->bind_param(
-        "ssssssi",
+        "isssssi",
         $product_id,
         $test_date,
         $product_type,

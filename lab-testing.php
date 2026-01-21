@@ -1247,8 +1247,6 @@
     </footer>
 
     <script>
-
-
         let testResults = [];
 
         // DOM Elements
@@ -1299,6 +1297,21 @@
             fetchTestResults();
         }
 
+        function formatResultText(value) {
+            if (!value) return 'Pending';
+
+            switch (value.toLowerCase()) {
+                case 'in-progress':
+                    return 'In Progress';
+                case 'pass':
+                    return 'Passed';
+                case 'fail':
+                    return 'Failed';
+                default:
+                    return value.charAt(0).toUpperCase() + value.slice(1);
+            }
+        }
+
         // Render product table
         function renderProductTable(productsToRender) {
             productTableBody.innerHTML = '';
@@ -1314,17 +1327,20 @@
             productsToRender.forEach(record => {
                 const row = document.createElement('tr');
                 let statusBadge = '';
-                switch (record.result) {
-                    case 'Pass':
-                        statusBadge = '<span class="status-badge status-completed">Pass</span>';
-                        break;
-                    case 'Fail':
-                        statusBadge = '<span class="status-badge status-failed">Fail</span>';
-                        break;
-                    default:
-                        statusBadge = `<span class="status-badge status-pending">${record.status || 'Pending'}</span>`;
-                        break;
+
+                const result = record.result ? record.result.toLowerCase() : '';
+                const status = record.status ? record.status.toLowerCase() : '';
+
+                if (result === 'pass') {
+                    statusBadge = '<span class="status-badge status-completed">Passed</span>';
+                } else if (result === 'fail') {
+                    statusBadge = '<span class="status-badge status-failed">Failed</span>';
+                } else if (status === 'in-progress') {
+                    statusBadge = '<span class="status-badge status-in-progress">In Progress</span>';
+                } else {
+                    statusBadge = '<span class="status-badge status-pending">Pending</span>';
                 }
+
                 row.innerHTML = `
                     <td>${record.product_id}</td>
                     <td><span class="product-name" data-id="${record.test_id}">${record.product_name || record.product_id}</span></td>
@@ -1335,7 +1351,7 @@
                 productTableBody.appendChild(row);
             });
             document.querySelectorAll('.product-name').forEach(item => {
-                item.addEventListener('click', function () {
+                item.addEventListener('click', function() {
                     const recordId = this.getAttribute('data-id');
                     openProductModal(recordId);
                 });
@@ -1356,19 +1372,24 @@
             modalTestNotes.textContent = record.result || 'N/A';
             let statusText = '';
             let statusClass = '';
-            switch (record.result) {
-                case 'Pass':
-                    statusText = 'Pass';
-                    statusClass = 'status-completed';
-                    break;
-                case 'Fail':
-                    statusText = 'Fail';
-                    statusClass = 'status-failed';
-                    break;
-                default:
-                    statusText = record.status || 'Pending';
-                    statusClass = 'status-pending';
+
+            const modalResult = record.result ? record.result.toLowerCase() : '';
+            const modalStatus = record.status ? record.status.toLowerCase() : '';
+
+            if (modalResult === 'pass') {
+                statusText = 'Passed';
+                statusClass = 'status-completed';
+            } else if (modalResult === 'fail') {
+                statusText = 'Failed';
+                statusClass = 'status-failed';
+            } else if (modalStatus === 'in-progress') {
+                statusText = 'In Progress';
+                statusClass = 'status-in-progress';
+            } else {
+                statusText = 'Pending';
+                statusClass = 'status-pending';
             }
+
             modalTestStatus.textContent = statusText;
             modalTestStatus.className = `status-badge ${statusClass}`;
             renderTestHistory([]);
@@ -1412,7 +1433,11 @@
 
         // Format date
         function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
             return new Date(dateString).toLocaleDateString('en-US', options);
         }
 
@@ -1506,13 +1531,13 @@
         }
 
         // Event Listeners
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Mobile Navigation Toggle
             mobileToggle.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
-                mobileToggle.innerHTML = navMenu.classList.contains('active')
-                    ? '<i class="fas fa-times"></i>'
-                    : '<i class="fas fa-bars"></i>';
+                mobileToggle.innerHTML = navMenu.classList.contains('active') ?
+                    '<i class="fas fa-times"></i>' :
+                    '<i class="fas fa-bars"></i>';
             });
 
             // Close mobile menu when clicking on a link
@@ -1530,19 +1555,19 @@
             initializeSlider();
 
             // Search functionality
-            searchBar.addEventListener('input', function () {
+            searchBar.addEventListener('input', function() {
                 const filteredProducts = searchProducts(this.value);
                 renderProductTable(filteredProducts);
             });
 
             // Close modal
-            closeModal.addEventListener('click', function () {
+            closeModal.addEventListener('click', function() {
                 productModal.style.display = 'none';
                 document.body.style.overflow = 'auto';
             });
 
             // Close modal when clicking outside
-            productModal.addEventListener('click', function (e) {
+            productModal.addEventListener('click', function(e) {
                 if (e.target === productModal) {
                     productModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
@@ -1550,12 +1575,12 @@
             });
 
             // Mark as Pass button
-            markPassBtn.addEventListener('click', function () {
+            markPassBtn.addEventListener('click', function() {
                 updateProductStatus('completed', true);
             });
 
             // Mark as Fail button
-            markFailBtn.addEventListener('click', function () {
+            markFailBtn.addEventListener('click', function() {
                 updateProductStatus('failed', false);
             });
 
@@ -1565,22 +1590,20 @@
 
             // Slider buttons
             sliderButtons.forEach(btn => {
-                btn.addEventListener('click', function () {
+                btn.addEventListener('click', function() {
                     const slideIndex = parseInt(this.getAttribute('data-slide'));
                     goToSlide(slideIndex);
                 });
             });
 
             // Close modal with Escape key
-            document.addEventListener('keydown', function (e) {
+            document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && productModal.style.display === 'flex') {
                     productModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
                 }
             });
         });
-
-
     </script>
 </body>
 

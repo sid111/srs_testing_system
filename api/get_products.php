@@ -16,6 +16,7 @@ try {
     
     $products = [];
     while ($row = $result->fetch_assoc()) {
+        $row['name'] = ucwords($row['name']);
         // Get specs for this product
         $specQuery = "SELECT spec_label, spec_value FROM product_specs WHERE product_id = ?";
         $specStmt = $conn->prepare($specQuery);

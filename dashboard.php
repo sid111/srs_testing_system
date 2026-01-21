@@ -1213,11 +1213,12 @@
                 <div class="form-group">
                     <label for="testStatus">Test Status <span style="color: red;">*</span></label>
                     <select id="testStatus" name="status" required>
-                        <option value="in-progress">In Progress</option>
+                        <option value="in-progress">Pending</option>
                         <option value="pass">Pass</option>
                         <option value="fail">Fail</option>
                     </select>
                 </div>
+                <div id="startTestStatusMessage" style="display: none; padding: 10px; margin-bottom: 15px; border-radius: 5px; text-align: center;"></div>
                 <div class="modal-buttons">
                     <button type="button" class="btn-cancel" onclick="closeStartTestModal()">Cancel</button>
                     <button type="submit" class="btn-submit">Start Test</button>
@@ -1320,11 +1321,14 @@
         }
 
         function closeStartTestModal() {
+            const statusMessage = document.getElementById('startTestStatusMessage');
             document.getElementById("startTestModal").style.display = "none";
             document.body.style.overflow = "auto";
             document.getElementById("startTestForm").reset();
             document.getElementById('newTesterInput').style.display = 'none';
             document.getElementById('testerSelect').style.display = '';
+            statusMessage.style.display = 'none';
+
         }
 
         // Populate testers dropdown
@@ -1447,6 +1451,7 @@
             e.preventDefault();
             const testerSelect = document.getElementById('testerSelect');
             const newTesterInput = document.getElementById('newTesterInput');
+            const statusMessage = document.getElementById('startTestStatusMessage');
             let testerName = '';
             if (newTesterInput.style.display !== 'none' && newTesterInput.value.trim() !== '') {
                 testerName = newTesterInput.value.trim();
@@ -1454,7 +1459,9 @@
                 testerName = testerSelect.value;
             }
             if (!testerName) {
-                alert('Please select or enter a tester name.');
+                statusMessage.textContent = 'Please select or enter a tester name.';
+                statusMessage.style.display = 'block';
+                statusMessage.style.color = 'red';
                 return;
             }
             const formData = new FormData(this);
@@ -1469,15 +1476,24 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    closeStartTestModal();
+                    statusMessage.textContent = data.message;
+                    statusMessage.style.display = 'block';
+                    statusMessage.style.color = 'green';
+                    setTimeout(() => {
+                        closeStartTestModal();
+                    }, 2000);
                 } else {
-                    alert('Error: ' + data.message);
+                    statusMessage.textContent = 'Error: ' + data.message;
+                    statusMessage.style.display = 'block';
+                    statusMessage.style.color = 'red';
                 }
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Start Test';
             })
             .catch(error => {
-                alert('Error: ' + error.message);
+                statusMessage.textContent = 'Error: ' + error.message;
+                statusMessage.style.display = 'block';
+                statusMessage.style.color = 'red';
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Start Test';
             });
