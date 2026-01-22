@@ -15,14 +15,22 @@ $report = $stmt->get_result()->fetch_assoc();
 if (!$report) die("Report not found.");
 $stmt->close();
 
-// Fetch 5 random test records with product names
 $testStmt = $conn->prepare("
-    SELECT tr.*, p.name AS product_name
+    SELECT 
+        tr.test_id,
+        tr.product_id,
+        p.name AS product_name,
+        t.tester_name,
+        tr.test_type,
+        tr.status,
+        tr.test_date
     FROM testing_records tr
     LEFT JOIN products p ON tr.product_id = p.product_id
+    LEFT JOIN testers t ON tr.tester_id = t.tester_id
     ORDER BY RAND()
     LIMIT 5
 ");
+
 $testStmt->execute();
 $records = $testStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $testStmt->close();
