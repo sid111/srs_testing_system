@@ -3,31 +3,29 @@
 session_start();
 include("../config/conn.php");
 
+// Get report ID
 $report_id = $_GET['id'] ?? null;
-if (!$report_id) {
-    die("No report specified.");
-}
+if (!$report_id) die("No report specified.");
 
-// Fetch report info
+// Fetch report info from generated_reports
 $stmt = $conn->prepare("SELECT * FROM generated_reports WHERE report_id = ?");
 $stmt->bind_param("i", $report_id);
 $stmt->execute();
-$reportRes = $stmt->get_result();
-$report = $reportRes->fetch_assoc();
-if (!$report) {
-    die("Report not found.");
-}
+$report = $stmt->get_result()->fetch_assoc();
+if (!$report) die("Report not found.");
+$stmt->close();
 
-// Fetch associated test records (use pre-existing testing_records if no link)
-$records = [];
-$testRes = $conn->query("SELECT tr.*, p.name as product_name 
-                        FROM testing_records tr 
-                        LEFT JOIN products p ON tr.product_id = p.product_id 
-                        ORDER BY RAND() LIMIT 10"); // 10 random records
-while ($r = $testRes->fetch_assoc()) {
-    $records[] = $r;
-}
-
+// Fetch 5 random test records with product names
+$testStmt = $conn->prepare("
+    SELECT tr.*, p.name AS product_name
+    FROM testing_records tr
+    LEFT JOIN products p ON tr.product_id = p.product_id
+    ORDER BY RAND()
+    LIMIT 5
+");
+$testStmt->execute();
+$records = $testStmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$testStmt->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,10 +67,13 @@ while ($r = $testRes->fetch_assoc()) {
         }
 
         .status-badge {
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 12px;
             font-weight: 600;
             font-size: 0.9rem;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
         }
 
         .status-completed {
@@ -102,7 +103,11 @@ while ($r = $testRes->fetch_assoc()) {
     <h1><?= htmlspecialchars($report['report_name']) ?></h1>
     <p><strong>Type:</strong> <?= htmlspecialchars($report['report_type']) ?></p>
     <p><strong>Date Generated:</strong> <?= date('d M Y', strtotime($report['date_generated'])) ?></p>
-    <p><strong>Status:</strong> <span class="status-badge <?= $report['status'] == 'completed' ? 'status-completed' : ($report['status'] == 'in-progress' ? 'status-in-progress' : 'status-pending') ?>"><?= ucfirst($report['status']) ?></span></p>
+    <p><strong>Status:</strong>
+        <span class="status-badge <?= $report['status'] == 'completed' ? 'status-completed' : ($report['status'] == 'in-progress' ? 'status-in-progress' : 'status-pending') ?>">
+            <?= ucfirst($report['status']) ?>
+        </span>
+    </p>
     <p><strong>Format:</strong> <?= strtoupper($report['format']) ?></p>
     <p><strong>Size:</strong> <?= htmlspecialchars($report['size'] ?? '-') ?></p>
 
@@ -110,43 +115,33 @@ while ($r = $testRes->fetch_assoc()) {
     <table>
         <thead>
             <tr>
-                <th>Test ID</th>
-                <th>Product</th>
+                <th>Product ID</th>
+                <th>Product Name</th>
                 <th>Tester</th>
                 <th>Product Type</th>
-                <th>Test Name</th>
                 <th>Status</th>
-                <th>Result</th>
                 <th>Test Date</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (count($records) == 0): ?>
+            <?php foreach ($records as $r): ?>
                 <tr>
-                    <td colspan="8" style="text-align:center;">No test records found</td>
+                    <td><?= htmlspecialchars($r['product_id'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($r['product_name'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($r['tester_name'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($r['test_type'] ?? 'N/A') ?></td>
+                    <td>
+                        <?php
+                        $statusClass = 'status-pending';
+                        if (($r['status'] ?? '') == 'completed') $statusClass = 'status-completed';
+                        elseif (($r['status'] ?? '') == 'in-progress') $statusClass = 'status-in-progress';
+                        elseif (($r['status'] ?? '') == 'failed') $statusClass = 'status-failed';
+                        ?>
+                        <span class="status-badge <?= $statusClass ?>"><?= ucfirst($r['status'] ?? 'Pending') ?></span>
+                    </td>
+                    <td><?= date('d M Y', strtotime($r['test_date'] ?? date('Y-m-d'))) ?></td>
                 </tr>
-            <?php else: ?>
-                <?php foreach ($records as $r): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($r['id'] ?? $r['test_id']) ?></td>
-                        <td><?= htmlspecialchars($r['product_name'] ?? 'N/A') ?></td>
-                        <td><?= htmlspecialchars($r['tester_name'] ?? 'N/A') ?></td>
-                        <td><?= htmlspecialchars($r['test_type'] ?? 'N/A') ?></td>
-                        <td><?= htmlspecialchars($r['test_name'] ?? 'N/A') ?></td>
-                        <td>
-                            <?php
-                            $statusClass = 'status-pending';
-                            if (($r['status'] ?? '') == 'completed') $statusClass = 'status-completed';
-                            elseif (($r['status'] ?? '') == 'in-progress') $statusClass = 'status-in-progress';
-                            elseif (($r['status'] ?? '') == 'failed') $statusClass = 'status-failed';
-                            ?>
-                            <span class="status-badge <?= $statusClass ?>"><?= ucfirst($r['status'] ?? 'Pending') ?></span>
-                        </td>
-                        <td><?= htmlspecialchars($r['result'] ?? '-') ?></td>
-                        <td><?= date('d M Y', strtotime($r['test_date'] ?? date('Y-m-d'))) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
