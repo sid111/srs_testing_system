@@ -819,6 +819,64 @@
             padding: 25px;
         }
 
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: 6px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .drop-zone:hover {
+            border-color: var(--accent-blue);
+            background-color: #f8f9fa;
+        }
+
+        .hidden-file-input {
+            display: none;
+        }
+
+        .image-preview {
+            position: relative;
+            width: 200px;
+        }
+
+        .image-preview img {
+            width: 100%;
+            border-radius: 6px;
+        }
+
+        .image-preview .btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
         .product-footer {
             display: flex;
             flex-direction: column;
@@ -1245,6 +1303,106 @@
 
             <div class="modal-body" id="modalProductContent">
                 <!-- Product details loaded via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="modal-overlay" id="editProductModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Product</h3>
+                <button class="modal-close" id="closeEditModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm" enctype="multipart/form-data">
+                    <input type="hidden" id="edit_product_id" name="product_id">
+                    <input type="hidden" id="remove_image_flag" name="remove_image" value="0">
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="edit_name" class="filter-label">Product Name</label>
+                            <input type="text" id="edit_name" name="name" class="filter-select" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_price" class="filter-label">Price</label>
+                            <input type="number" id="edit_price" name="price" class="filter-select" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_stock" class="filter-label">Stock</label>
+                            <input type="number" id="edit_stock" name="stock" class="filter-select" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_category" class="filter-label">Category</label>
+                            <select id="edit_category" name="category" class="filter-select">
+                                <option value="switchgear">Switchgear</option>
+                                <option value="transformers">Transformers</option>
+                                <option value="testing">Testing Equipment</option>
+                                <option value="panels">Control Panels</option>
+                                <option value="cables">Cables & Accessories</option>
+                                <option value="safety">Safety Equipment</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_voltage" class="filter-label">Voltage Rating</label>
+                            <select id="edit_voltage" name="voltage_rating" class="filter-select">
+                                <option value="lv">Low Voltage</option>
+                                <option value="mv">Medium Voltage</option>
+                                <option value="hv">High Voltage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_certification" class="filter-label">Certification</label>
+                            <select id="edit_certification" name="certification" class="filter-select">
+                                <option value="cpri">CPRI Certified</option>
+                                <option value="iso">ISO Certified</option>
+                                <option value="iec">IEC Compliant</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_badge" class="filter-label">Badge</label>
+                            <select id="edit_badge" name="badge" class="filter-select">
+                                <option value="">None</option>
+                                <option value="new">New</option>
+                                <option value="popular">Popular</option>
+                                <option value="cpri">CPRI</option>
+                                <option value="limited">Limited</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="edit_description" class="filter-label">Description</label>
+                            <textarea id="edit_description" name="description" class="filter-select" rows="3"></textarea>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <div class="form-check">
+                                <input type="checkbox" id="edit_featured" name="featured" value="1">
+                                <label for="edit_featured">Featured Product</label>
+                            </div>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="form-group form-group-full">
+                            <label class="filter-label">Product Image</label>
+                            <div id="editImageDropZone" class="drop-zone">
+                                <i class="fas fa-upload"></i>
+                                <span>Drag & drop or click to upload</span>
+                                <input type="file" id="editProductImage" name="product_image" accept="image/*" class="hidden-file-input">
+                            </div>
+                            <div id="editImagePreviewContainer" class="image-preview" style="display:none;">
+                                <img id="editPreviewImg" src="" alt="Image Preview">
+                                <button type="button" id="removeEditImageBtn" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" id="closeEditModalBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -1805,7 +1963,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Fetch and load products and specifications from API
             fetchProducts();
-            fetchSpecifications();
 
             // Add event listeners to filters
             document.getElementById('categoryFilter').addEventListener('change', filterProducts);
@@ -1833,6 +1990,58 @@
                     e.target.style.display = "none";
                 }
             });
+
+            document.getElementById('editProductForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                // Collect specs
+                const specs = [];
+                document.querySelectorAll('#editSpecsContainer .spec-row').forEach(row => {
+                    const labelEl = row.querySelector('.spec-label-select, .spec-label-input');
+                    const valueEl = row.querySelector('.spec-value');
+                    if (labelEl && valueEl && labelEl.value && valueEl.value) {
+                        specs.push({
+                            label: labelEl.value,
+                            value: valueEl.value
+                        });
+                    }
+                });
+
+                const formData = new FormData(this);
+                formData.append('specs', JSON.stringify(specs));
+
+                const submitBtn = this.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+                try {
+                    const response = await fetch('api/update_product.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showNotification('Product updated successfully!', 'success');
+                        document.getElementById('editProductModal').style.display = 'none';
+                        fetchProducts(); // Refresh the product list
+                    } else {
+                        showNotification('Error updating product: ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    showNotification('An unexpected error occurred. Please try again.', 'error');
+                    console.error('Update product error:', error);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Save Changes';
+                }
+            });
+
+            document.getElementById('closeEditModalBtn').addEventListener('click', () => {
+                document.getElementById('editProductModal').style.display = 'none';
+            });
+
 
             // Update year in footer
             const currentYear = new Date().getFullYear();
