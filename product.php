@@ -1844,7 +1844,7 @@
                 const container = document.getElementById("editSpecsContainer");
                 const specRow = document.createElement('div');
                 specRow.className = 'filter-group spec-row';
-                
+
                 let options = allSpecLabels.map(label => `<option value="${label}">${label}</option>`).join('');
 
                 specRow.innerHTML = `
@@ -2026,7 +2026,7 @@
             const container = document.getElementById("editSpecsContainer");
             const specRow = document.createElement('div');
             specRow.className = 'filter-group spec-row';
-            
+
             let options = allSpecLabels.map(label => `<option value="${label}">${label}</option>`).join('');
 
             specRow.innerHTML = `
@@ -2091,36 +2091,39 @@
                 } else if (labelInput) {
                     label = labelInput.value;
                 }
-                
+
                 const value = valueInput ? valueInput.value : '';
 
                 if (label && label !== '_new_' && value) {
-                    specs.push({ label: label.trim(), value: value.trim() });
+                    specs.push({
+                        label: label.trim(),
+                        value: value.trim()
+                    });
                 }
             });
             formData.set("specs", JSON.stringify(specs));
-            
+
             // Ensure featured checkbox is included
             formData.set("featured", form.querySelector('#edit_featured').checked ? 1 : 0);
 
             fetch("api/update_product.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(r => r.json())
-            .then(d => {
-                if (d.success) {
-                    showNotification(d.message, "success");
-                    document.getElementById("editProductModal").style.display = "none";
-                    fetchProducts(); // Refresh product list
-                } else {
-                    showNotification(d.message || "An error occurred", "error");
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                showNotification("An error occurred while updating the product.", "error");
-            });
+                    method: "",
+                    body: formData
+                })
+                .then(r => r.json())
+                .then(d => {
+                    if (d.success) {
+                        showNotification(d.message, "success");
+                        document.getElementById("editProductModal").style.display = "none";
+                        fetchProducts(); // Refresh product list
+                    } else {
+                        showNotification(d.message || "An error occurred", "error");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    showNotification("An error occurred while updating the product.", "error");
+                });
         });
 
         document.getElementById("closeEditModal").onclick = () => {
@@ -2132,8 +2135,6 @@
                 e.target.style.display = "none";
             }
         };
-
-        
     </script>
 
     <!-- EDIT PRODUCT MODAL -->
@@ -2145,7 +2146,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="editProductForm" enctype="multipart/form-data">
+                <form id="editProductForm" enctype="multipart/form-data" method="POST">
 
                     <input type="hidden" name="product_id" id="edit_product_id">
 

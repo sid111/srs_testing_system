@@ -1,4 +1,7 @@
 <?php include 'config/admin_session.php'; ?>
+<script>
+    const IS_ADMIN = <?= isset($_SESSION['admin_id']) ? 'true' : 'false' ?>;
+</script>
 
 <?php
 include("config/conn.php");
@@ -963,6 +966,7 @@ if ($scheduledResult) {
                                                     <i class="fas fa-edit"></i>Edit
                                                 </button>
                                                 <button class="action-btn delete-btn" data-id="<?= $report['report_id'] ?>"><i class="fas fa-trash"></i> Delete</button>
+
                                             </div>
                                         </td>
                                     </tr>
