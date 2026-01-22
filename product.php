@@ -1,4 +1,7 @@
 <?php include 'config/admin_session.php'; ?>
+<script>
+    const IS_ADMIN = <?= isset($_SESSION['admin_id']) ? 'true' : 'false' ?>;
+</script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -816,6 +819,41 @@
             padding: 25px;
         }
 
+        .product-footer {
+            display: flex;
+            flex-direction: column;
+            /* ⬅️ critical */
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .product-price {
+            width: 100%;
+            text-align: center;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+
+            flex-wrap: nowrap;
+            /* ❗ force single line */
+            white-space: nowrap;
+            /* ❗ no line breaks */
+            width: 100%;
+        }
+
+        .product-actions .btn {
+            padding: 4px 8px;
+            /* slightly tighter */
+            font-size: 12px;
+            line-height: 1.2;
+        }
+
         /* Responsive Styles */
         @media (max-width: 992px) {
             .page-title {
@@ -834,6 +872,18 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        .btn-danger {
+            background-color: var(--danger-red);
+            color: white;
+            border: 1px solid var(--danger-red);
+        }
+
+        .btn-danger:hover {
+            background-color: #b02a37;
+            transform: translateY(-2px);
+        }
+
 
         @media (max-width: 768px) {
             .mobile-toggle {
@@ -1284,7 +1334,7 @@
                         featured: p.featured
                     }));
 
-                    // ✅ CRITICAL FIX
+                    // CRITICAL FIX
                     filteredProducts = [...allProducts];
 
                     loadProducts();
@@ -1409,19 +1459,32 @@
                             </div>
                         </div>
                         
-                        <div class="product-footer">
-                            <div class="product-price">₹${product.price.toLocaleString()}<small> / unit</small></div>
-                            <div>
-                                <button class="btn btn-outline btn-sm view-details-btn" data-id="${product.id}">
-                                    <i class="fas fa-eye"></i>
-                                    View
-                                </button>
-                                <button class="btn btn-primary btn-sm quote-btn" data-id="${product.id}">
-                                    <i class="fas fa-file-alt"></i>
-                                    Quote
-                                </button>
-                            </div>
-                        </div>
+                       <div class="product-footer">
+   <div class="product-price">
+    ₹${product.price.toLocaleString()}<small> / unit</small>
+</div>
+
+<div class="product-actions">
+    <button class="btn btn-outline btn-sm view-details-btn" data-id="${product.id}">
+        <i class="fas fa-eye"></i> View
+    </button>
+
+    <button class="btn btn-primary btn-sm quote-btn" data-id="${product.id}">
+        <i class="fas fa-file-alt"></i> Quote
+    </button>
+
+    ${IS_ADMIN ? `
+        <button class="btn btn-success btn-sm edit-btn" data-id="${product.id}">
+            <i class="fas fa-edit"></i> Edit
+        </button>
+
+        <button class="btn btn-danger btn-sm delete-btn" data-id="${product.id}">
+            <i class="fas fa-trash"></i> Delete
+        </button>
+    ` : ''}
+</div>
+
+</div>
                     </div>
                 `;
 
@@ -1765,7 +1828,243 @@
             const yearElement = document.querySelector('.footer-bottom p');
             yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
         });
+
+        document.addEventListener("click", e => {
+            if (e.target.closest(".delete-btn")) {
+                const id = e.target.closest(".delete-btn").dataset.id;
+
+                if (!confirm("Delete this product permanently?")) return;
+
+                fetch("api/delete_product.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: `product_id=${id}`
+                    })
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d.success) {
+                            showNotification("Product deleted", "success");
+                            fetchProducts();
+                        } else {
+                            showNotification(d.message, "error");
+                        }
+                    });
+            }
+
+        });
+
+        document.addEventListener("click", e => {
+            const editBtn = e.target.closest(".edit-btn");
+            if (!editBtn) return;
+
+            const productId = editBtn.dataset.id;
+            const product = allProducts.find(p => p.id == productId);
+            if (!product) return;
+
+            // Fill form fields
+            edit_product_id.value = product.id;
+            edit_name.value = product.name;
+            edit_price.value = product.price;
+            edit_stock.value = product.stock;
+            edit_description.value = product.description;
+            document.getElementById("edit_category").value = product.category || "";
+            document.getElementById("edit_voltage").value = product.voltage || "";
+            document.getElementById("edit_certification").value = product.certification || "";
+            document.getElementById("edit_badge").value = product.badge || "";
+            document.getElementById("edit_featured").checked = product.featured == 1;
+
+            // Image preview
+            const img = document.getElementById("editImagePreview");
+            img.src = product.image ?
+                product.image :
+                "assets/no-image.png";
+
+
+            // Load specs
+            const container = document.getElementById("editSpecsContainer");
+            container.innerHTML = "";
+
+            if (product.specs) {
+                Object.entries(product.specs).forEach(([key, value]) => {
+                    container.innerHTML += `
+                <div class="filter-group">
+                    <input type="text" class="spec-label filter-select" value="${key}" placeholder="Spec name">
+                    <input type="text" class="spec-value filter-select" value="${value}" placeholder="Spec value">
+                </div>
+            `;
+                });
+            }
+
+            // Show modal
+            document.getElementById("editProductModal").style.display = "flex";
+        });
+
+        document.getElementById("closeEditModal").onclick = () => {
+            document.getElementById("editProductModal").style.display = "none";
+        };
+
+        document.getElementById("editProductModal").onclick = e => {
+            if (e.target.id === "editProductModal") {
+                e.target.style.display = "none";
+            }
+        };
+
+        document.getElementById("editProductForm").addEventListener("submit", e => {
+            e.preventDefault();
+
+            // Create FormData object (handles file upload automatically)
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // Collect specs manually into JSON and append
+            const specs = {};
+            document.querySelectorAll("#editSpecsContainer .spec-label").forEach((label, i) => {
+                const value = document.querySelectorAll("#editSpecsContainer .spec-value")[i].value;
+                if (label.value.trim() && value.trim()) specs[label.value.trim()] = value.trim();
+            });
+            formData.set("specs", JSON.stringify(Object.entries(specs).map(([label, value]) => ({
+                label,
+                value
+            }))));
+
+            // Ensure featured checkbox is included
+            formData.set("featured", form.edit_featured.checked ? 1 : 0);
+
+            fetch("api/update_product.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(r => r.json())
+                .then(d => {
+                    if (d.success) {
+                        showNotification(d.message, "success");
+                        document.getElementById("editProductModal").style.display = "none";
+                        fetchProducts();
+                    } else {
+                        showNotification(d.message, "error");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    showNotification("An error occurred while updating the product", "error");
+                });
+        });
     </script>
+
+    <!-- EDIT PRODUCT MODAL -->
+    <div id="editProductModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Product</h3>
+                <button class="modal-close" id="closeEditModal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form id="editProductForm" enctype="multipart/form-data">
+
+                    <input type="hidden" name="product_id" id="edit_product_id">
+
+                    <!-- Product Basic Info -->
+                    <div class="filter-group">
+                        <label class="filter-label">Product Name *</label>
+                        <input type="text" name="name" id="edit_name" class="filter-select" required>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Category</label>
+                        <select name="category" id="edit_category" class="filter-select">
+                            <option value="switchgear">Switchgear</option>
+                            <option value="transformers">Transformers</option>
+                            <option value="testing">Testing Equipment</option>
+                            <option value="panels">Control Panels</option>
+                            <option value="cables">Cables & Accessories</option>
+                            <option value="safety">Safety Equipment</option>
+
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Voltage Rating</label>
+                        <select name="voltage_rating" id="edit_voltage" class="filter-select">
+                            <option value="">Select Voltage</option>
+                            <option value="lv">Low Voltage (≤1kV)</option>
+                            <option value="mv">Medium Voltage (1kV-33kV)</option>
+                            <option value="hv">High Voltage (>33kV)</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Certification</label>
+                        <select name="certification" id="edit_certification" class="filter-select">
+                            <option value="">None</option>
+                            <option value="cpri">CPRI</option>
+                            <option value="iso">ISO</option>
+                            <option value="iec">IEC</option>
+                            <option value="ce">CE</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Description</label>
+                        <textarea name="description" id="edit_description" class="filter-select" rows="3"></textarea>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Price (PKR)</label>
+                        <input type="number" name="price" id="edit_price" class="filter-select">
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Stock</label>
+                        <input type="number" name="stock" id="edit_stock" class="filter-select">
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Badge</label>
+                        <select name="badge" id="edit_badge" class="filter-select">
+                            <option value="">None</option>
+                            <option value="new">New</option>
+                            <option value="popular">Popular</option>
+                            <option value="cpri">CPRI</option>
+                            <option value="limited">Limited</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group checkbox-group">
+                        <label>
+                            <input type="checkbox" name="featured" id="edit_featured">
+                            Featured Product
+                        </label>
+                    </div>
+
+                    <!-- Image Preview & Upload -->
+                    <div class="filter-group">
+                        <label class="filter-label">Current Image</label>
+                        <div class="image-preview" style="margin-bottom:10px;">
+                            <img id="editImagePreview" src="" alt="Product Image" style="width:100px;height:100px;object-fit:cover;border-radius:5px;">
+                        </div>
+                        <label class="filter-label">Replace Image</label>
+                        <input type="file" name="product_image" accept="image/*">
+                    </div>
+
+                    <!-- Product Specs -->
+                    <h4 style="margin:20px 0 10px;color:var(--primary-blue)">Specifications</h4>
+                    <div id="editSpecsContainer"></div>
+                    <button type="button" id="addEditSpec" class="btn btn-secondary" style="margin-bottom:10px;">
+                        + Add Specification
+                    </button>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Update Product
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

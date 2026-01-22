@@ -30,7 +30,7 @@ try {
     $price = floatval($_POST['price'] ?? 0);
     $stock = intval($_POST['stock'] ?? 0);
     $badge = mysqli_real_escape_string($conn, trim($_POST['badge'] ?? ''));
-    $image_path = '';
+    $image = '';
 
     // Validation
     if (empty($name)) {
@@ -78,7 +78,7 @@ try {
 
         // Move uploaded file
         if (move_uploaded_file($file['tmp_name'], $upload_path)) {
-            $image_path = 'uploads/products/' . $unique_name;
+            $image = 'uploads/products/' . $unique_name;
         } else {
             throw new Exception('Failed to upload image. Please try again.');
         }
@@ -98,37 +98,26 @@ try {
     }
 
     // Insert product
-    if (!empty($image_path)) {
-        $insertQuery = "INSERT INTO products (product_id, name, category, voltage_rating, certification, description, price, stock, badge, featured, image_path) 
+        $insertQuery = "INSERT INTO products (product_id, name, category, voltage_rating, certification, description, price, stock, badge, featured, image) 
                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
         $stmt = $conn->prepare($insertQuery);
         if (!$stmt) {
             throw new Exception('Prepare failed: ' . $conn->error);
         }
         $featured = 0;
-        $stmt->bind_param("ssssssdisl", $product_id, $name, $category, $voltage_rating, $certification, $description, $price, $stock, $badge, $image_path);
-    } else {
-        $insertQuery = "INSERT INTO products (product_id, name, category, voltage_rating, certification, description, price, stock, badge, featured) 
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
-        $stmt = $conn->prepare($insertQuery);
-        if (!$stmt) {
-            throw new Exception('Prepare failed: ' . $conn->error);
-        }
-        $featured = 0;
-        $stmt->bind_param("ssssssdis", $product_id, $name, $category, $voltage_rating, $certification, $description, $price, $stock, $badge);
-    }
-
+        $stmt->bind_param("ssssssdiss", $product_id, $name, $category, $voltage_rating, $certification, $description, $price, $stock, $badge, $image);
+        
     if ($stmt->execute()) {
         echo json_encode([
             'success' => true,
             'message' => "Product added successfully! Product ID: " . $product_id,
             'product_id' => $product_id,
-            'image_path' => $image_path
+            'image_path' => $image
         ]);
     } else {
         // Delete uploaded image if database insert fails
-        if (!empty($image_path) && file_exists('../' . $image_path)) {
-            unlink('../' . $image_path);
+        if (!empty($image) && file_exists('../' . $image)) {
+            unlink('../' . $image);
         }
         throw new Exception('Execute failed: ' . $stmt->error);
     }
