@@ -1803,8 +1803,9 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Fetch and load products from API
+            // Fetch and load products and specifications from API
             fetchProducts();
+            fetchSpecifications();
 
             // Add event listeners to filters
             document.getElementById('categoryFilter').addEventListener('change', filterProducts);
@@ -1813,15 +1814,23 @@
             document.getElementById('sortFilter').addEventListener('change', filterProducts);
             document.getElementById('resetFilters').addEventListener('click', resetFilters);
 
-            // Modal close button
+            // Modal close buttons
             document.getElementById('closeProductModal').addEventListener('click', () => {
                 document.getElementById('productModal').style.display = 'none';
+            });
+            document.getElementById('closeEditModal').addEventListener('click', () => {
+                document.getElementById("editProductModal").style.display = "none";
             });
 
             // Close modal when clicking outside
             document.getElementById('productModal').addEventListener('click', (e) => {
-                if (e.target === document.getElementById('productModal')) {
-                    document.getElementById('productModal').style.display = 'none';
+                if (e.target.id === 'productModal') {
+                    e.target.style.display = 'none';
+                }
+            });
+            document.getElementById('editProductModal').addEventListener('click', e => {
+                if (e.target.id === "editProductModal") {
+                    e.target.style.display = "none";
                 }
             });
 
@@ -1829,6 +1838,54 @@
             const currentYear = new Date().getFullYear();
             const yearElement = document.querySelector('.footer-bottom p');
             yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
+
+            // --- Logic for adding new spec rows in Edit Modal ---
+            document.getElementById('addEditSpec').addEventListener('click', function() {
+                const container = document.getElementById("editSpecsContainer");
+                const specRow = document.createElement('div');
+                specRow.className = 'filter-group spec-row';
+                
+                let options = allSpecLabels.map(label => `<option value="${label}">${label}</option>`).join('');
+
+                specRow.innerHTML = `
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <div class="spec-label-container" style="flex: 1;">
+                            <select class="filter-select spec-label-select">
+                                <option value="">-- Select Spec --</option>
+                                ${options}
+                                <option value="_new_">-- Add New Label --</option>
+                            </select>
+                        </div>
+                        <input type="text" class="spec-value filter-select" placeholder="Spec value" style="flex: 1;">
+                        <button type="button" class="btn btn-danger btn-sm remove-spec-btn">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(specRow);
+            });
+
+            // --- Event delegation for dynamic spec rows ---
+            document.getElementById('editSpecsContainer').addEventListener('click', function(e) {
+                // Remove spec row
+                if (e.target.closest('.remove-spec-btn')) {
+                    e.target.closest('.spec-row').remove();
+                }
+            });
+
+            document.getElementById('editSpecsContainer').addEventListener('change', function(e) {
+                // Handle new spec label selection
+                if (e.target.classList.contains('spec-label-select') && e.target.value === '_new_') {
+                    const container = e.target.parentElement;
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.placeholder = 'New Spec Label';
+                    input.className = 'spec-label-input filter-select';
+                    container.innerHTML = '';
+                    container.appendChild(input);
+                    input.focus();
+                }
+            });
         });
 
         document.addEventListener("click", e => {
@@ -1865,42 +1922,205 @@
             const product = allProducts.find(p => p.id == productId);
             if (!product) return;
 
-            // Fill form fields
-            edit_product_id.value = product.id;
-            edit_name.value = product.name;
-            edit_price.value = product.price;
-            edit_stock.value = product.stock;
-            edit_description.value = product.description;
+            // --- Populate basic form fields ---
+            document.getElementById("edit_product_id").value = product.id;
+            document.getElementById("edit_name").value = product.name;
+            document.getElementById("edit_price").value = product.price;
+            document.getElementById("edit_stock").value = product.stock;
+            document.getElementById("edit_description").value = product.description;
             document.getElementById("edit_category").value = product.category || "";
             document.getElementById("edit_voltage").value = product.voltage || "";
             document.getElementById("edit_certification").value = product.certification || "";
             document.getElementById("edit_badge").value = product.badge || "";
             document.getElementById("edit_featured").checked = product.featured == 1;
 
-            // Image preview
-            const img = document.getElementById("editImagePreview");
-            img.src = product.image ?
-                product.image :
-                "assets/no-image.png";
+            // --- Handle Image Preview ---
+            const previewContainer = document.getElementById("editImagePreviewContainer");
+            const previewImg = document.getElementById("editPreviewImg");
+            const dropZone = document.getElementById("editImageDropZone");
+            const imageInput = document.getElementById("editProductImage");
+            const removeFlag = document.getElementById("remove_image_flag");
 
+            imageInput.value = ""; // Clear file input
+            removeFlag.value = "0"; // Reset remove flag
 
-            // Load specs
-            const container = document.getElementById("editSpecsContainer");
-            container.innerHTML = "";
-
-            if (product.specs) {
-                Object.entries(product.specs).forEach(([key, value]) => {
-                    container.innerHTML += `
-                <div class="filter-group">
-                    <input type="text" class="spec-label filter-select" value="${key}" placeholder="Spec name">
-                    <input type="text" class="spec-value filter-select" value="${value}" placeholder="Spec value">
-                </div>
-            `;
-                });
+            if (product.image) {
+                previewImg.src = product.image;
+                previewContainer.style.display = "block";
+                dropZone.style.display = "none";
+            } else {
+                previewContainer.style.display = "none";
+                dropZone.style.display = "block";
             }
 
             // Show modal
             document.getElementById("editProductModal").style.display = "flex";
+        });
+
+        // --- Add event listeners for the edit image modal ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropZone = document.getElementById('editImageDropZone');
+            const imageInput = document.getElementById('editProductImage');
+            const previewContainer = document.getElementById('editImagePreviewContainer');
+            const previewImg = document.getElementById('editPreviewImg');
+            const removeBtn = document.getElementById('removeEditImageBtn');
+            const removeFlag = document.getElementById('remove_image_flag');
+
+            // Click to upload
+            dropZone.addEventListener('click', () => imageInput.click());
+
+            // Remove image
+            removeBtn.addEventListener('click', () => {
+                imageInput.value = ''; // Clear the file input
+                removeFlag.value = '1'; // Flag for removal
+                previewContainer.style.display = 'none';
+                dropZone.style.display = 'block';
+            });
+
+            // Preview selected image
+            imageInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        previewImg.src = e.target.result;
+                        removeFlag.value = '0'; // A new file is selected, so don't remove
+                        previewContainer.style.display = 'block';
+                        dropZone.style.display = 'none';
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            // Drag and drop listeners
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.style.borderColor = 'var(--primary-blue)';
+            });
+            dropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                dropZone.style.borderColor = '#ccc';
+            });
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.style.borderColor = '#ccc';
+                if (e.dataTransfer.files.length > 0) {
+                    imageInput.files = e.dataTransfer.files;
+                    // Manually trigger the change event
+                    const changeEvent = new Event('change');
+                    imageInput.dispatchEvent(changeEvent);
+                }
+            });
+        });
+
+        document.getElementById("closeEditModal").addEventListener('click', () => {
+            document.getElementById("editProductModal").style.display = "none";
+        });
+
+        document.getElementById("editProductModal").addEventListener('click', e => {
+            if (e.target.id === "editProductModal") {
+                e.target.style.display = "none";
+            }
+        });
+
+        document.getElementById("addEditSpec").addEventListener('click', function() {
+            const container = document.getElementById("editSpecsContainer");
+            const specRow = document.createElement('div');
+            specRow.className = 'filter-group spec-row';
+            
+            let options = allSpecLabels.map(label => `<option value="${label}">${label}</option>`).join('');
+
+            specRow.innerHTML = `
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <div class="spec-label-container" style="flex: 1;">
+                        <select class="filter-select spec-label-select">
+                            <option value="">-- Select Spec --</option>
+                            ${options}
+                            <option value="_new_">-- Add New Label --</option>
+                        </select>
+                    </div>
+                    <input type="text" class="spec-value filter-select" placeholder="Spec value" style="flex: 1;">
+                    <button type="button" class="btn btn-danger btn-sm remove-spec-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(specRow);
+        });
+
+        // --- Event delegation for dynamic spec rows ---
+        const specsContainer = document.getElementById('editSpecsContainer');
+
+        specsContainer.addEventListener('click', function(e) {
+            // Remove spec row
+            if (e.target.closest('.remove-spec-btn')) {
+                e.target.closest('.spec-row').remove();
+            }
+        });
+
+        specsContainer.addEventListener('change', function(e) {
+            // Handle new spec label selection
+            if (e.target.classList.contains('spec-label-select') && e.target.value === '_new_') {
+                const container = e.target.parentElement;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = 'New Spec Label';
+                input.className = 'spec-label-input filter-select';
+                container.innerHTML = '';
+                container.appendChild(input);
+                input.focus();
+            }
+        });
+
+        // --- Handle Edit Form Submission ---
+        document.getElementById("editProductForm").addEventListener("submit", e => {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // Collect specs manually from the dynamic rows
+            const specs = [];
+            document.querySelectorAll("#editSpecsContainer .spec-row").forEach(row => {
+                let label = '';
+                const labelSelect = row.querySelector('.spec-label-select');
+                const labelInput = row.querySelector('.spec-label-input');
+                const valueInput = row.querySelector('.spec-value');
+
+                if (labelSelect) {
+                    label = labelSelect.value;
+                } else if (labelInput) {
+                    label = labelInput.value;
+                }
+                
+                const value = valueInput ? valueInput.value : '';
+
+                if (label && label !== '_new_' && value) {
+                    specs.push({ label: label.trim(), value: value.trim() });
+                }
+            });
+            formData.set("specs", JSON.stringify(specs));
+            
+            // Ensure featured checkbox is included
+            formData.set("featured", form.querySelector('#edit_featured').checked ? 1 : 0);
+
+            fetch("api/update_product.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(r => r.json())
+            .then(d => {
+                if (d.success) {
+                    showNotification(d.message, "success");
+                    document.getElementById("editProductModal").style.display = "none";
+                    fetchProducts(); // Refresh product list
+                } else {
+                    showNotification(d.message || "An error occurred", "error");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                showNotification("An error occurred while updating the product.", "error");
+            });
         });
 
         document.getElementById("closeEditModal").onclick = () => {
@@ -1913,46 +2133,7 @@
             }
         };
 
-        document.getElementById("editProductForm").addEventListener("submit", e => {
-            e.preventDefault();
-
-            // Create FormData object (handles file upload automatically)
-            const form = e.target;
-            const formData = new FormData(form);
-
-            // Collect specs manually into JSON and append
-            const specs = {};
-            document.querySelectorAll("#editSpecsContainer .spec-label").forEach((label, i) => {
-                const value = document.querySelectorAll("#editSpecsContainer .spec-value")[i].value;
-                if (label.value.trim() && value.trim()) specs[label.value.trim()] = value.trim();
-            });
-            formData.set("specs", JSON.stringify(Object.entries(specs).map(([label, value]) => ({
-                label,
-                value
-            }))));
-
-            // Ensure featured checkbox is included
-            formData.set("featured", form.edit_featured.checked ? 1 : 0);
-
-            fetch("api/update_product.php", {
-                    method: "POST",
-                    body: formData
-                })
-                .then(r => r.json())
-                .then(d => {
-                    if (d.success) {
-                        showNotification(d.message, "success");
-                        document.getElementById("editProductModal").style.display = "none";
-                        fetchProducts();
-                    } else {
-                        showNotification(d.message, "error");
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    showNotification("An error occurred while updating the product", "error");
-                });
-        });
+        
     </script>
 
     <!-- EDIT PRODUCT MODAL -->
@@ -2043,20 +2224,20 @@
 
                     <!-- Image Preview & Upload -->
                     <div class="filter-group">
-                        <label class="filter-label">Current Image</label>
-                        <div class="image-preview" style="margin-bottom:10px;">
-                            <img id="editImagePreview" src="" alt="Product Image" style="width:100px;height:100px;object-fit:cover;border-radius:5px;">
+                        <label class="filter-label">Product Image</label>
+                        <div style="border: 2px dashed #ccc; padding: 20px; border-radius: 5px; text-align: center; cursor: pointer;" id="editImageDropZone">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--accent-blue); margin-bottom: 10px;"></i>
+                            <p>Drag and drop to replace, or click to select</p>
                         </div>
-                        <label class="filter-label">Replace Image</label>
-                        <input type="file" name="product_image" accept="image/*">
+                        <div id="editImagePreviewContainer" style="display: none; margin-top: 15px; text-align: center;">
+                            <img id="editPreviewImg" src="" style="max-width: 200px; max-height: 200px; border-radius: 5px;">
+                            <button type="button" id="removeEditImageBtn" style="display: block; margin-top: 10px; background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">
+                                Remove Image
+                            </button>
+                        </div>
+                        <input type="file" id="editProductImage" name="product_image" accept="image/*" style="display: none;">
+                        <input type="hidden" name="remove_image" id="remove_image_flag" value="0">
                     </div>
-
-                    <!-- Product Specs -->
-                    <h4 style="margin:20px 0 10px;color:var(--primary-blue)">Specifications</h4>
-                    <div id="editSpecsContainer"></div>
-                    <button type="button" id="addEditSpec" class="btn btn-secondary" style="margin-bottom:10px;">
-                        + Add Specification
-                    </button>
 
                     <!-- Submit -->
                     <button type="submit" class="btn btn-success">

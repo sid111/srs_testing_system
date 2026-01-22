@@ -41,7 +41,16 @@ $stmt->close();
 
 /* Handle image upload */
 $newImg = $oldImg;
-if (!empty($_FILES['product_image']['name'])) {
+$removeImage = isset($_POST['remove_image']) && $_POST['remove_image'] == '1';
+
+if ($removeImage && empty($_FILES['product_image']['name'])) {
+    // If remove flag is set and no new image is uploaded, remove the old one
+    if ($oldImg && file_exists("../" . $oldImg)) {
+        unlink("../" . $oldImg);
+    }
+    $newImg = ''; // Set image to empty in DB
+} elseif (!empty($_FILES['product_image']['name'])) {
+    // If a new image is uploaded, process it
     $allowed = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
     $ext = strtolower(pathinfo($_FILES['product_image']['name'], PATHINFO_EXTENSION));
     if (!in_array($ext, $allowed)) {
@@ -61,7 +70,9 @@ if (!empty($_FILES['product_image']['name'])) {
 
     if (move_uploaded_file($_FILES['product_image']['tmp_name'], $path)) {
         $newImg = 'uploads/products/' . $fname;
-        if ($oldImg && file_exists("../" . $oldImg)) unlink("../" . $oldImg);
+        if ($oldImg && file_exists("../" . $oldImg)) {
+            unlink("../" . $oldImg);
+        }
     } else {
         echo json_encode(['success' => false, 'message' => 'Image upload failed']);
         exit;
