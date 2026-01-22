@@ -4,7 +4,7 @@ include("../config/conn.php");
 
 try {
     $query = "SELECT p.product_id, p.name, p.category, p.voltage_rating, p.certification, 
-              p.description, p.price, p.stock, p.badge, p.featured 
+              p.description, p.price, p.stock, p.badge, p.featured, p.image
               FROM products p 
               ORDER BY p.name ASC";
     

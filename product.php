@@ -1331,7 +1331,8 @@
                         specs: p.specs,
                         badge: p.badge,
                         stock: p.stock,
-                        featured: p.featured
+                        featured: p.featured,
+                        image: p.image
                     }));
 
                     // CRITICAL FIX
@@ -1431,9 +1432,10 @@
                 productCard.innerHTML = `
                     ${product.badge ? `<div class="product-badge ${badgeClass}">${badgeText}</div>` : ''}
                     <div class="product-image">
-                        <div class="product-image-placeholder">
-                            <i class="fas fa-bolt"></i>
-                        </div>
+                        ${product.image ?
+                            `<img src="${product.image}" alt="${product.name}">` :
+                            `<div class="product-image-placeholder"><i class="fas fa-bolt"></i></div>`
+                        }
                     </div>
                     <div class="product-content">
                         <div class="product-category">${getCategoryName(product.category)}</div>

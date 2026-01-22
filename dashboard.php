@@ -1549,6 +1549,69 @@
             });
         });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageDropZone = document.getElementById('imageDropZone');
+            const productImage = document.getElementById('productImage');
+            const imagePreview = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+
+            // Trigger file input on click
+            imageDropZone.addEventListener('click', () => {
+                productImage.click();
+            });
+
+            // Handle file selection
+            productImage.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        previewImg.src = event.target.result;
+                        imagePreview.style.display = 'block';
+                        imageDropZone.style.display = 'none';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Handle drag and drop
+            imageDropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                imageDropZone.style.borderColor = 'var(--primary-blue)';
+            });
+
+            imageDropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                imageDropZone.style.borderColor = '#ccc';
+            });
+
+            imageDropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                imageDropZone.style.borderColor = '#ccc';
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    productImage.files = e.dataTransfer.files;
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        previewImg.src = event.target.result;
+                        imagePreview.style.display = 'block';
+                        imageDropZone.style.display = 'none';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        function removeImage() {
+            const productImage = document.getElementById('productImage');
+            const imagePreview = document.getElementById('imagePreview');
+            const imageDropZone = document.getElementById('imageDropZone');
+            
+            productImage.value = ''; // Reset file input
+            imagePreview.style.display = 'none';
+            imageDropZone.style.display = 'block';
+        }
+
         // Animate progress bars on page load
         document.addEventListener('DOMContentLoaded', function() {
             // Update year in footer - Same as other pages

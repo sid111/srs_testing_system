@@ -98,14 +98,14 @@ try {
     }
 
     // Insert product
-        $insertQuery = "INSERT INTO products (product_id, name, category, voltage_rating, certification, description, price, stock, badge, featured, image) 
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
-        $stmt = $conn->prepare($insertQuery);
-        if (!$stmt) {
-            throw new Exception('Prepare failed: ' . $conn->error);
-        }
-        $featured = 0;
-        $stmt->bind_param("ssssssdiss", $product_id, $name, $category, $voltage_rating, $certification, $description, $price, $stock, $badge, $image);
+    $insertQuery = "INSERT INTO products (product_id, name, category, voltage_rating, certification, description, price, stock, badge, featured, image) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($insertQuery);
+    if (!$stmt) {
+        throw new Exception('Prepare failed: ' . $conn->error);
+    }
+    $featured = 0;
+    $stmt->bind_param("ssssssdssis", $product_id, $name, $category, $voltage_rating, $certification, $description, $price, $stock, $badge, $featured, $image);
         
     if ($stmt->execute()) {
         echo json_encode([
