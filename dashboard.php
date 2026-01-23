@@ -1098,10 +1098,11 @@
                                 <i class="fas fa-box-open action-icon"></i>
                                 <span class="action-text">Add Product</span>
                             </button>
-                            <a href="cpri.php" class="action-btn">
+                            <button class="action-btn" onclick="openAddCpriModal()">
                                 <i class="fas fa-certificate action-icon"></i>
-                                <span class="action-text">CPRI</span>
-                            </a>
+                                <span class="action-text">Add CPRI</span>
+                            </button>
+
                         </div>
                     </div>
                 </div>
@@ -1264,6 +1265,87 @@
                 <div class="modal-buttons">
                     <button type="button" class="btn-cancel" onclick="closeStartTestModal()">Cancel</button>
                     <button type="submit" class="btn-submit">Start Test</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add CPRI Modal -->
+    <div id="addCpriModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Submit Product to CPRI</h2>
+                <button class="close-btn" onclick="closeAddCpriModal()">&times;</button>
+            </div>
+            <form id="addCpriForm" enctype="multipart/form-data">
+                <!-- Product Selection -->
+                <div class="form-group">
+                    <label for="cpriProductId">Product <span style="color:red">*</span></label>
+                    <select id="cpriProductId" name="product_id" required></select>
+                    <input type="hidden" id="cpriProductName" name="product_name">
+                </div>
+
+                <!-- Submission Date -->
+                <div class="form-group">
+                    <label for="submissionDate">Submission Date <span style="color:red">*</span></label>
+                    <input type="date" id="submissionDate" name="submission_date" required>
+                </div>
+
+                <!-- CPRI Reference -->
+                <div class="form-group">
+                    <label for="cpriReference">CPRI Reference</label>
+                    <input type="text" id="cpriReference" name="cpri_reference">
+                </div>
+
+                <!-- Test Date -->
+                <div class="form-group">
+                    <label for="testDate">Test Date</label>
+                    <input type="date" id="testDate" name="test_date">
+                </div>
+
+                <!-- Status -->
+                <div class="form-group">
+                    <label for="cpriStatus">Status</label>
+                    <select id="cpriStatus" name="status">
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+
+                <!-- Certificate Number -->
+                <div class="form-group">
+                    <label for="certificateNo">Certificate No.</label>
+                    <input type="text" id="certificateNo" name="certificate_no">
+                </div>
+
+                <!-- Valid Until -->
+                <div class="form-group">
+                    <label for="validUntil">Valid Until</label>
+                    <input type="date" id="validUntil" name="valid_until">
+                </div>
+
+                <!-- Testing Lab -->
+                <div class="form-group">
+                    <label for="testingLab">Testing Lab</label>
+                    <input type="text" id="testingLab" name="testing_lab">
+                </div>
+
+                <!-- Certificate PDF -->
+                <div class="form-group">
+                    <label for="certificateFile">Certificate PDF</label>
+                    <input type="file" id="certificateFile" name="certificate_pdf" accept=".pdf">
+                </div>
+
+                <!-- Report Image -->
+                <div class="form-group">
+                    <label for="reportImage">Report Image</label>
+                    <input type="file" id="reportImage" name="image" accept="image/*">
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancel" onclick="closeAddCpriModal()">Cancel</button>
+                    <button type="submit" class="btn-submit">Submit</button>
                 </div>
             </form>
         </div>
@@ -1606,7 +1688,7 @@
             const productImage = document.getElementById('productImage');
             const imagePreview = document.getElementById('imagePreview');
             const imageDropZone = document.getElementById('imageDropZone');
-            
+
             productImage.value = ''; // Reset file input
             imagePreview.style.display = 'none';
             imageDropZone.style.display = 'block';
@@ -1629,6 +1711,87 @@
                     }, 100);
                 });
             }, 500);
+        });
+
+        // Open & Close Modal
+        function openAddCpriModal() {
+            document.getElementById('addCpriModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            populateCpriProducts();
+        }
+
+        function closeAddCpriModal() {
+            document.getElementById('addCpriModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('addCpriForm').reset();
+        }
+
+        // Populate products dropdown
+        async function populateCpriProducts() {
+            const select = document.getElementById('cpriProductId');
+            select.innerHTML = '<option value="">-- Select Product --</option>';
+            try {
+                const res = await fetch('api/get_products.php');
+                const data = await res.json();
+                if (data.success) {
+                    data.products.forEach(p => {
+                        const option = document.createElement('option');
+                        option.value = p.product_id;
+                        option.dataset.productName = p.name;
+                        option.textContent = `${p.product_id} - ${p.name}`;
+                        select.appendChild(option);
+                    });
+                }
+            } catch (err) {
+                console.error('Error fetching products', err);
+            }
+        }
+
+        // Update hidden product_name field
+        document.getElementById('cpriProductId').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            document.getElementById('cpriProductName').value = selectedOption.dataset.productName || '';
+        });
+
+        // Handle Add CPRI Form Submission
+        document.getElementById('addCpriForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            // Ensure product_name is included
+            const productSelect = document.getElementById('cpriProductId');
+            formData.set('product_name', productSelect.options[productSelect.selectedIndex].dataset.productName || '');
+
+            const submitBtn = this.querySelector('[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            try {
+                const res = await fetch('api/add_cpri.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const responseText = await res.text();
+
+                try {
+                    const data = JSON.parse(responseText);
+                    if (data.status === 'success') {
+                        alert(data.message);
+                        closeAddCpriModal();
+                        location.reload();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                } catch (e) {
+                    console.error('Invalid JSON:', responseText);
+                    alert('Server returned invalid response. Check console.');
+                }
+            } catch (err) {
+                alert('Network error: ' + err.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit';
+            }
         });
     </script>
 </body>

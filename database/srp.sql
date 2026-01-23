@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2026 at 08:48 PM
+-- Generation Time: Jan 23, 2026 at 07:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,19 +85,39 @@ INSERT INTO `analytics_summary` (`id`, `label`, `value`, `type`, `created_at`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cpri_certifications`
+-- Table structure for table `cpri_reports`
 --
 
-CREATE TABLE `cpri_certifications` (
-  `cpri_id` int(11) NOT NULL,
-  `product_id` varchar(20) NOT NULL,
-  `certification_number` varchar(50) NOT NULL,
-  `certification_date` date NOT NULL,
-  `expiry_date` date DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL,
-  `test_report_id` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE `cpri_reports` (
+  `id` int(6) UNSIGNED NOT NULL,
+  `product_id` varchar(50) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `submission_date` date DEFAULT NULL,
+  `cpri_reference` varchar(100) DEFAULT NULL,
+  `test_date` date DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `certificate_no` varchar(100) DEFAULT NULL,
+  `valid_until` date DEFAULT NULL,
+  `testing_lab` varchar(255) DEFAULT NULL,
+  `report_pdf` varchar(255) DEFAULT NULL,
+  `certificate_pdf` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `details` text DEFAULT NULL,
+  `priority` varchar(50) DEFAULT NULL,
+  `contact_person` varchar(100) DEFAULT NULL,
+  `estimated_completion` date DEFAULT NULL,
+  `report_no` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cpri_reports`
+--
+
+INSERT INTO `cpri_reports` (`id`, `product_id`, `product_name`, `submission_date`, `cpri_reference`, `test_date`, `status`, `certificate_no`, `valid_until`, `testing_lab`, `report_pdf`, `certificate_pdf`, `image`, `created_at`, `details`, `priority`, `contact_person`, `estimated_completion`, `report_no`) VALUES
+(1, 'PRD-001', 'HV Circuit Breaker', '2023-10-20', 'CPRI-2023-1245', '2023-11-05', 'approved', 'CPRI/CERT/4523/2023', '2026-11-15', 'CPRI Central Lab, Bangalore', NULL, NULL, NULL, '2026-01-23 05:58:20', NULL, NULL, NULL, NULL, NULL),
+(2, 'PRD-005', 'Medium Voltage Switchgear', '2023-11-02', 'CPRI-2023-1356', '2023-11-15', 'pending', NULL, NULL, 'CPRI Central Lab, Bangalore', NULL, NULL, NULL, '2026-01-23 05:58:20', NULL, NULL, NULL, NULL, NULL),
+(3, 'PRD-002', 'Digital Energy Meter', '2023-10-15', 'CPRI-2023-1123', '2023-10-30', 'rejected', NULL, NULL, 'CPRI Regional Lab, Chennai', NULL, NULL, NULL, '2026-01-23 05:58:20', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -137,19 +157,21 @@ CREATE TABLE `generated_reports` (
   `date_generated` date NOT NULL,
   `format` varchar(50) NOT NULL,
   `status` enum('completed','processing','pending','failed') NOT NULL,
-  `size` varchar(50) NOT NULL
+  `size` varchar(50) NOT NULL,
+  `generated_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `generated_reports`
 --
 
-INSERT INTO `generated_reports` (`report_id`, `report_name`, `report_type`, `date_generated`, `format`, `status`, `size`) VALUES
-(1, 'Q3 2023 Testing Summary', 'Monthly Summary', '2023-11-10', 'PDF', 'completed', '2.4 MB'),
-(2, 'General Analytics Report', 'Analytics Summary', '2023-11-08', 'EXCEL', 'processing', '1.8 MB'),
-(3, 'CPRI Compliance Report', 'Compliance Report', '2023-11-05', 'PDF', 'completed', '3.2 MB'),
-(4, 'October Performance Report', 'Performance Summary', '2023-11-02', 'Word', 'completed', '1.5 MB'),
-(5, 'Real-time Test Analytics', 'Analytics Dashboard', '2023-11-15', 'PDF', 'processing', 'Processing...');
+INSERT INTO `generated_reports` (`report_id`, `report_name`, `report_type`, `date_generated`, `format`, `status`, `size`, `generated_by`) VALUES
+(1, 'Q3 2023 Testing Summary', 'Monthly Summary', '2023-11-10', 'PDF', 'completed', '2.4 MB', NULL),
+(2, 'General Analytics Report', 'Analytics Summary', '2023-11-08', 'EXCEL', 'processing', '1.8 MB', NULL),
+(3, 'CPRI Compliance Report', 'Compliance Report', '2023-11-05', 'PDF', 'completed', '3.2 MB', NULL),
+(4, 'October Performance Report', 'Performance Summary', '2023-11-02', 'Word', 'completed', '1.5 MB', NULL),
+(20, 'Q4 Testing Summary', 'Performance Summary', '2026-01-22', 'pdf', 'pending', '3.93 MB', NULL),
+(21, 'General Compliance Report', 'Compliance Report', '2026-01-22', 'pdf', 'pending', '3.33 MB', NULL);
 
 -- --------------------------------------------------------
 
@@ -183,7 +205,7 @@ INSERT INTO `products` (`product_id`, `name`, `category`, `voltage_rating`, `cer
 ('ELEC-2023-004', 'PLC Control Panel', 'panels', 'lv', 'iec', 'Programmable Logic Controller based automation panel with HMI interface for process control.', 185000.00, 5, 'new', 1, '2026-01-19 13:43:51', NULL),
 ('ELEC-2023-005', 'Precision Resistor Array', 'resistors', 'lv', 'iso', 'High-precision resistor network with low temperature coefficient for measurement applications.', 15000.00, 50, NULL, 0, '2026-01-19 13:43:51', NULL),
 ('ELEC-2023-006', 'Digital Multimeter', 'testing', 'lv', 'iec', 'Industrial-grade digital multimeter with true RMS measurement and data logging capabilities.', 25000.00, 30, 'new', 1, '2026-01-19 13:43:51', NULL),
-('ELEC-2023-007', 'Circuit Breaker Module', 'switchgear', 'mv', 'cpri', 'Modular circuit breaker unit with ground fault protection and remote trip capability.', 45000.00, 25, NULL, 0, '2026-01-19 13:43:51', NULL),
+('ELEC-2023-007', 'Circuit Breaker Module', 'switchgear', 'mv', 'cpri', 'Modular circuit breaker unit with ground fault protection and remote trip capability.', 45000.00, 25, 'popular', 0, '2026-01-19 13:43:51', 'uploads/products/product_1769067368_6971d368739ed.png'),
 ('ELEC-2023-008', 'Voltage Stabilizer', 'equipment', 'lv', 'iso', 'Automatic voltage stabilizer with microprocessor control for sensitive electronic equipment.', 35000.00, 15, NULL, 0, '2026-01-19 13:43:51', NULL),
 ('PRD-001', 'HV Circuit Breaker XT-5000', 'switchgear', 'hv', 'cpri', 'High voltage circuit breaker with vacuum interrupter technology for reliable power distribution.', 125000.00, 12, 'cpri', 1, '2026-01-19 09:38:44', NULL),
 ('PRD-002', 'Digital Energy Meter DEM-2023', 'testing', 'lv', 'iso', 'Advanced digital energy meter with LCD display and data logging capabilities.', 8500.00, 45, 'new', 1, '2026-01-19 09:38:44', NULL),
@@ -194,10 +216,9 @@ INSERT INTO `products` (`product_id`, `name`, `category`, `voltage_rating`, `cer
 ('PRD-007', 'Power Cable XLPE 3.5 Core', 'cables', 'mv', 'iec', 'XLPE insulated, armoured power cable for underground and overhead installations.', 850.00, 1500, NULL, 0, '2026-01-19 09:38:44', NULL),
 ('PRD-008', 'Safety Kit Complete', 'safety', 'lv', 'iso', 'Complete electrical safety kit for HV/LV line maintenance personnel.', 12500.00, 35, NULL, 0, '2026-01-19 09:38:44', NULL),
 ('PRD-009', 'Protection Relay PR-2023', 'switchgear', 'mv', 'cpri', 'Numerical protection relay with multiple protection functions and communication.', 65000.00, 18, 'cpri', 1, '2026-01-19 09:38:44', NULL),
-('PRD-010', 'Test Product', 'testing', 'lv', 'cpri', 'Test', 5000.00, 2, 'popular', 0, '2026-01-19 10:09:08', NULL),
-('PRD-011', 'Test Product Two', 'safety', 'lv', 'cpri', 'Debugging', 5000.00, 2, 'limited', 0, '2026-01-19 13:56:46', NULL),
-('PRD-012', 'Test Product Three', 'cables', 'lv', 'iso', 'Hmm', 2345.00, 10, 'limited', 0, '2026-01-19 14:03:32', NULL),
-('PRD-013', 'Test Product Three', 'cables', 'mv', 'cpri', 'Testing again', 2350.00, 50, 'limited', 0, '2026-01-19 14:05:44', NULL);
+('PRD-010', 'Test Product', 'transformers', 'mv', 'cpri', 'Test Product', 50000.00, 50, 'cpri', 0, '2026-01-22 04:50:10', ''),
+('PRD-011', 'Test Product Two', 'safety', 'hv', 'cpri', 'Testing Image', 50000.00, 20, 'limited', 0, '2026-01-22 05:24:26', 'uploads/products/product_1769059466_6971b48a86cfb.jpg'),
+('PRD-012', 'Test Product Three', 'panels', 'lv', 'cpri', 'Testing again', 50000.00, 40, 'popular', 0, '2026-01-22 06:36:37', 'uploads/products/product_1769063797_6971c57545de0.jpg');
 
 -- --------------------------------------------------------
 
@@ -322,6 +343,32 @@ CREATE TABLE `testers` (
 --
 
 INSERT INTO `testers` (`tester_id`, `tester_name`) VALUES
+(10, 'Ahmed Raza'),
+(9, 'Ali Khan'),
+(1, 'Alizay Asghar'),
+(7, 'Arun Verma'),
+(2, 'Dr. Anil Sharma'),
+(6, 'Meera Desai'),
+(4, 'Priya Singh'),
+(3, 'Rajesh Kumar'),
+(5, 'Vikram Patel');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testers_backup`
+--
+
+CREATE TABLE `testers_backup` (
+  `tester_id` int(11) NOT NULL DEFAULT 0,
+  `tester_name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `testers_backup`
+--
+
+INSERT INTO `testers_backup` (`tester_id`, `tester_name`) VALUES
 (1, 'Alizay Asghar'),
 (7, 'Arun Verma'),
 (2, 'Dr. Anil Sharma'),
@@ -348,14 +395,51 @@ CREATE TABLE `testing_records` (
   `notes` text DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `tester_name` varchar(255) DEFAULT NULL
+  `tester_name` varchar(255) DEFAULT NULL,
+  `tester_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `testing_records`
 --
 
-INSERT INTO `testing_records` (`test_id`, `product_id`, `test_date`, `test_type`, `test_name`, `voltage_rating`, `status`, `result`, `notes`, `created_by`, `created_at`, `tester_name`) VALUES
+INSERT INTO `testing_records` (`test_id`, `product_id`, `test_date`, `test_type`, `test_name`, `voltage_rating`, `status`, `result`, `notes`, `created_by`, `created_at`, `tester_name`, `tester_id`) VALUES
+(1, 'ELEC-2023-001', '2023-11-15', 'Switchgear', NULL, NULL, 'in-progress', 'In Progress', 'Currently undergoing dielectric strength testing. Preliminary results are positive.', 1, '2026-01-19 13:44:20', 'Dr. Anil Sharma', 2),
+(2, 'ELEC-2023-002', '2023-11-05', 'Capacitors', NULL, NULL, 'in-progress', 'In Progress', 'Currently undergoing capacitance measurement test. Preliminary results show excellent performance.', 1, '2026-01-19 13:44:20', 'Arun Verma', 7),
+(3, 'ELEC-2023-003', '2023-11-10', 'Fuses', NULL, NULL, 'pending', 'Pending', 'Scheduled for testing next week. Preparing test setup for short-circuit testing.', 1, '2026-01-19 13:44:20', 'Rajesh Kumar', 3),
+(4, 'ELEC-2023-004', '2023-10-28', 'Control Panels', NULL, NULL, 'completed', 'Pass', 'All functions tested successfully. Communication protocols verified with multiple devices.', 1, '2026-01-19 13:44:20', 'Meera Desai', 6),
+(5, 'ELEC-2023-005', '2023-11-02', 'Resistors', NULL, NULL, 'failed', 'Fail', 'Failed tolerance test on resistors R3 and R7. Requires recalibration or replacement.', 1, '2026-01-19 13:44:20', 'Rajesh Kumar', 3),
+(6, 'ELEC-2023-006', '2023-11-07', 'Testing Equipment', NULL, NULL, 'in-progress', 'In Progress', 'Accuracy testing in progress. DC voltage measurements completed, AC testing underway.', 1, '2026-01-19 13:44:20', 'Dr. Anil Sharma', 2),
+(7, 'ELEC-2023-007', '2023-10-20', 'Switchgear', NULL, NULL, 'completed', 'Pass', 'All protection functions tested successfully. Trip timing within specified limits.', 1, '2026-01-19 13:44:20', 'Meera Desai', 6),
+(8, 'ELEC-2023-008', '2023-11-12', 'Power Equipment', NULL, NULL, 'pending', 'Pending', 'Awaiting arrival of specialized test equipment for transient response testing.', 1, '2026-01-19 13:44:20', 'Meera Desai', 6),
+(11, 'ELEC-2023-005', '2026-01-21', 'Safety', 'Load Test', NULL, 'in-progress', 'In Progress', NULL, 2, '2026-01-21 16:08:39', 'Arun Verma', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testing_records_backup`
+--
+
+CREATE TABLE `testing_records_backup` (
+  `test_id` int(11) NOT NULL DEFAULT 0,
+  `product_id` varchar(20) NOT NULL,
+  `test_date` date NOT NULL,
+  `test_type` varchar(100) NOT NULL,
+  `test_name` varchar(50) DEFAULT NULL,
+  `voltage_rating` varchar(20) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `result` varchar(50) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `tester_name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `testing_records_backup`
+--
+
+INSERT INTO `testing_records_backup` (`test_id`, `product_id`, `test_date`, `test_type`, `test_name`, `voltage_rating`, `status`, `result`, `notes`, `created_by`, `created_at`, `tester_name`) VALUES
 (1, 'ELEC-2023-001', '2023-11-15', 'Switchgear', NULL, NULL, 'in-progress', 'In Progress', 'Currently undergoing dielectric strength testing. Preliminary results are positive.', 1, '2026-01-19 13:44:20', 'Dr. Anil Sharma'),
 (2, 'ELEC-2023-002', '2023-11-05', 'Capacitors', NULL, NULL, 'in-progress', 'In Progress', 'Currently undergoing capacitance measurement test. Preliminary results show excellent performance.', 1, '2026-01-19 13:44:20', 'Arun Verma'),
 (3, 'ELEC-2023-003', '2023-11-10', 'Fuses', NULL, NULL, 'pending', 'Pending', 'Scheduled for testing next week. Preparing test setup for short-circuit testing.', 1, '2026-01-19 13:44:20', 'Rajesh Kumar'),
@@ -428,13 +512,10 @@ ALTER TABLE `analytics_summary`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cpri_certifications`
+-- Indexes for table `cpri_reports`
 --
-ALTER TABLE `cpri_certifications`
-  ADD PRIMARY KEY (`cpri_id`),
-  ADD UNIQUE KEY `certification_number` (`certification_number`),
-  ADD KEY `product_id` (`product_id`),
-  ADD KEY `test_report_id` (`test_report_id`);
+ALTER TABLE `cpri_reports`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `dashboard_stats`
@@ -446,7 +527,8 @@ ALTER TABLE `dashboard_stats`
 -- Indexes for table `generated_reports`
 --
 ALTER TABLE `generated_reports`
-  ADD PRIMARY KEY (`report_id`);
+  ADD PRIMARY KEY (`report_id`),
+  ADD KEY `fk_generated_by` (`generated_by`);
 
 --
 -- Indexes for table `products`
@@ -488,7 +570,8 @@ ALTER TABLE `testers`
 ALTER TABLE `testing_records`
   ADD PRIMARY KEY (`test_id`),
   ADD KEY `product_id` (`product_id`),
-  ADD KEY `created_by` (`created_by`);
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `idx_testing_records_tester_id` (`tester_id`);
 
 --
 -- Indexes for table `tests`
@@ -527,10 +610,10 @@ ALTER TABLE `analytics_summary`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `cpri_certifications`
+-- AUTO_INCREMENT for table `cpri_reports`
 --
-ALTER TABLE `cpri_certifications`
-  MODIFY `cpri_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `cpri_reports`
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `dashboard_stats`
@@ -542,7 +625,7 @@ ALTER TABLE `dashboard_stats`
 -- AUTO_INCREMENT for table `generated_reports`
 --
 ALTER TABLE `generated_reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `product_specs`
@@ -566,7 +649,7 @@ ALTER TABLE `scheduled_reports`
 -- AUTO_INCREMENT for table `testers`
 --
 ALTER TABLE `testers`
-  MODIFY `tester_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `tester_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `testing_records`
@@ -597,11 +680,10 @@ ALTER TABLE `activity_logs`
   ADD CONSTRAINT `activity_logs_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`);
 
 --
--- Constraints for table `cpri_certifications`
+-- Constraints for table `generated_reports`
 --
-ALTER TABLE `cpri_certifications`
-  ADD CONSTRAINT `cpri_certifications_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
-  ADD CONSTRAINT `cpri_certifications_ibfk_2` FOREIGN KEY (`test_report_id`) REFERENCES `reports` (`report_id`);
+ALTER TABLE `generated_reports`
+  ADD CONSTRAINT `fk_generated_by` FOREIGN KEY (`generated_by`) REFERENCES `testers` (`tester_id`);
 
 --
 -- Constraints for table `product_specs`
@@ -620,6 +702,7 @@ ALTER TABLE `reports`
 -- Constraints for table `testing_records`
 --
 ALTER TABLE `testing_records`
+  ADD CONSTRAINT `fk_testing_records_tester` FOREIGN KEY (`tester_id`) REFERENCES `testers` (`tester_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `testing_records_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   ADD CONSTRAINT `testing_records_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `admin` (`admin_id`);
 
