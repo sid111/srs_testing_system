@@ -1281,20 +1281,15 @@
                 <!-- Product Selection -->
                 <div class="form-group">
                     <label for="cpriProductId">Product <span style="color:red">*</span></label>
-                    <select id="cpriProductId" name="product_id" required></select>
-                    <input type="hidden" id="cpriProductName" name="product_name">
+                    <select id="cpriProductId" name="product_id" required>
+                        <!-- Populate options dynamically from products table -->
+                    </select>
                 </div>
 
                 <!-- Submission Date -->
                 <div class="form-group">
                     <label for="submissionDate">Submission Date <span style="color:red">*</span></label>
                     <input type="date" id="submissionDate" name="submission_date" required>
-                </div>
-
-                <!-- CPRI Reference -->
-                <div class="form-group">
-                    <label for="cpriReference">CPRI Reference</label>
-                    <input type="text" id="cpriReference" name="cpri_reference">
                 </div>
 
                 <!-- Test Date -->
@@ -1313,34 +1308,16 @@
                     </select>
                 </div>
 
-                <!-- Certificate Number -->
-                <div class="form-group">
-                    <label for="certificateNo">Certificate No.</label>
-                    <input type="text" id="certificateNo" name="certificate_no">
-                </div>
-
-                <!-- Valid Until -->
-                <div class="form-group">
-                    <label for="validUntil">Valid Until</label>
-                    <input type="date" id="validUntil" name="valid_until">
-                </div>
-
                 <!-- Testing Lab -->
                 <div class="form-group">
                     <label for="testingLab">Testing Lab</label>
                     <input type="text" id="testingLab" name="testing_lab">
                 </div>
 
-                <!-- Certificate PDF -->
+                <!-- Certificate Upload -->
                 <div class="form-group">
-                    <label for="certificateFile">Certificate PDF</label>
-                    <input type="file" id="certificateFile" name="certificate_pdf" accept=".pdf">
-                </div>
-
-                <!-- Report Image -->
-                <div class="form-group">
-                    <label for="reportImage">Report Image</label>
-                    <input type="file" id="reportImage" name="image" accept="image/*">
+                    <label for="certificateFile">Certificate (PDF or Image)</label>
+                    <input type="file" id="certificateFile" name="certificate_file" accept=".pdf,image/*">
                 </div>
 
                 <div class="modal-buttons">
@@ -1348,6 +1325,7 @@
                     <button type="submit" class="btn-submit">Submit</button>
                 </div>
             </form>
+
         </div>
     </div>
 
@@ -1413,6 +1391,22 @@
     </footer>
 
     <script>
+        // AUTO GENERATION LOGIC
+        (function generateCPRIFields() {
+            const now = new Date();
+
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+
+            // MMDD format
+            const mmdd = month + day;
+
+            // Auto values
+            document.getElementById('cpriReference').value = `CPRI-${year}-${mmdd}`;
+            document.getElementById('certificateNo').value = `CPRI-CERT-${mmdd}`;
+        })();
+
         // Mobile Navigation Toggle - EXACTLY SAME AS OTHER PAGES
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
