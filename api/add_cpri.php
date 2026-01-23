@@ -1,76 +1,91 @@
 <?php
+require_once '../config/conn.php';
 header('Content-Type: application/json');
-include '../config/conn.php'; // Database connection
 
-$response = [];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Required fields
-    $product_id      = trim($_POST['product_id']);
-    $submission_date = $_POST['submission_date'] ?? null;
-    $test_date       = $_POST['test_date'] ?? null;
-    $status          = $_POST['status'] ?? 'pending';
-    $testing_lab     = $_POST['testing_lab'] ?? null;
-
-    if (!$product_id || !$submission_date) {
-        echo json_encode(['error' => 'Product and Submission Date are required.']);
-        exit;
+try {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        throw new Exception('Invalid request method');
     }
 
-    // Generate CPRI Reference and Certificate No
-    $year           = date('Y');
-    $mmdd           = date('md');
+    // REQUIRED
+    $product_id       = $_POST['product_id'] ?? null;
+    $submission_date  = $_POST['submission_date'] ?? null;
+    $status           = $_POST['status'] ?? 'pending';
+
+    if (!$product_id || !$submission_date) {
+        throw new Exception('Missing required fields');
+    }
+
+    // OPTIONAL
+    $test_date   = $_POST['test_date'] ?? null;
+    $testing_lab = $_POST['testing_lab'] ?? null;
+
+    // AUTO-GENERATED VALUES
+    $now  = new DateTime();
+    $year = $now->format('Y');
+    $mmdd = $now->format('md');
+
     $cpri_reference = "CPRI-$year-$mmdd";
     $certificate_no = "CPRI-CERT-$mmdd";
 
-    // Handle certificate upload (optional)
-    $certificate_file_path = null;
-    if (!empty($_FILES['certificate_file']['name'])) {
-        $file     = $_FILES['certificate_file'];
-        $ext      = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $new_name = "cpri_cert_" . time() . "." . $ext;
-        $upload_path = '../uploads/cpri_certificates/' . $new_name;
+    // CERTIFICATE IMAGE (single upload)
+    $certificate_image = null;
 
-        if (!move_uploaded_file($file['tmp_name'], $upload_path)) {
-            echo json_encode(['error' => 'Failed to upload certificate']);
-            exit;
+    if (!empty($_FILES['certificate_image']['name'])) {
+        $uploadDir = '../uploads/cpri/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
         }
-        $certificate_file_path = 'uploads/cpri_certificates/' . $new_name;
+
+        $ext = strtolower(pathinfo($_FILES['certificate_image']['name'], PATHINFO_EXTENSION));
+        $filename = uniqid('cpri_') . '.' . $ext;
+        $target = $uploadDir . $filename;
+
+        if (!move_uploaded_file($_FILES['certificate_image']['tmp_name'], $target)) {
+            throw new Exception('Failed to upload certificate image');
+        }
+
+        $certificate_image = 'uploads/cpri/' . $filename;
     }
 
-    // Insert record
-    $stmt = $conn->prepare("INSERT INTO cpri_reports 
-        (product_id, submission_date, cpri_reference, test_date, status, certificate_no, testing_lab, certificate_image)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    // INSERT
+    $stmt = $conn->prepare("
+        INSERT INTO cpri_reports (
+            product_id,
+            submission_date,
+            test_date,
+            status,
+            testing_lab,
+            cpri_reference,
+            certificate_no,
+            certificate_image
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ");
 
     $stmt->bind_param(
         "ssssssss",
         $product_id,
         $submission_date,
-        $cpri_reference,
         $test_date,
         $status,
-        $certificate_no,
         $testing_lab,
-        $certificate_file_path
+        $cpri_reference,
+        $certificate_no,
+        $certificate_image
     );
 
-    if ($stmt->execute()) {
-        $response = [
-            'success' => true,
-            'message' => 'CPRI record added successfully',
-            'cpri_reference' => $cpri_reference,
-            'certificate_no' => $certificate_no
-        ];
-    } else {
-        $response = ['error' => 'Database error: ' . $stmt->error];
+    if (!$stmt->execute()) {
+        throw new Exception($stmt->error);
     }
 
-    $stmt->close();
-    $conn->close();
-
-    echo json_encode($response);
-} else {
-    echo json_encode(['error' => 'Invalid request method']);
+    echo json_encode([
+        'status'  => 'success',
+        'message' => 'CPRI record added successfully'
+    ]);
+} catch (Throwable $e) {
+    http_response_code(400);
+    echo json_encode([
+        'status'  => 'error',
+        'message' => $e->getMessage()
+    ]);
 }

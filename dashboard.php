@@ -1317,7 +1317,7 @@
                 <!-- Certificate Upload -->
                 <div class="form-group">
                     <label for="certificateFile">Certificate (PDF or Image)</label>
-                    <input type="file" id="certificateFile" name="certificate_file" accept=".pdf,image/*">
+                    <input type="file" id="certificateFile" name="certificate_image" accept=".pdf,image/*">
                 </div>
 
                 <div class="modal-buttons">
