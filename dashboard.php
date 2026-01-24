@@ -1284,6 +1284,7 @@
                     <select id="cpriProductId" name="product_id" required>
                         <!-- Populate options dynamically from products table -->
                     </select>
+                    <input type="hidden" id="cpriProductName" name="product_name">
                 </div>
 
                 <!-- Submission Date -->
@@ -1319,6 +1320,9 @@
                     <label for="certificateFile">Certificate (PDF or Image)</label>
                     <input type="file" id="certificateFile" name="certificate_image" accept=".pdf,image/*">
                 </div>
+
+                <input type="hidden" id="cpriReference" name="cpri_reference">
+                <input type="hidden" id="certificateNo" name="certificate_no">
 
                 <div class="modal-buttons">
                     <button type="button" class="btn-cancel" onclick="closeAddCpriModal()">Cancel</button>

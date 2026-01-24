@@ -1,7 +1,15 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+file_put_contents('debug.log', "--- New Request ---\n", FILE_APPEND);
+file_put_contents('debug.log', "POST data: " . print_r($_POST, true) . "\n", FILE_APPEND);
+file_put_contents('debug.log', "FILES data: " . print_r($_FILES, true) . "\n", FILE_APPEND);
+
 require_once '../config/conn.php';
 header('Content-Type: application/json');
 
+file_put_contents('debug.log', "Before try-catch block\n", FILE_APPEND);
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         throw new Exception('Invalid request method');
@@ -9,6 +17,7 @@ try {
 
     // REQUIRED
     $product_id       = $_POST['product_id'] ?? null;
+    $product_name     = $_POST['product_name'] ?? null;
     $submission_date  = $_POST['submission_date'] ?? null;
     $status           = $_POST['status'] ?? 'pending';
 
@@ -52,6 +61,7 @@ try {
     $stmt = $conn->prepare("
         INSERT INTO cpri_reports (
             product_id,
+            product_name,
             submission_date,
             test_date,
             status,
@@ -59,12 +69,13 @@ try {
             cpri_reference,
             certificate_no,
             certificate_image
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
     $stmt->bind_param(
-        "ssssssss",
+        "sssssssss",
         $product_id,
+        $product_name,
         $submission_date,
         $test_date,
         $status,
@@ -78,11 +89,13 @@ try {
         throw new Exception($stmt->error);
     }
 
+    file_put_contents('debug.log', "Success: CPRI record added successfully\n", FILE_APPEND);
     echo json_encode([
         'status'  => 'success',
         'message' => 'CPRI record added successfully'
     ]);
 } catch (Throwable $e) {
+    file_put_contents('debug.log', "Error: " . $e->getMessage() . "\n", FILE_APPEND);
     http_response_code(400);
     echo json_encode([
         'status'  => 'error',
