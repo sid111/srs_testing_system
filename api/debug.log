@@ -1,0 +1,29 @@
+--- New Request ---
+POST data: Array
+(
+    [product_id] => ELEC-2023-001
+    [product_name] => HV Switchgear Panel
+    [submission_date] => 2026-01-06
+    [test_date] => 2026-01-30
+    [status] => pending
+    [testing_lab] => CPRI Testing Lab
+    [cpri_reference] => CPRI-2026-0124
+    [certificate_no] => CPRI-CERT-0124
+)
+
+FILES data: Array
+(
+    [certificate_image] => Array
+        (
+            [name] => Black and White Luxury Elegant Degustation Tasting Menu_20260120_113327_0009.png
+            [full_path] => Black and White Luxury Elegant Degustation Tasting Menu_20260120_113327_0009.png
+            [type] => image/png
+            [tmp_name] => C:\xampp\tmp\phpF3F7.tmp
+            [error] => 0
+            [size] => 232557
+        )
+
+)
+
+Before try-catch block
+Success: CPRI record added successfully
