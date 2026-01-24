@@ -2,6 +2,7 @@
 session_start();
 $isAdminLoggedIn = isset($_SESSION['admin_id']);
 include("config/conn.php");
+include 'dashboard_auth.php';
 
 // --- Fetch Analytics Cards ---
 $analyticsCards = [];
@@ -1242,62 +1243,62 @@ if ($scheduledResult) {
                 const emptyRow = tableBody.querySelector("tr td[colspan='7']");
                 if (emptyRow) emptyRow.parentElement.remove();
 
-        // --- GENERATE REPORT ---
-        document.getElementById("generateReportBtn").addEventListener("click", async function(e) {
-            e.preventDefault();
-            const reportName = document.getElementById("reportName").value.trim();
-            const reportType = document.getElementById("reportType").value;
-            const productType = document.getElementById("productType").value;
-            const format = document.getElementById("format").value;
-            const generatedBy = document.getElementById("generatedBy").value;
+                // --- GENERATE REPORT ---
+                document.getElementById("generateReportBtn").addEventListener("click", async function(e) {
+                    e.preventDefault();
+                    const reportName = document.getElementById("reportName").value.trim();
+                    const reportType = document.getElementById("reportType").value;
+                    const productType = document.getElementById("productType").value;
+                    const format = document.getElementById("format").value;
+                    const generatedBy = document.getElementById("generatedBy").value;
 
-            if (!reportName) return alert("Please enter a report name.");
-            if (!reportType) return alert("Please select a report type.");
+                    if (!reportName) return alert("Please enter a report name.");
+                    if (!reportType) return alert("Please select a report type.");
 
-            const formData = new FormData();
-            formData.append("report_name", reportName);
-            formData.append("report_type", reportType);
-            formData.append("product_type", productType);
-            formData.append("format", format);
-            formData.append("generated_by", generatedBy);
+                    const formData = new FormData();
+                    formData.append("report_name", reportName);
+                    formData.append("report_type", reportType);
+                    formData.append("product_type", productType);
+                    formData.append("format", format);
+                    formData.append("generated_by", generatedBy);
 
-            try {
-                const res = await fetch("api/insert_report.php", {
-                    method: "POST",
-                    body: formData
-                });
-                if (!res.ok) return alert("Server error: " + res.status);
-                const data = await res.json();
-                if (!data.success) {
-                    alert("⚠️ Error: " + data.message);
-                    if (data.stmt_error) console.error("DB Error:", data.stmt_error);
-                    return;
-                }
+                    try {
+                        const res = await fetch("api/insert_report.php", {
+                            method: "POST",
+                            body: formData
+                        });
+                        if (!res.ok) return alert("Server error: " + res.status);
+                        const data = await res.json();
+                        if (!data.success) {
+                            alert("⚠️ Error: " + data.message);
+                            if (data.stmt_error) console.error("DB Error:", data.stmt_error);
+                            return;
+                        }
 
-                alert("✅ Report generated successfully!");
-                const tableBody = document.querySelector("#recentReportsTable tbody");
-                const emptyRow = tableBody.querySelector("tr td[colspan='7'], tr td[colspan='6']");
-                if (emptyRow) emptyRow.parentElement.remove();
+                        alert("✅ Report generated successfully!");
+                        const tableBody = document.querySelector("#recentReportsTable tbody");
+                        const emptyRow = tableBody.querySelector("tr td[colspan='7'], tr td[colspan='6']");
+                        if (emptyRow) emptyRow.parentElement.remove();
 
-                const tr = document.createElement("tr");
-                const generatedDate = new Date(data.date_generated);
-                const dateStr = generatedDate.toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric"
-                });
+                        const tr = document.createElement("tr");
+                        const generatedDate = new Date(data.date_generated);
+                        const dateStr = generatedDate.toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric"
+                        });
 
-                let statusClass = "status-processing";
-                if (data.status === "completed") statusClass = "status-completed";
-                else if (data.status === "failed") statusClass = "status-failed";
-                else if (data.status === "pending") statusClass = "status-pending";
+                        let statusClass = "status-processing";
+                        if (data.status === "completed") statusClass = "status-completed";
+                        else if (data.status === "failed") statusClass = "status-failed";
+                        else if (data.status === "pending") statusClass = "status-pending";
 
-                const testerName = data.generated_by_name || '-';
-                const isAdmin = <?php echo json_encode($isAdminLoggedIn); ?>;
+                        const testerName = data.generated_by_name || '-';
+                        const isAdmin = <?php echo json_encode($isAdminLoggedIn); ?>;
 
-                let actionsCell = '';
-                if (isAdmin) {
-                    actionsCell = `
+                        let actionsCell = '';
+                        if (isAdmin) {
+                            actionsCell = `
                     <td>
                         <div class="action-buttons">
                             <button class="action-btn edit-btn"
@@ -1313,9 +1314,9 @@ if ($scheduledResult) {
                             <button class="action-btn delete-btn" data-id="${data.report_id}"><i class="fas fa-trash"></i> Delete</button>
                         </div>
                     </td>`;
-                }
+                        }
 
-                tr.innerHTML = `
+                        tr.innerHTML = `
                     <td>
                         <a href="api/view_report.php?id=${data.report_id}" target="_blank" style="text-decoration: none; color: var(--primary-blue); font-weight: 600;">
                             ${reportName}
@@ -1328,22 +1329,22 @@ if ($scheduledResult) {
                     <td>${testerName}</td>
                     ${actionsCell}
                 `;
-                tableBody.prepend(tr);
+                        tableBody.prepend(tr);
 
-                // Attach events to new row
-                attachRowActions(tr);
+                        // Attach events to new row
+                        attachRowActions(tr);
 
-                // Reset form
-                document.getElementById("reportName").value = "";
-                document.getElementById("reportType").value = "";
-                document.getElementById("productType").value = "";
-                document.getElementById("format").value = "pdf";
-                document.getElementById("generatedBy").value = "";
-            } catch (err) {
-                console.error(err);
-                alert("❌ Unexpected error occurred.");
-            }
-        });
+                        // Reset form
+                        document.getElementById("reportName").value = "";
+                        document.getElementById("reportType").value = "";
+                        document.getElementById("productType").value = "";
+                        document.getElementById("format").value = "pdf";
+                        document.getElementById("generatedBy").value = "";
+                    } catch (err) {
+                        console.error(err);
+                        alert("❌ Unexpected error occurred.");
+                    }
+                });
 
                 let statusClass = "status-processing";
                 if (data.status === "completed") statusClass = "status-completed";
