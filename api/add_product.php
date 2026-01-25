@@ -106,7 +106,7 @@ try {
     }
     $featured = 0;
     $stmt->bind_param("ssssssdssis", $product_id, $name, $category, $voltage_rating, $certification, $description, $price, $stock, $badge, $featured, $image);
-        
+
     if ($stmt->execute()) {
         echo json_encode([
             'success' => true,
