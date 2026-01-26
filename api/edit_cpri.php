@@ -29,6 +29,7 @@ $certificate_image = $row['certificate_image'];
 
 <form id="editCpriForm" class="edit-cpri-form" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?= $row['id'] ?>">
+
     <div class="form-grid">
         <div class="form-group">
             <label class="filter-label">Product ID</label>
@@ -67,13 +68,15 @@ $certificate_image = $row['certificate_image'];
         <div class="form-group form-group-full">
             <label class="filter-label">Certificate Image</label>
             <?php if ($certificate_image && file_exists("../$certificate_image")): ?>
-                <div class="image-preview" style="width: 200px;">
-                    <img src="/srs/<?= htmlspecialchars($certificate_image) ?>" alt="Certificate Image">
+                <div class="image-preview" id="certificatePreview" style="width: 200px; max-height: 150px; overflow: hidden; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">
+                    <img src="/srs/<?= htmlspecialchars($certificate_image) ?>" alt="Certificate Image" style="width: 100%; height: auto; display: block;">
                 </div>
             <?php else: ?>
-                <p>No certificate uploaded.</p>
+                <div class="image-preview" id="certificatePreview" style="width: 200px; max-height: 150px; overflow: hidden; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">
+                    <p style="text-align:center; color:#777; font-size:0.9rem;">No certificate uploaded.</p>
+                </div>
             <?php endif; ?>
-            <input type="file" name="certificate_image" class="filter-select" accept="image/*">
+            <input type="file" name="certificate_image" class="filter-select" accept="image/*" id="certificateInput">
         </div>
     </div>
 
@@ -83,7 +86,13 @@ $certificate_image = $row['certificate_image'];
     </div>
 </form>
 
+<!-- Fullscreen Image Modal -->
+<div id="imageModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; cursor:pointer;">
+    <img id="modalImg" src="" alt="Certificate Fullscreen" style="max-width:90%; max-height:90%; border-radius:6px; box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+</div>
+
 <script>
+    // Submit form
     document.getElementById('editCpriForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(this);
@@ -104,5 +113,40 @@ $certificate_image = $row['certificate_image'];
                 console.error(err);
                 alert('Error updating CPRI record.');
             });
+    });
+
+    // Certificate live preview & fullscreen
+    const certificateInput = document.getElementById('certificateInput');
+    const certificatePreview = document.getElementById('certificatePreview');
+    const imageModal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+
+    // Live preview on file select
+    certificateInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                certificatePreview.innerHTML = `<img src="${e.target.result}" alt="Certificate Preview" style="width: 100%; height: auto; display: block;">`;
+            }
+            reader.readAsDataURL(file);
+        } else {
+            certificatePreview.innerHTML = '<p style="text-align:center; color:#777; font-size:0.9rem;">No certificate uploaded.</p>';
+        }
+    });
+
+    // Open fullscreen modal on click
+    certificatePreview.addEventListener('click', function() {
+        const img = certificatePreview.querySelector('img');
+        if (img) {
+            modalImg.src = img.src;
+            imageModal.style.display = 'flex';
+        }
+    });
+
+    // Close fullscreen modal
+    imageModal.addEventListener('click', function() {
+        imageModal.style.display = 'none';
+        modalImg.src = '';
     });
 </script>

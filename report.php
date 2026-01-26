@@ -2,7 +2,6 @@
 session_start();
 $isAdminLoggedIn = isset($_SESSION['admin_id']);
 include("config/conn.php");
-include 'dashboard_auth.php';
 
 // --- Fetch Analytics Cards ---
 $analyticsCards = [];
