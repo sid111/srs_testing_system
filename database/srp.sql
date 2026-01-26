@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2026 at 04:18 PM
+-- Generation Time: Jan 26, 2026 at 08:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -146,6 +146,7 @@ VALUES (
 CREATE TABLE `cpri_reports` (
     `id` int(6) UNSIGNED NOT NULL,
     `product_id` varchar(50) NOT NULL,
+    `product_name` varchar(255) DEFAULT NULL,
     `submission_date` date DEFAULT NULL,
     `cpri_reference` varchar(100) DEFAULT NULL,
     `test_date` date DEFAULT NULL,
@@ -170,6 +171,7 @@ INSERT INTO
     `cpri_reports` (
         `id`,
         `product_id`,
+        `product_name`,
         `submission_date`,
         `cpri_reference`,
         `test_date`,
@@ -186,26 +188,9 @@ INSERT INTO
         `report_no`
     )
 VALUES (
-        1,
-        'PRD-001',
-        '2023-10-20',
-        'CPRI-2023-1245',
-        '2023-11-05',
-        'approved',
-        'CPRI/CERT/4523/2023',
-        '2026-11-15',
-        'CPRI Central Lab, Bangalore',
-        NULL,
-        '2026-01-23 05:58:20',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL
-    ),
-    (
         2,
         'PRD-005',
+        NULL,
         '2023-11-02',
         'CPRI-2023-1356',
         '2023-11-15',
@@ -224,6 +209,7 @@ VALUES (
     (
         3,
         'PRD-002',
+        NULL,
         '2023-10-15',
         'CPRI-2023-1123',
         '2023-10-30',
@@ -233,6 +219,63 @@ VALUES (
         'CPRI Regional Lab, Chennai',
         NULL,
         '2026-01-23 05:58:20',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL
+    ),
+    (
+        7,
+        'PRD-002',
+        'Digital Energy Meter DEM-2023',
+        '2026-01-24',
+        'CPRI-2026-0124',
+        '2026-01-24',
+        'pending',
+        'CPRI-CERT-0124',
+        NULL,
+        'CPRI Testing Lab',
+        'uploads/cpri/cpri_697468d2f0138.png',
+        '2026-01-24 06:38:10',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL
+    ),
+    (
+        8,
+        'ELEC-2023-006',
+        'Digital Multimeter',
+        '2026-01-24',
+        'CPRI-2026-0124',
+        '2026-01-24',
+        'pending',
+        'CPRI-CERT-0124',
+        NULL,
+        'CPRI Testing Lab',
+        'uploads/cpri/cpri_69747281d9096.png',
+        '2026-01-24 07:19:30',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL
+    ),
+    (
+        9,
+        'ELEC-2023-001',
+        'HV Switchgear Panel',
+        '2026-01-06',
+        'CPRI-2026-0124',
+        '2026-01-30',
+        'pending',
+        'CPRI-CERT-0124',
+        NULL,
+        'CPRI Testing Lab',
+        'uploads/cpri/cpri_69747bb31fef9.png',
+        '2026-01-24 07:58:43',
         NULL,
         NULL,
         NULL,
@@ -500,6 +543,16 @@ VALUES (
         'pending',
         '3.33 MB',
         NULL
+    ),
+    (
+        22,
+        'General Testing Summary',
+        'Performance Summary',
+        '2026-01-26',
+        'pdf',
+        'pending',
+        '9.21 MB',
+        10
     );
 
 -- --------------------------------------------------------
@@ -821,6 +874,20 @@ VALUES (
         0,
         '2026-01-22 06:36:37',
         'uploads/products/product_1769063797_6971c57545de0.jpg'
+    ),
+    (
+        'PRD-013',
+        'Vegeta 3.0',
+        'transformers',
+        'lv',
+        'cpri',
+        'Goku 3.0',
+        50000.00,
+        500,
+        'popular',
+        0,
+        '2026-01-24 06:33:38',
+        'uploads/products/product_1769236418_697467c247cd0.png'
     );
 
 -- --------------------------------------------------------
@@ -1152,9 +1219,15 @@ CREATE TABLE `scheduled_reports` (
         'Custom'
     ) NOT NULL,
     `next_run` datetime NOT NULL,
-    `last_run` datetime NOT NULL,
+    `last_run` datetime DEFAULT NULL,
     `status` enum('active', 'paused') NOT NULL,
-    `report_type` varchar(100) NOT NULL
+    `report_type` varchar(100) NOT NULL,
+    `generated_by` int(11) DEFAULT NULL,
+    `start_date` date DEFAULT NULL,
+    `end_date` date DEFAULT NULL,
+    `product_type` varchar(100) DEFAULT NULL,
+    `test_status` varchar(50) DEFAULT NULL,
+    `format` varchar(50) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 --
@@ -1169,7 +1242,13 @@ INSERT INTO
         `next_run`,
         `last_run`,
         `status`,
-        `report_type`
+        `report_type`,
+        `generated_by`,
+        `start_date`,
+        `end_date`,
+        `product_type`,
+        `test_status`,
+        `format`
     )
 VALUES (
         1,
@@ -1178,7 +1257,13 @@ VALUES (
         '2023-11-16 09:00:00',
         '2023-11-15 09:00:00',
         'active',
-        'Daily Summary'
+        'Daily Summary',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL
     ),
     (
         2,
@@ -1187,7 +1272,13 @@ VALUES (
         '2023-11-20 10:00:00',
         '2023-11-13 10:00:00',
         'active',
-        'Compliance Report'
+        'Compliance Report',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL
     ),
     (
         3,
@@ -1196,7 +1287,13 @@ VALUES (
         '2023-12-01 08:00:00',
         '2023-11-01 08:00:00',
         'active',
-        'Performance Summary'
+        'Performance Summary',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL
     ),
     (
         4,
@@ -1205,7 +1302,13 @@ VALUES (
         '2024-01-01 11:00:00',
         '2023-10-01 11:00:00',
         'paused',
-        'CPRI Report'
+        'CPRI Report',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL
     );
 
 -- --------------------------------------------------------
@@ -1693,7 +1796,9 @@ ADD KEY `generated_by` (`generated_by`);
 --
 -- Indexes for table `scheduled_reports`
 --
-ALTER TABLE `scheduled_reports` ADD PRIMARY KEY (`schedule_id`);
+ALTER TABLE `scheduled_reports`
+ADD PRIMARY KEY (`schedule_id`),
+ADD KEY `generated_by` (`generated_by`);
 
 --
 -- Indexes for table `testers`
@@ -1747,7 +1852,7 @@ AUTO_INCREMENT = 5;
 --
 ALTER TABLE `cpri_reports`
 MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
-AUTO_INCREMENT = 7;
+AUTO_INCREMENT = 10;
 
 --
 -- AUTO_INCREMENT for table `dashboard_stats`
@@ -1761,7 +1866,7 @@ AUTO_INCREMENT = 2;
 --
 ALTER TABLE `generated_reports`
 MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT,
-AUTO_INCREMENT = 22;
+AUTO_INCREMENT = 23;
 
 --
 -- AUTO_INCREMENT for table `product_specs`
@@ -1838,6 +1943,12 @@ ADD CONSTRAINT `product_specs_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `pro
 ALTER TABLE `reports`
 ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `testing_records` (`test_id`),
 ADD CONSTRAINT `reports_ibfk_2` FOREIGN KEY (`generated_by`) REFERENCES `admin` (`admin_id`);
+
+--
+-- Constraints for table `scheduled_reports`
+--
+ALTER TABLE `scheduled_reports`
+ADD CONSTRAINT `scheduled_reports_ibfk_1` FOREIGN KEY (`generated_by`) REFERENCES `testers` (`tester_id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `testing_records`

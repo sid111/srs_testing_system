@@ -1108,8 +1108,7 @@ if ($scheduledResult) {
                             .then(delData => {
                                 if (delData.success) {
                                     row.remove();
-                                    // You might want to add a check here to see if the table is now empty
-                                    // and show the "No reports" message if needed.
+
                                 } else {
                                     alert("Error deleting report: " + delData.message);
                                 }
@@ -1156,10 +1155,32 @@ if ($scheduledResult) {
             const editForm = document.getElementById("editReportForm");
             const closeEditBtns = [document.getElementById("closeEditModal"), document.getElementById("cancelEdit")];
 
+            const scheduleModal = document.getElementById("scheduleReportModal");
+            const scheduleForm = document.getElementById("scheduleReportForm");
+            const scheduleBtn = document.getElementById("scheduleReportBtn");
+            const closeScheduleBtns = [document.getElementById("closeScheduleModal"), document.getElementById("cancelSchedule")];
+
+            // Open schedule modal
+            scheduleBtn.onclick = (e) => {
+                e.preventDefault();
+                const reportName = document.getElementById("reportName").value.trim();
+                const reportType = document.getElementById("reportType").value;
+
+                document.getElementById("schedule_name").value = reportName;
+                document.getElementById("schedule_report_type").value = reportType;
+                scheduleModal.style.display = "flex";
+            };
+
+            // Close schedule modal
+            closeScheduleBtns.forEach(btn => btn.onclick = () => scheduleModal.style.display = "none");
+
+
             // Close modal events
             closeEditBtns.forEach(btn => btn.onclick = () => editModal.style.display = "none");
             window.onclick = e => {
                 if (e.target === editModal) editModal.style.display = "none";
+                if (e.target === scheduleModal) scheduleModal.style.display = "none";
+
             };
 
             // Edit form submission
@@ -1239,65 +1260,28 @@ if ($scheduledResult) {
 
                 alert("✅ Report generated successfully!");
                 const tableBody = document.querySelector("#recentReportsTable tbody");
-                const emptyRow = tableBody.querySelector("tr td[colspan='7']");
+                const emptyRow = tableBody.querySelector("tr td[colspan='7'], tr td[colspan='6']");
                 if (emptyRow) emptyRow.parentElement.remove();
 
-                // --- GENERATE REPORT ---
-                document.getElementById("generateReportBtn").addEventListener("click", async function(e) {
-                    e.preventDefault();
-                    const reportName = document.getElementById("reportName").value.trim();
-                    const reportType = document.getElementById("reportType").value;
-                    const productType = document.getElementById("productType").value;
-                    const format = document.getElementById("format").value;
-                    const generatedBy = document.getElementById("generatedBy").value;
+                const tr = document.createElement("tr");
+                const generatedDate = new Date(data.date_generated);
+                const dateStr = generatedDate.toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                });
 
-                    if (!reportName) return alert("Please enter a report name.");
-                    if (!reportType) return alert("Please select a report type.");
+                let statusClass = "status-processing";
+                if (data.status === "completed") statusClass = "status-completed";
+                else if (data.status === "failed") statusClass = "status-failed";
+                else if (data.status === "pending") statusClass = "status-pending";
 
-                    const formData = new FormData();
-                    formData.append("report_name", reportName);
-                    formData.append("report_type", reportType);
-                    formData.append("product_type", productType);
-                    formData.append("format", format);
-                    formData.append("generated_by", generatedBy);
+                const testerName = data.generated_by_name || '-';
+                const isAdmin = <?php echo json_encode($isAdminLoggedIn); ?>;
 
-                    try {
-                        const res = await fetch("api/insert_report.php", {
-                            method: "POST",
-                            body: formData
-                        });
-                        if (!res.ok) return alert("Server error: " + res.status);
-                        const data = await res.json();
-                        if (!data.success) {
-                            alert("⚠️ Error: " + data.message);
-                            if (data.stmt_error) console.error("DB Error:", data.stmt_error);
-                            return;
-                        }
-
-                        alert("✅ Report generated successfully!");
-                        const tableBody = document.querySelector("#recentReportsTable tbody");
-                        const emptyRow = tableBody.querySelector("tr td[colspan='7'], tr td[colspan='6']");
-                        if (emptyRow) emptyRow.parentElement.remove();
-
-                        const tr = document.createElement("tr");
-                        const generatedDate = new Date(data.date_generated);
-                        const dateStr = generatedDate.toLocaleDateString("en-GB", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric"
-                        });
-
-                        let statusClass = "status-processing";
-                        if (data.status === "completed") statusClass = "status-completed";
-                        else if (data.status === "failed") statusClass = "status-failed";
-                        else if (data.status === "pending") statusClass = "status-pending";
-
-                        const testerName = data.generated_by_name || '-';
-                        const isAdmin = <?php echo json_encode($isAdminLoggedIn); ?>;
-
-                        let actionsCell = '';
-                        if (isAdmin) {
-                            actionsCell = `
+                let actionsCell = '';
+                if (isAdmin) {
+                    actionsCell = `
                     <td>
                         <div class="action-buttons">
                             <button class="action-btn edit-btn"
@@ -1313,9 +1297,9 @@ if ($scheduledResult) {
                             <button class="action-btn delete-btn" data-id="${data.report_id}"><i class="fas fa-trash"></i> Delete</button>
                         </div>
                     </td>`;
-                        }
+                }
 
-                        tr.innerHTML = `
+                tr.innerHTML = `
                     <td>
                         <a href="api/view_report.php?id=${data.report_id}" target="_blank" style="text-decoration: none; color: var(--primary-blue); font-weight: 600;">
                             ${reportName}
@@ -1328,54 +1312,6 @@ if ($scheduledResult) {
                     <td>${testerName}</td>
                     ${actionsCell}
                 `;
-                        tableBody.prepend(tr);
-
-                        // Attach events to new row
-                        attachRowActions(tr);
-
-                        // Reset form
-                        document.getElementById("reportName").value = "";
-                        document.getElementById("reportType").value = "";
-                        document.getElementById("productType").value = "";
-                        document.getElementById("format").value = "pdf";
-                        document.getElementById("generatedBy").value = "";
-                    } catch (err) {
-                        console.error(err);
-                        alert("❌ Unexpected error occurred.");
-                    }
-                });
-
-                let statusClass = "status-processing";
-                if (data.status === "completed") statusClass = "status-completed";
-                else if (data.status === "failed") statusClass = "status-failed";
-                else if (data.status === "pending") statusClass = "status-pending";
-
-                const testerName = data.generated_by_name || '-';
-
-                tr.innerHTML = `
-                <td>${reportName}</td>
-                <td>${data.report_type}</td>
-                <td>${dateStr}</td>
-                <td>${format.toUpperCase()}</td>
-                <td><span class="status-badge ${statusClass}">${data.status.replace("-", " ")}</span></td>
-                <td>${testerName}</td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="action-btn view-btn" data-id="${data.report_id}"><i class="fas fa-eye"></i> View</button>
-                        <button class="action-btn edit-btn"
-                            data-type="generated"
-                            data-id="${data.report_id}"
-                            data-name="${reportName}"
-                            data-rtype="${data.report_type}"
-                            data-format="${format}"
-                            data-status="${data.status}"
-                            data-generated_by="${generatedBy}">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn delete-btn" data-id="${data.report_id}"><i class="fas fa-trash"></i> Delete</button>
-                    </div>
-                </td>
-            `;
                 tableBody.prepend(tr);
 
                 // Attach events to new row
@@ -1390,6 +1326,108 @@ if ($scheduledResult) {
             } catch (err) {
                 console.error(err);
                 alert("❌ Unexpected error occurred.");
+            }
+        });
+
+        // --- SCHEDULE REPORT (FORM SUBMISSION) ---
+        document.getElementById("scheduleReportForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const scheduleName = document.getElementById("schedule_name").value.trim();
+            const reportType = document.getElementById("schedule_report_type").value;
+            const frequency = document.getElementById("schedule_frequency").value;
+            const nextRun = document.getElementById("schedule_next_run").value;
+            const lastRun = document.getElementById("schedule_last_run").value;
+            const status = document.getElementById("schedule_status").value;
+
+            if (lastRun) formData.append("last_run", lastRun);
+            formData.append("status", status);
+
+            if (!scheduleName) return alert("Please enter a schedule name.");
+            if (!reportType) return alert("Please select a report type.");
+            if (!nextRun) return alert("Please specify the next run time.");
+
+
+            const formData = new FormData();
+            formData.append("schedule_name", scheduleName);
+            formData.append("report_type", reportType);
+            formData.append("frequency", frequency);
+            formData.append("next_run", nextRun);
+
+            try {
+                const res = await fetch("api/add_schedule.php", {
+                    method: "POST",
+                    body: formData
+                });
+                if (!res.ok) return alert("Server error: " + res.status);
+                const data = await res.json();
+                if (!data.success) {
+                    alert("⚠️ Error: " + data.message);
+                    if (data.stmt_error) console.error("DB Error:", data.stmt_error);
+                    return;
+                }
+
+                alert(data.message);
+                document.getElementById("scheduleReportModal").style.display = "none";
+                this.reset();
+
+
+                const tableBody = document.querySelector("#scheduledReportsTable tbody");
+                const emptyRow = tableBody.querySelector("tr td[colspan='6'], tr td[colspan='5']");
+                if (emptyRow) emptyRow.parentElement.remove();
+
+                const tr = document.createElement("tr");
+                const nextRunDate = new Date(data.next_run);
+                const nextRunStr = nextRunDate.toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }) + " " + nextRunDate.toLocaleTimeString("en-US", {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+
+                const statusClass = data.status === "active" ? "status-completed" : "status-pending";
+                const isAdmin = <?php echo json_encode($isAdminLoggedIn); ?>;
+
+                let actionsCell = '';
+                if (isAdmin) {
+                    actionsCell = `
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn edit-btn"
+                                data-type="scheduled"
+                                data-id="${data.schedule_id}"
+                                data-name="${data.schedule_name}"
+                                data-frequency="${data.frequency}"
+                                data-next="${data.next_run}"
+                                data-status="${data.status}"
+                                data-rtype="${data.report_type}">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn" data-id="${data.schedule_id}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </td>`;
+                }
+
+                tr.innerHTML = `
+                    <td>${data.schedule_name}</td>
+                    <td>${data.frequency.charAt(0).toUpperCase() + data.frequency.slice(1)}</td>
+                    <td>${nextRunStr}</td>
+                    <td>-</td>
+                    <td><span class="status-badge ${statusClass}">${data.status}</span></td>
+                    ${actionsCell}
+                `;
+
+                tableBody.prepend(tr);
+                attachRowActions(tr);
+
+            } catch (err) {
+                console.error(err);
+                alert("❌ Unexpected error occurred while scheduling.");
             }
         });
     </script>
@@ -1438,6 +1476,63 @@ if ($scheduledResult) {
                     <div class="modal-actions">
                         <button type="submit" class="btn btn-success">Update</button>
                         <button type="button" class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Report Modal -->
+    <div class="modal-overlay" id="scheduleReportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Schedule New Report</h2>
+                <button class="close-modal" id="closeScheduleModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="scheduleReportForm">
+                    <div class="form-group">
+                        <label class="form-label" for="schedule_name">Schedule Name</label>
+                        <input type="text" class="form-control" id="schedule_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="schedule_report_type">Report Type</label>
+                        <select class="form-control" id="schedule_report_type" required>
+                            <option value="">Select Report Type</option>
+                            <?php foreach ($reportTypes as $type): ?>
+                                <option value="<?= htmlspecialchars($type['type_name']) ?>"><?= htmlspecialchars($type['type_name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="schedule-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="schedule_frequency">Frequency</label>
+                            <select class="form-control" id="schedule_frequency">
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="schedule_next_run">Next Run Time</label>
+                            <input type="datetime-local" class="form-control" id="schedule_next_run" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="schedule_last_run">Last Run (optional)</label>
+                            <input type="datetime-local" class="form-control" id="schedule_last_run">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="schedule_status">Status</label>
+                            <select class="form-control" id="schedule_status">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn-primary">Save Schedule</button>
+                        <button type="button" class="btn btn-secondary" id="cancelSchedule">Cancel</button>
                     </div>
                 </form>
             </div>
