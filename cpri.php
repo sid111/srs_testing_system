@@ -62,7 +62,6 @@
                 border: 1px solid #ccc;
                 border-radius: 4px;
             }
-
         </style>
     </head>
 
@@ -248,7 +247,66 @@
 
             </section>
 
-            <?php include 'assets/footer.php'; ?>
+            <!-- Footer -->
+            <footer>
+                <div class="container">
+                    <div class="footer-content">
+                        <!-- Column 1: Contact Info -->
+                        <div class="footer-column">
+                            <h3>Contact Us</h3>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+91 98765 43210</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>sales@srselectrical.com</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>123 Industrial Area, Phase II<br>Bengaluru, Karnataka 560058</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 2: Quick Links -->
+                        <div class="footer-column">
+                            <h3>Quick Links</h3>
+                            <a href="about.php">About Us</a>
+                            <a href="lab-testing.php">Lab Testing</a>
+                            <a href="cpri.php">CPRI Testing</a>
+                            <a href="product.php" class="active">Product Catalog</a>
+                            <a href="faqs.php">FAQs</a>
+                        </div>
+
+                        <!-- Column 3: Social Media -->
+                        <div class="footer-column">
+                            <h3>Connect With Us</h3>
+                            <p>Follow us for product updates, industry news, and special offers.</p>
+
+                            <div class="social-links">
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-bottom">
+                        <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
+                    </div>
+                </div>
+            </footer>
 
             <!-- Modal Overlay (Single, used for View/Edit/Submit) -->
             <div class="modal-overlay" id="certificateModal">

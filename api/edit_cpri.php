@@ -29,57 +29,57 @@ $certificate_image = $row['certificate_image'];
 
 <form id="editCpriForm" class="edit-cpri-form" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?= $row['id'] ?>">
+    <div class="form-grid">
+        <div class="form-group">
+            <label class="filter-label">Product ID</label>
+            <input type="text" name="product_id" class="filter-select" value="<?= $product_id ?>" required>
+        </div>
 
-    <div class="form-group">
-        <label>Product ID</label>
-        <input type="text" name="product_id" value="<?= $product_id ?>" required>
+        <div class="form-group">
+            <label class="filter-label">Product Name</label>
+            <input type="text" name="product_name" class="filter-select" value="<?= $product_name ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label class="filter-label">Submission Date</label>
+            <input type="date" name="submission_date" class="filter-select" value="<?= $submission_date ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label class="filter-label">CPRI Reference</label>
+            <input type="text" name="cpri_reference" class="filter-select" value="<?= $cpri_reference ?>">
+        </div>
+
+        <div class="form-group">
+            <label class="filter-label">Test Date</label>
+            <input type="date" name="test_date" class="filter-select" value="<?= $test_date ?>">
+        </div>
+
+        <div class="form-group">
+            <label class="filter-label">Status</label>
+            <select name="status" class="filter-select">
+                <option value="pending" <?= $status === 'pending' ? 'selected' : '' ?>>Pending</option>
+                <option value="approved" <?= $status === 'approved' ? 'selected' : '' ?>>Approved</option>
+                <option value="rejected" <?= $status === 'rejected' ? 'selected' : '' ?>>Rejected</option>
+            </select>
+        </div>
+
+        <div class="form-group form-group-full">
+            <label class="filter-label">Certificate Image</label>
+            <?php if ($certificate_image && file_exists("../$certificate_image")): ?>
+                <div class="image-preview" style="width: 200px;">
+                    <img src="/srs/<?= htmlspecialchars($certificate_image) ?>" alt="Certificate Image">
+                </div>
+            <?php else: ?>
+                <p>No certificate uploaded.</p>
+            <?php endif; ?>
+            <input type="file" name="certificate_image" class="filter-select" accept="image/*">
+        </div>
     </div>
 
-    <div class="form-group">
-        <label>Product Name</label>
-        <input type="text" name="product_name" value="<?= $product_name ?>" required>
-    </div>
-
-    <div class="form-group">
-        <label>Submission Date</label>
-        <input type="date" name="submission_date" value="<?= $submission_date ?>" required>
-    </div>
-
-    <div class="form-group">
-        <label>CPRI Reference</label>
-        <input type="text" name="cpri_reference" value="<?= $cpri_reference ?>">
-    </div>
-
-    <div class="form-group">
-        <label>Test Date</label>
-        <input type="date" name="test_date" value="<?= $test_date ?>">
-    </div>
-
-    <div class="form-group">
-        <label>Status</label>
-        <select name="status">
-            <option value="pending" <?= $status === 'pending' ? 'selected' : '' ?>>Pending</option>
-            <option value="approved" <?= $status === 'approved' ? 'selected' : '' ?>>Approved</option>
-            <option value="rejected" <?= $status === 'rejected' ? 'selected' : '' ?>>Rejected</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Certificate Image</label>
-        <?php if ($certificate_image && file_exists("../$certificate_image")): ?>
-            <div>
-                <img src="/srs/<?= htmlspecialchars($certificate_image) ?>" class="certificate-preview" alt="Certificate Image">
-            </div>
-            <p>Current file: <?= basename($certificate_image) ?></p>
-        <?php else: ?>
-            <p>No certificate uploaded.</p>
-        <?php endif; ?>
-        <input type="file" name="certificate_image" accept="image/*">
-    </div>
-
-    <div class="form-actions">
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeCertificateModal()">Cancel</button>
         <button type="submit" class="btn btn-primary">Update Record</button>
-        <button type="button" class="btn btn-secondary" onclick="closeCertificateModal()">Cancel</button>
     </div>
 </form>
 
@@ -95,7 +95,10 @@ $certificate_image = $row['certificate_image'];
             .then(res => res.json())
             .then(resp => {
                 alert(resp.message);
-                if (resp.status === 'success') closeCertificateModal();
+                if (resp.status === 'success') {
+                    closeCertificateModal();
+                    location.reload();
+                }
             })
             .catch(err => {
                 console.error(err);

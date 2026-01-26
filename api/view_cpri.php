@@ -27,38 +27,41 @@ $certificate_image = $row['certificate_image'];
 ?>
 
 <div class="view-cpri-container">
-    <p><strong>Product ID:</strong> <?= $product_id ?></p>
-    <p><strong>Product Name:</strong> <?= $product_name ?></p>
-    <p><strong>Submission Date:</strong> <?= $submission_date ?></p>
-    <p><strong>CPRI Reference:</strong> <?= $cpri_reference ?></p>
-    <p><strong>Test Date:</strong> <?= $test_date ?></p>
-    <p><strong>Status:</strong> <?= $status ?></p>
+    <div class="product-specs">
+        <div class="spec-item">
+            <span class="spec-label">Product ID:</span>
+            <span class="spec-value"><?= $product_id ?></span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Product Name:</span>
+            <span class="spec-value"><?= $product_name ?></span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Submission Date:</span>
+            <span class="spec-value"><?= $submission_date ?></span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">CPRI Reference:</span>
+            <span class="spec-value"><?= $cpri_reference ?></span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Test Date:</span>
+            <span class="spec-value"><?= $test_date ?></span>
+        </div>
+        <div class="spec-item">
+            <span class="spec-label">Status:</span>
+            <span class="spec-value"><?= $status ?></span>
+        </div>
+    </div>
 
     <?php if ($certificate_image && file_exists("../" . $certificate_image)): ?>
-        <div class="certificate-preview-wrapper">
-            <img src="/srs/<?= htmlspecialchars($certificate_image) ?>" class="certificate-preview" alt="Certificate Image">
+        <div class="certificate-preview-wrapper" style="text-align: center; margin-top: 20px;">
+            <img src="/srs/<?= htmlspecialchars($certificate_image) ?>" style="max-width: 100%; max-height: 600px; border-radius: 5px;" alt="Certificate Image">
         </div>
-        <a href="/srs/<?= htmlspecialchars($certificate_image) ?>" download class="btn btn-secondary" style="margin-top:10px;">Download Certificate</a>
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="/srs/<?= htmlspecialchars($certificate_image) ?>" download class="btn btn-primary">Download Certificate</a>
+        </div>
     <?php else: ?>
-        <p>No certificate uploaded.</p>
+        <p style="text-align: center; margin-top: 20px; color: var(--medium-gray);">No certificate uploaded.</p>
     <?php endif; ?>
 </div>
-
-<style>
-    .view-cpri-container {
-        padding: 15px;
-        font-size: 0.95rem;
-    }
-
-    .certificate-preview-wrapper {
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    .certificate-preview {
-        max-width: 100%;
-        max-height: 400px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-</style>
