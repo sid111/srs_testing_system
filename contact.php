@@ -286,6 +286,15 @@
             margin-top: 15px;
         }
 
+        .social-icon i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            width: 100%;
+            height: 100%;
+        }
+
         .social-icon-contact {
             display: flex;
             align-items: center;
@@ -299,6 +308,16 @@
             transition: var(--transition);
             font-size: 1.2rem;
         }
+
+        .social-icon-contact i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            width: 100%;
+            height: 100%;
+        }
+
 
         .social-icon-contact:hover {
             background-color: var(--accent-blue);

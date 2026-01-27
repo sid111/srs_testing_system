@@ -2,7 +2,6 @@
 <script>
     const IS_ADMIN = <?= isset($_SESSION['admin_id']) ? 'true' : 'false' ?>;
 </script>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -217,7 +216,7 @@
 
         /* Hero Section */
         .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('assets/images/product.jpeg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -390,8 +389,8 @@
         }
 
         .product-image img {
-            max-width: 80%;
-            max-height: 80%;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
             transition: var(--transition);
         }
@@ -464,6 +463,11 @@
             margin-top: auto;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
+        }
+
+        .product-footer>div:last-child {
+            display: flex;
+            gap: 10px;
         }
 
         .product-price {
@@ -751,6 +755,15 @@
             transition: var(--transition);
         }
 
+        .social-icon i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            width: 100%;
+            height: 100%;
+        }
+
         .social-icon:hover {
             background-color: var(--accent-blue);
             transform: translateY(-5px);
@@ -942,7 +955,6 @@
             transform: translateY(-2px);
         }
 
-
         @media (max-width: 768px) {
             .mobile-toggle {
                 display: block;
@@ -1099,65 +1111,6 @@
             </div>
         </section>
 
-        <!-- Product Categories -->
-        <!-- <section class="categories-section">
-            <h2 class="section-title">Browse by Category</h2>
-            <div class="categories-grid">
-                <div class="category-card" data-category="switchgear">
-                    <div class="category-icon">
-                        <i class="fas fa-toggle-on"></i>
-                    </div>
-                    <h3>Switchgear</h3>
-                    <p>Circuit breakers, contactors, relays, and protection devices</p>
-                    <div class="category-count">24 Products</div>
-                </div>
-                
-                <div class="category-card" data-category="transformers">
-                    <div class="category-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Transformers</h3>
-                    <p>Power, distribution, and instrument transformers</p>
-                    <div class="category-count">18 Products</div>
-                </div>
-                
-                <div class="category-card" data-category="testing">
-                    <div class="category-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <h3>Testing Equipment</h3>
-                    <p>Electrical testing instruments and lab equipment</p>
-                    <div class="category-count">32 Products</div>
-                </div>
-                
-                <div class="category-card" data-category="panels">
-                    <div class="category-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Control Panels</h3>
-                    <p>Custom control panels and distribution boards</p>
-                    <div class="category-count">15 Products</div>
-                </div>
-                
-                <div class="category-card" data-category="cables">
-                    <div class="category-icon">
-                        <i class="fas fa-plug"></i>
-                    </div>
-                    <h3>Cables & Accessories</h3>
-                    <p>Power cables, connectors, and cable accessories</p>
-                    <div class="category-count">28 Products</div>
-                </div>
-                
-                <div class="category-card" data-category="safety">
-                    <div class="category-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Safety Equipment</h3>
-                    <p>Personal protective equipment and safety devices</p>
-                    <div class="category-count">22 Products</div>
-                </div>
-            </div>
-        </section> -->
 
         <!-- Filters Section -->
         <section class="filters-section">
@@ -1262,7 +1215,7 @@
                         <i class="fas fa-truck"></i>
                     </div>
                     <h3>Nationwide Delivery</h3>
-                    <p>Reliable delivery across India with tracking support</p>
+                    <p>Reliable delivery across Pakistan with tracking support</p>
                 </div>
             </div>
         </section>
@@ -1414,18 +1367,18 @@
                 <!-- Column 1: Contact Info -->
                 <div class="footer-column">
                     <h3>Contact Us</h3>
-                    <div class="contact-info">
-                        <div class="contact-item">
+                    <div class="contact-info-footer">
+                        <div class="contact-item-footer">
                             <i class="fas fa-phone"></i>
-                            <span>+91 98765 43210</span>
+                            <span>+92 300 1234567</span>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item-footer">
                             <i class="fas fa-envelope"></i>
-                            <span>sales@srselectrical.com</span>
+                            <span>info@srselectrical.pk</span>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item-footer">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>123 Industrial Area, Phase II<br>Bengaluru, Karnataka 560058</span>
+                            <span>SRS Electrical Appliances Plot No 45, Industrial Area Korangi Industrial Area<br>Karachi , Pakistan</span>
                         </div>
                     </div>
                 </div>
@@ -1434,28 +1387,28 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <a href="about.php">About Us</a>
-                    <a href="lab-testing.php">Lab Testing</a>
-                    <a href="cpri.php">CPRI Testing</a>
-                    <a href="product.php" class="active">Product Catalog</a>
+                    <a href="contact.php">Contact Us</a>
+                    <a href="cpri.php">CPRI Certification</a>
                     <a href="faqs.php">FAQs</a>
+                    <a href="report.php">Testing Reports</a>
                 </div>
 
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
-                    <p>Follow us for product updates, industry news, and special offers.</p>
+                    <p>SRS Electrical Appliances is a Pakistan based electrical testing and lab automation company providing certified testing and CPRI support.</p>
 
                     <div class="social-links">
-                        <a href="#" class="social-icon">
+                        <a href="https://www.facebook.com/" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="social-icon">
+                        <a href="https://pk.linkedin.com/" class="social-icon">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
-                        <a href="#" class="social-icon">
+                        <a href="https://www.whatsapp.com/" class="social-icon">
                             <i class="fab fa-whatsapp"></i>
                         </a>
-                        <a href="#" class="social-icon">
+                        <a href="https://x.com/" class="social-icon">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </div>
@@ -1463,11 +1416,10 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
+                <p>&copy; 2026 SRS Electrical Appliances. All Rights Reserved. Karachi, Pakistan. ISO compliant testing and certification support.</p>
             </div>
         </div>
     </footer>
-
     <script>
         // Fetch products from API
         let allProducts = [];
@@ -1491,6 +1443,7 @@
                         stock: p.stock,
                         featured: p.featured,
                         image: p.image
+
                     }));
 
                     // CRITICAL FIX
@@ -1594,6 +1547,7 @@
                             `<img src="${product.image}" alt="${product.name}">` :
                             `<div class="product-image-placeholder"><i class="fas fa-bolt"></i></div>`
                         }
+                        </div>
                     </div>
                     <div class="product-content">
                         <div class="product-category">${getCategoryName(product.category)}</div>
@@ -1621,7 +1575,7 @@
                         
                        <div class="product-footer">
    <div class="product-price">
-    ₹${product.price.toLocaleString()}<small> / unit</small>
+    Rs. ${product.price.toLocaleString()}<small> / unit</small>
 </div>
 
 <div class="product-actions">
@@ -1681,6 +1635,19 @@
                 'safety': 'Safety Equipment'
             };
             return categories[category] || category;
+        }
+
+        // Get product image path based on category
+        function getProductImage(category) {
+            const images = {
+                'switchgear': 'assets/images/prodcut/Switches/American Electrical Inc. 19208-11/Switches2.jpg',
+                'transformers': 'assets/images/prodcut/Inductors/Panasonic Electronic Components ELJ-NC12NKF/inductors2.jpg',
+                'testing': 'assets/images/prodcut/Testing Equipment/lab testing 1.jpg',
+                'panels': 'assets/images/prodcut/Control Panels/product.jpeg',
+                'cables': 'assets/images/prodcut/Fuses/Cartridge Fuses/1280_cn1hNihnwl831oei.jpg',
+                'safety': 'assets/images/prodcut/Switches/American Electrical Inc. 19213-11/Switches1.jpg'
+            };
+            return images[category] || 'assets/images/prodcut/Capacitors/Panasonic Electronic Components CAP ALUM POLY 10UF 20% 6.3V SMD/SP,CB SERIES 3.3H,7.9L,5.3W.jpg'; // default image
         }
 
         // Get voltage name
@@ -1845,7 +1812,7 @@
                             <i class="fas fa-bolt" style="font-size: 4rem; color: var(--accent-blue);"></i>
                         </div>
                         <div style="margin-top: 20px; text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary-blue);">₹${product.price.toLocaleString()}</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary-blue);">₨${product.price.toLocaleString()}</div>
                             <div style="color: var(--medium-gray); margin-top: 5px;">per unit</div>
                             <div style="margin-top: 15px; color: ${product.stock > 10 ? 'var(--success-green)' : 'var(--warning-orange)'}; font-weight: 600;">
                                 <i class="fas fa-box"></i> ${product.stock} units in stock
@@ -1961,7 +1928,7 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Fetch and load products and specifications from API
+            // Fetch and load products from API
             fetchProducts();
 
             // Add event listeners to filters
@@ -1971,7 +1938,7 @@
             document.getElementById('sortFilter').addEventListener('change', filterProducts);
             document.getElementById('resetFilters').addEventListener('click', resetFilters);
 
-            // Modal close buttons
+            // Modal close button
             document.getElementById('closeProductModal').addEventListener('click', () => {
                 document.getElementById('productModal').style.display = 'none';
             });
