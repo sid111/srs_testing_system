@@ -1209,7 +1209,7 @@
                         </div>
                     </div>
 
-                    <a href="#" class="btn btn-primary" id="dashboardLoginBtn" style="margin-top: 30px;">Login to Dashboard</a>
+                    <a href="dashboard.php" class="btn btn-primary" id="dashboardLoginBtn" style="margin-top: 30px;">Login to Dashboard</a>
                 </div>
 
                 <div class="dashboard-mock">

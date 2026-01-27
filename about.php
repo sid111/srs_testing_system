@@ -575,6 +575,15 @@
             text-decoration: none;
             transition: var(--transition);
         }
+        
+         /* Footer social icons fix */
+        .social-links a,
+        .social-icons a,
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .footer-column a:hover {
             color: var(--light-blue);
@@ -1006,7 +1015,7 @@
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-content">
                 <!-- Column 1: Contact Info -->
@@ -1033,7 +1042,7 @@
                     <h3>Quick Links</h3>
                     <a href="about.php">About Us</a>
                     <a href="contact.php">Contact Us</a>
-                    <a href="cpri.php">PSQCA Certification</a>
+                    <a href="cpri.php">CPRI Certification</a>
                     <a href="faqs.php">FAQs</a>
                     <a href="report.php">Testing Reports</a>
                 </div>
@@ -1061,7 +1070,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 SRS Electrical Appliances. All Rights Reserved. Karachi, Pakistan. ISO compliant testing and certification support.</p>
+                <p>&copy; © 2026 SRS Electrical Appliances. All Rights Reserved. Karachi, Pakistan. ISO compliant testing and certification support.</p>
             </div>
         </div>
     </footer>
