@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -190,7 +191,7 @@
             margin-bottom: 30px;
             position: relative;
             top: auto;
-             z-index: 900;
+            z-index: 900;
         }
 
         .page-title {
@@ -217,10 +218,10 @@
         }
 
         /* About Page Specific Styles */
-        
+
         /* Hero Section */
         .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('assets/images/about.png');
             background-size: cover;
             background-position: center;
             color: white;
@@ -251,7 +252,8 @@
             margin-bottom: 40px;
         }
 
-        .mission-card, .vision-card {
+        .mission-card,
+        .vision-card {
             background-color: var(--white);
             padding: 30px;
             border-radius: 10px;
@@ -260,7 +262,8 @@
             transition: var(--transition);
         }
 
-        .mission-card:hover, .vision-card:hover {
+        .mission-card:hover,
+        .vision-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
@@ -273,7 +276,8 @@
             border-top: 4px solid var(--accent-blue);
         }
 
-        .mission-icon, .vision-icon {
+        .mission-icon,
+        .vision-icon {
             font-size: 3rem;
             margin-bottom: 20px;
             color: var(--primary-blue);
@@ -563,7 +567,8 @@
             left: 0;
         }
 
-        .footer-column p, .footer-column a {
+        .footer-column p,
+        .footer-column a {
             color: #bdc3c7;
             margin-bottom: 15px;
             display: block;
@@ -630,23 +635,23 @@
             .page-title {
                 font-size: 2.2rem;
             }
-            
+
             .mission-vision {
                 grid-template-columns: 1fr;
             }
-            
+
             .hero-content h1 {
                 font-size: 2.2rem;
             }
-            
+
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .timeline::before {
                 left: 30px;
             }
-            
+
             .timeline-item {
                 width: 100%;
                 left: 0 !important;
@@ -654,7 +659,7 @@
                 padding-right: 20px !important;
                 text-align: left !important;
             }
-            
+
             .timeline-item::before {
                 left: 20px !important;
             }
@@ -664,7 +669,7 @@
             .mobile-toggle {
                 display: block;
             }
-            
+
             .nav-menu {
                 position: fixed;
                 top: 80px;
@@ -678,35 +683,35 @@
                 transition: transform 0.5s ease;
                 z-index: 999;
             }
-            
+
             .nav-menu.active {
                 transform: translateY(0);
             }
-            
+
             .nav-menu li {
                 margin: 0 0 20px 0;
             }
-            
+
             .page-title {
                 font-size: 1.8rem;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
             }
-            
+
             .hero-content h1 {
                 font-size: 1.8rem;
             }
-            
+
             .hero-content p {
                 font-size: 1rem;
             }
-            
+
             .contact-cta h2 {
                 font-size: 1.6rem;
             }
-            
+
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -717,19 +722,19 @@
             .page-title {
                 font-size: 1.6rem;
             }
-            
+
             .hero-section {
                 padding: 50px 0;
             }
-            
+
             .company-info {
                 padding: 25px;
             }
-            
+
             .contact-cta {
                 padding: 40px 25px;
             }
-            
+
             .cta-button {
                 padding: 12px 30px;
                 font-size: 1rem;
@@ -737,6 +742,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header & Navigation  -->
     <header>
@@ -746,11 +752,11 @@
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
-                
+
                 <div class="mobile-toggle" id="mobileToggle">
                     <i class="fas fa-bars"></i>
                 </div>
-                
+
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php" class="active">About</a></li>
@@ -771,8 +777,8 @@
     <!-- Page Header  -->
     <header class="page-header">
         <div class="container">
-            <h1 class="page-title">About SRS Electrical</h1>
-            <p class="page-subtitle">Pioneering Excellence in Electrical Testing and Lab Automation Since 2005</p>
+            <h1 class="page-title">About SRS Electrical </h1>
+            <p class="page-subtitle">Pioneering Excellence in Electrical Testing and Lab Automation in Pakistan Since 2005</p>
         </div>
     </header>
 
@@ -782,7 +788,7 @@
         <section class="hero-section">
             <div class="hero-content">
                 <h1>Leading the Future of Electrical Testing</h1>
-                <p>With over 18 years of excellence, SRS Electrical Appliances has established itself as a trusted name in electrical testing, lab automation, and CPRI-approved certification services. We combine cutting-edge technology with expert knowledge to deliver reliable solutions.</p>
+                <p>With over 18 years of excellence, SRS Electrical Appliances has established itself as Pakistan's trusted name in electrical testing, lab automation, and PSQCA-approved certification services. Based in Karachi, we combine cutting-edge technology with expert knowledge to deliver reliable solutions for the Pakistani electrical industry.</p>
             </div>
         </section>
 
@@ -790,13 +796,13 @@
         <section>
             <h2 class="section-title">Our Story</h2>
             <div class="company-info">
-                <p>Founded in 2005 by electrical engineering pioneers, SRS Electrical Appliances began as a small testing facility in Bengaluru. Today, we have evolved into a state-of-the-art laboratory with national recognition for our testing capabilities and automation solutions.</p>
-                
-                <p>Our journey started with a simple mission: to provide accurate, reliable, and timely electrical testing services to the growing industrial sector. Over the years, we have invested in advanced testing equipment, trained certified technicians, and developed proprietary automation systems that have set new industry standards.</p>
-                
+                <p>Founded in 2005 by electrical engineering pioneers, SRS Electrical Appliances began as a small testing facility in Karachi, Pakistan. Today, we have evolved into a state-of-the-art laboratory with national recognition for our testing capabilities and automation solutions.</p>
+
+                <p>Our journey started with a simple mission: to provide accurate, reliable, and timely electrical testing services to the growing industrial sector in Pakistan. Over the years, we have invested in advanced testing equipment, trained certified technicians, and developed proprietary automation systems that have set new industry standards.</p>
+
                 <p>With a team of over 50 engineers, technicians, and quality assurance professionals, we have successfully tested more than 50,000 electrical products across various categories including switchgear, control panels, capacitors, and specialized electrical equipment.</p>
-                
-                <p>Our commitment to quality has earned us recognition from CPRI (Central Power Research Institute) and ISO 9001:2015 certification, making us a preferred testing partner for leading electrical manufacturers across India.</p>
+
+                <p>Our commitment to quality has earned us recognition from PSQCA (Pakistan Standards and Quality Control Authority) and ISO 9001:2015 certification, making us a preferred testing partner for leading electrical manufacturers across Pakistan.</p>
             </div>
         </section>
 
@@ -809,15 +815,15 @@
                         <i class="fas fa-bullseye"></i>
                     </div>
                     <h3>Our Mission</h3>
-                    <p>To provide accurate, reliable, and efficient electrical testing solutions through advanced lab automation, ensuring safety, compliance, and quality for all electrical products while maintaining the highest standards of technical excellence and customer service.</p>
+                    <p>To provide accurate, reliable, and efficient electrical testing solutions through advanced lab automation, ensuring safety, compliance, and quality for all electrical products in Pakistan while maintaining the highest standards of technical excellence and customer service.</p>
                 </div>
-                
+
                 <div class="vision-card">
                     <div class="vision-icon">
                         <i class="fas fa-eye"></i>
                     </div>
                     <h3>Our Vision</h3>
-                    <p>To become India's premier electrical testing and certification facility, recognized globally for innovation in lab automation, setting industry benchmarks for accuracy and reliability in electrical safety testing and compliance certification.</p>
+                    <p>To become Pakistan's premier electrical testing and certification facility, recognized globally for innovation in lab automation, setting industry benchmarks for accuracy and reliability in electrical safety testing and compliance certification.</p>
                 </div>
             </div>
         </section>
@@ -833,7 +839,7 @@
                     <h3>Safety First</h3>
                     <p>Ensuring the highest safety standards in all testing procedures and products we certify.</p>
                 </div>
-                
+
                 <div class="value-card">
                     <div class="value-icon">
                         <i class="fas fa-certificate"></i>
@@ -841,7 +847,7 @@
                     <h3>Quality Excellence</h3>
                     <p>Maintaining uncompromising quality in testing accuracy and certification processes.</p>
                 </div>
-                
+
                 <div class="value-card">
                     <div class="value-icon">
                         <i class="fas fa-lightbulb"></i>
@@ -849,7 +855,7 @@
                     <h3>Innovation</h3>
                     <p>Continuously upgrading our technology and methods to stay at the forefront of electrical testing.</p>
                 </div>
-                
+
                 <div class="value-card">
                     <div class="value-icon">
                         <i class="fas fa-users"></i>
@@ -871,29 +877,29 @@
                     <h3>ISO 9001:2015</h3>
                     <p>Quality Management System Certified</p>
                 </div>
-                
+
                 <div class="cert-card">
                     <div class="cert-icon">
                         <i class="fas fa-certificate"></i>
                     </div>
-                    <h3>CPRI Approved</h3>
-                    <p>Central Power Research Institute Recognition</p>
+                    <h3>PSQCA Approved</h3>
+                    <p>Pakistan Standards and Quality Control Authority</p>
                 </div>
-                
+
                 <div class="cert-card">
                     <div class="cert-icon">
                         <i class="fas fa-building"></i>
                     </div>
-                    <h3>NABL Recognition</h3>
-                    <p>National Accreditation Board for Testing</p>
+                    <h3>PSEB Recognition</h3>
+                    <p>Pakistan Standards and Evaluation Bureau</p>
                 </div>
-                
+
                 <div class="cert-card">
                     <div class="cert-icon">
                         <i class="fas fa-industry"></i>
                     </div>
-                    <h3>BIS Approved</h3>
-                    <p>Bureau of Indian Standards Compliance</p>
+                    <h3>PEPCO Approved</h3>
+                    <p>Pakistan Electric Power Company Compliance</p>
                 </div>
             </div>
         </section>
@@ -903,47 +909,47 @@
             <h2 class="section-title">Our Journey</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-year">2005</div>
-                    <div class="timeline-content">
-                        <h3>Company Foundation</h3>
-                        <p>SRS Electrical Appliances founded in Bengaluru with basic electrical testing facilities.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
                     <div class="timeline-year">2010</div>
                     <div class="timeline-content">
-                        <h3>First CPRI Approval</h3>
-                        <p>Received CPRI recognition for switchgear and transformer testing capabilities.</p>
+                        <h3>Company Foundation</h3>
+                        <p>SRS Electrical Appliances founded in Karachi with basic electrical testing facilities.</p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item">
                     <div class="timeline-year">2015</div>
                     <div class="timeline-content">
-                        <h3>ISO Certification & Expansion</h3>
-                        <p>Achieved ISO 9001:2015 certification and expanded to new 10,000 sq.ft. facility.</p>
+                        <h3>First PSQCA Approval</h3>
+                        <p>Received PSQCA recognition for switchgear and transformer testing capabilities.</p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item">
                     <div class="timeline-year">2018</div>
+                    <div class="timeline-content">
+                        <h3>ISO Certification & Expansion</h3>
+                        <p>Achieved ISO 9001:2015 certification and expanded to new 10,000 sq.ft. facility in Karachi.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
                     <div class="timeline-content">
                         <h3>Lab Automation Launch</h3>
                         <p>Introduced automated testing systems and digital reporting platform.</p>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2022</div>
-                    <div class="timeline-content">
-                        <h3>National Recognition</h3>
-                        <p>Recognized as one of India's top 10 electrical testing facilities by EEMA.</p>
-                    </div>
-                </div>
-                
+
                 <div class="timeline-item">
                     <div class="timeline-year">2023</div>
+                    <div class="timeline-content">
+                        <h3>National Recognition</h3>
+                        <p>Recognized as one of Pakistan's top 10 electrical testing facilities by PEPCO.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2026</div>
                     <div class="timeline-content">
                         <h3>Digital Dashboard Launch</h3>
                         <p>Launched real-time testing dashboard for clients to monitor progress online.</p>
@@ -961,29 +967,29 @@
                         <i class="fas fa-user-tie"></i>
                     </div>
                     <div class="team-info">
-                        <h3>Dr. Rajesh Sharma</h3>
+                        <h3>Dr. Muhammad Ali </h3>
                         <div class="position">Founder & CEO</div>
                         <p>PhD in Electrical Engineering with 25+ years experience in power systems and testing.</p>
                     </div>
                 </div>
-                
+
                 <div class="team-card">
                     <div class="team-img">
                         <i class="fas fa-user-md"></i>
                     </div>
                     <div class="team-info">
-                        <h3>Dr. Anil Verma</h3>
+                        <h3>Dr. Fahad Ahmed</h3>
                         <div class="position">Chief Technical Officer</div>
                         <p>Specialized in high voltage testing and lab automation systems development.</p>
                     </div>
                 </div>
-                
+
                 <div class="team-card">
                     <div class="team-img">
                         <i class="fas fa-user-graduate"></i>
                     </div>
                     <div class="team-info">
-                        <h3>Priya Singh</h3>
+                        <h3>Ali Raza Siddiqui</h3>
                         <div class="position">Quality Assurance Director</div>
                         <p>Leading quality control and certification processes with 15 years experience.</p>
                     </div>
@@ -994,7 +1000,7 @@
         <!-- Contact CTA -->
         <section class="contact-cta">
             <h2>Ready to Test Your Electrical Products?</h2>
-            <p>Partner with India's trusted electrical testing laboratory. Get accurate testing, CPRI certification, and comprehensive reports for your products.</p>
+            <p>Partner with Pakistan's trusted electrical testing laboratory. Get accurate testing, PSQCA certification, and comprehensive reports for your products.</p>
             <a href="contact.php" class="cta-button">Contact Our Team</a>
         </section>
     </div>
@@ -1009,7 +1015,7 @@
                     <div class="contact-info">
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>+91 98765 43210</span>
+                            <span>+92 300 1234567</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
@@ -1017,26 +1023,26 @@
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>123 Industrial Area, Phase II<br>Bengaluru, Karnataka 560058</span>
+                            <span>SRS Electrical Appliances Plot No 45, Industrial Area<br>Korangi Industrial Area Karachi, Pakistan</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
-                     <a href="about.php">About Us</a>
+                    <a href="about.php">About Us</a>
                     <a href="contact.php">Contact Us</a>
-                    <a href="cpri.php">CPRI Certification</a>
+                    <a href="cpri.php">PSQCA Certification</a>
                     <a href="faqs.php">FAQs</a>
                     <a href="report.php">Testing Reports</a>
                 </div>
-                
+
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
-                    <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
-                    
+                    <p>SRS Electrical Appliances is a Pakistan based electrical testing and lab automation company providing certified testing and CPRI support.</p>
+
                     <div class="social-links">
                         <a href="https://www.facebook.com/" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
@@ -1053,9 +1059,9 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
+                <p>&copy; 2026 SRS Electrical Appliances. All Rights Reserved. Karachi, Pakistan. ISO compliant testing and certification support.</p>
             </div>
         </div>
     </footer>
@@ -1064,14 +1070,14 @@
         // Mobile Navigation Toggle - EXACTLY SAME AS OTHER PAGES
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
-        
+
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileToggle.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            mobileToggle.innerHTML = navMenu.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' :
+                '<i class="fas fa-bars"></i>';
         });
-        
+
         // Close mobile menu when clicking on a link - EXACTLY SAME AS OTHER PAGES
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -1079,7 +1085,7 @@
                 mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
-        
+
         // Update year in footer - Same as other pages
         document.addEventListener('DOMContentLoaded', function() {
             const currentYear = new Date().getFullYear();
@@ -1088,4 +1094,5 @@
         });
     </script>
 </body>
+
 </html>

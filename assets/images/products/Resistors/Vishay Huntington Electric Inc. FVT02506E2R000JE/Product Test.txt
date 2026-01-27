@@ -1,0 +1,3 @@
+1. Resistance Measurement Purpose: Verify it still has approx. 2 Ω resistance.
+2. Power Dissipation / Load Test Purpose: Confirm it handles load without overheating.
+3. Visual Inspection

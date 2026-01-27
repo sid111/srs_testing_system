@@ -1,5 +1,4 @@
 <?php include 'config/admin_session.php'; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +27,7 @@
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
             --danger-red: #d32f2f;
+
         }
 
         html {
@@ -983,11 +983,10 @@
                         <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <a href="report.php">Report</a>
-                            <a href="contact.php">CPRI Testing</a>
+                            <a href="cpri.php">CPRI Testing</a>
                         </div>
                     </li>
                     <li><a href="product.php">Product Catalog</a></li>
-                    <li><a href="contact.php">Contact Us</a></li>
                     <li>
                         <?php if ($isAdminLoggedIn): ?>
                             <a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
@@ -995,7 +994,6 @@
                             <a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a>
                         <?php endif; ?>
                     </li>
-
                 </ul>
             </nav>
         </div>
@@ -1050,62 +1048,45 @@
         </div>
     </div>
 
+
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-slider">
             <!-- Slide 1 -->
-            <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+            <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/images/slider 1.jpg');">
                 <div class="slide-overlay"></div>
                 <div class="slide-content">
                     <h1>Reliable Electrical Testing and Lab Automation</h1>
                     <p>In-house testing and CPRI approved solutions for industrial and commercial applications</p>
                     <div class="hero-buttons">
                         <a href="lab-testing.php" class="btn btn-primary">View Testing Services</a>
-                        <a href="<?php echo $isAdminLoggedIn ? 'dashboard.php' : '#'; ?>"
-                            class="btn btn-secondary"
-                            <?php if (!$isAdminLoggedIn): ?>
-                            onclick="alert('Please login to access dashboard'); return false;"
-                            <?php endif; ?>>
-                            Explore Dashboard
-                        </a>
+                        <a href="product.php" class="btn btn-secondary">Explore Catalogue</a>
                     </div>
                 </div>
             </div>
 
             <!-- Slide 2 -->
-            <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');">
+            <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/images/slider 2.jpg');">
                 <div class="slide-overlay"></div>
                 <div class="slide-content">
                     <h1>Precision Switchgear Testing</h1>
                     <p>Advanced testing facilities for high and low voltage switchgear with certified results</p>
                     <div class="hero-buttons">
                         <a href="lab-testing.php" class="btn btn-primary">View Testing Services</a>
-                        <a href="<?php echo $isAdminLoggedIn ? 'dashboard.php' : '#'; ?>"
-                            class="btn btn-secondary"
-                            <?php if (!$isAdminLoggedIn): ?>
-                            onclick="alert('Please login to access dashboard'); return false;"
-                            <?php endif; ?>>
-                            Explore Dashboard
-                        </a>
+                        <a href="product.php" class="btn btn-secondary">Explore Catalogue</a>
                     </div>
                 </div>
             </div>
 
             <!-- Slide 3 -->
-            <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+            <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/images/slider 3.png');">
                 <div class="slide-overlay"></div>
                 <div class="slide-content">
                     <h1>Automation Control Panels</h1>
                     <p>State-of-the-art automation solutions for industrial processes and quality control</p>
                     <div class="hero-buttons">
                         <a href="lab-testing.php" class="btn btn-primary">View Testing Services</a>
-                        <a href="<?php echo $isAdminLoggedIn ? 'dashboard.php' : '#'; ?>"
-                            class="btn btn-secondary"
-                            <?php if (!$isAdminLoggedIn): ?>
-                            onclick="alert('Please login to access dashboard'); return false;"
-                            <?php endif; ?>>
-                            Explore Dashboard
-                        </a>
+                        <a href="product.php" class="btn btn-secondary">Explore Catalogue</a>
                     </div>
                 </div>
             </div>
@@ -1130,7 +1111,7 @@
                 <!-- Product 1 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <i class="fas fa-cogs"></i>
+                        <img src="assets/images/products/Switches/American Electrical Inc. 19208-11/Switches2.jpg" alt="Switchgear" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                     </div>
                     <div class="product-info">
                         <h3>Switchgear</h3>
@@ -1141,7 +1122,7 @@
                 <!-- Product 2 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <i class="fas fa-fire-extinguisher"></i>
+                        <img src="assets/images/products/Fuses/Automotive - Fuses/1280_AhKF3MDdCUp83245.jpg" alt="Fuses" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                     </div>
                     <div class="product-info">
                         <h3>Fuses</h3>
@@ -1152,7 +1133,7 @@
                 <!-- Product 3 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <i class="fas fa-bolt"></i>
+                        <img src="assets/images/Capacitors_(7189597135).jpg" alt="Capacitors" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                     </div>
                     <div class="product-info">
                         <h3>Capacitors</h3>
@@ -1163,7 +1144,7 @@
                 <!-- Product 4 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <i class="fas fa-resistance"></i>
+                        <img src="assets/images/products/Resistors/Vishay Huntington Electric Inc. FVT02506E2R000JE/FVT SERIES.jpg" alt="Resistors" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                     </div>
                     <div class="product-info">
                         <h3>Resistors</h3>
@@ -1174,7 +1155,7 @@
                 <!-- Product 5 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <i class="fas fa-sliders-h"></i>
+                        <img src="assets/images/product.jpeg" alt="Control Panels" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                     </div>
                     <div class="product-info">
                         <h3>Control Panels</h3>
@@ -1185,7 +1166,7 @@
                 <!-- Product 6 -->
                 <div class="product-card">
                     <div class="product-img">
-                        <i class="fas fa-tachometer-alt"></i>
+                        <img src="assets/images/lab testing 1.jpg" alt="Testing Equipment" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                     </div>
                     <div class="product-info">
                         <h3>Testing Equipment</h3>
@@ -1284,7 +1265,7 @@
                     <div class="contact-info">
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>+91 98765 43210</span>
+                            <span>+92 300 1234567</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
@@ -1292,7 +1273,7 @@
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>123 Industrial Area, Phase II<br>Bengaluru, Karnataka 560058</span>
+                            <span>SRS Electrical Appliances Plot No 45, Industrial Area<br>Korangi Industrial Area Karachi, Pakistan</span>
                         </div>
                     </div>
                 </div>
@@ -1310,7 +1291,7 @@
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
-                    <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
+                    <p>SRS Electrical Appliances is a Pakistan based electrical testing and lab automation company providing certified testing and CPRI support.</p>
 
                     <div class="social-links">
                         <a href="https://www.facebook.com/" class="social-icon">
@@ -1330,7 +1311,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
+                <p>&copy; © 2026 SRS Electrical Appliances. All Rights Reserved. Karachi, Pakistan. ISO compliant testing and certification support.</p>
             </div>
         </div>
     </footer>

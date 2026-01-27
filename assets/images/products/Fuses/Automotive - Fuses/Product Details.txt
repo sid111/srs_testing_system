@@ -1,0 +1,27 @@
+Littelfuse LF15A – 15 A automotive blade fuse Overview
+
+Protect vehicle electrical circuits from overcurrent
+
+Designed for 12 V and 24 V DC systems
+
+Single-use protective device (not resettable)
+
+Available in blade, maxi, glass tube, and ceramic types
+
+Current ratings typically 1 A to 80 A+
+
+Voltage rating usually 32 V DC
+
+Available as fast-acting or time-delay (slow-blow)
+
+Color-coded (blade fuses) to indicate amp rating
+
+Marked with ampere value on body
+
+Blade fuses have two flat terminals, tube fuses have metal end caps
+
+Resistant to vibration, shock, and temperature variations
+
+Mounted in fuse boxes or holders for easy replacement
+
+Prevent wiring damage, component failure, and fire hazards

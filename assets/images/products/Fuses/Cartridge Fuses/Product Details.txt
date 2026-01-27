@@ -1,0 +1,31 @@
+Product Details FVTS05R2E35R00JE
+
+Manufacturer Vishay Huntington Electric Inc.
+
+Part Number FVTS05R2E35R00JE
+
+Type Wirewound chassis-mount resistor
+
+Resistance 35 Ω
+
+Tolerance ±5%
+
+Power Rating 5 W
+
+Temperature Coefficient ±260 ppm°C
+
+Operating Temperature Range –55 °C to +350 °C
+
+Construction Wirewound resistor
+
+CoatingHousing Vitreous enamel coated (protective high-temperature finish)
+
+Mounting Style Chassis mount (brackets not included)
+
+Lead Style Combo leads for connectionsoldering
+
+Package  Case Radial tubular body
+
+RoHS Compliance ROHS3 compliant
+
+Typical Dimensions ~0.313″ diameter × 1.000″ length (~7.94 mm × 25.40 mm)

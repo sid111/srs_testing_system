@@ -1,0 +1,3 @@
+1. Inductance Measurement Purpose: Verify the inductance is near the rated value (1.2 mH).
+2. DC Resistance (DCR) Check Purpose: Ensure the coil is not open or shorted.
+3. Continuity Test (Quick Check) Purpose: Check basic connectivity.

@@ -1,0 +1,5 @@
+1)Visual Inspection (Basic but important)
+2)Capacitance Test Purpose: Verify nominal value and tolerance
+3)Dissipation Factor (tan δ) Purpose: Loss measurement
+4)DC Leakage Current Test Purpose: Verify insulation integrity
+5)ESR (Equivalent Series Resistance) Test ⭐ (Very Important for Polymer Caps) Purpose: Ensure low ESR performance

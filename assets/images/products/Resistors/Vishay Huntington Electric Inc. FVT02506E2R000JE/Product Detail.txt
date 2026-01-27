@@ -1,0 +1,35 @@
+FVT02506E2R000JE Overview
+Mfr : Vishay Huntington Electric Inc.
+
+Product Status : Active
+
+Height - Seated (Max) : -
+
+Size / Dimension : 0.563" Dia x 2.000" L (14.30mm x 50.80mm)
+
+Series : FVT
+
+Search and view FVT02506E2R000JE product parameter table at blikai.
+
+blikai provides original electronic components with low prices, fast delivery, excellent after sales service with no minimum order requirements.
+
+FVT02506E2R000JE Applications
+Load Simulation
+
+LED Current Control
+
+Pull-up and Pull-down Resistors
+
+Current Limiting
+
+Voltage Division
+
+Signal Termination
+
+Filter Networks
+
+Temperature Sensing
+
+Biasing Active Components
+
+Voltage Dropping

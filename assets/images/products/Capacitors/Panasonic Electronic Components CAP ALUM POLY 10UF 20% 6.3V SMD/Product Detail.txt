@@ -1,0 +1,31 @@
+ECG-C0JB100R Overview
+Package : Tape & Reel (TR)
+
+Mfr : Panasonic Electronic Components
+
+Product Status : Obsolete
+
+Search and view ECG-C0JB100R product parameter table at blikai.
+
+blikai provides original electronic components with low prices, fast delivery, excellent after sales service with no minimum order requirements.
+
+ECG-C0JB100R Applications
+Coupling and Decoupling
+
+Filtering and Smoothing
+
+Timing Circuits
+
+Energy Storage
+
+Sensor Signal Conditioning
+
+Audio Amplifiers
+
+Power Factor Correction
+
+Energy Storage for Flash Devices
+
+Motor Starting and Running
+
+Resonant Circuits

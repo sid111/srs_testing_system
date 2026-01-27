@@ -1,0 +1,35 @@
+FVTS05R2E35R00JE Overview
+Height - Seated (Max) : -
+
+Mfr : Vishay Huntington Electric Inc.
+
+Product Status : Active
+
+Series : FVTS
+
+Size / Dimension : 0.313" Dia x 1.000" L (7.94mm x 25.40mm)
+
+Search and view FVTS05R2E35R00JE product parameter table at blikai.
+
+blikai provides original electronic components with low prices, fast delivery, excellent after sales service with no minimum order requirements.
+
+FVTS05R2E35R00JE Applications
+Load Simulation
+
+Signal Termination
+
+Voltage Division
+
+Pull-up and Pull-down Resistors
+
+Biasing Active Components
+
+Temperature Sensing
+
+Voltage Dropping
+
+Current Limiting
+
+LED Current Control
+
+Filter Networks

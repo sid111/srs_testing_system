@@ -1,0 +1,5 @@
+1. Capacitance Measurement Purpose: Check if it still holds near the rated value.
+2. ESR (Equivalent Series Resistance) Test Purpose: Polymer capacitors are valued for very low ESR — high ESR indicates aging or damage.
+3. Leakage Current Purpose: Measure how much DC leakage flows; high leakage means internal deterioration.
+4. Insulation / Dielectric Test (Optional) Purpose: Ensure no short/partial short inside.
+5. Ripple Current / Heating Test (Functional Test)Purpose:To confirm the capacitor can handle AC ripple current without overheating or performance degradation. This is important because polymer capacitors are mainly used in power supply rails.

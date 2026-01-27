@@ -1,0 +1,3 @@
+1. Continuity / Resistance Test (Simple Pass/Fail) Purpose: Quickly check if the fuse is blown.
+2. Voltage Drop Test (In-Circuit) Purpose: Check if fuse is carrying current properly without removing from circuit (if safe to do so).
+3. Rated Current Pass Test (Functional Load Test) Purpose: Confirm the fuse survives at its rated current and will blow at high overloads doing real protection work.

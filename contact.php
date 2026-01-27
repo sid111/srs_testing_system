@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | SRS Electrical Appliances</title>
+    <title>Contact Us | SRS Electrical Appliances (Pakistan)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Base Styles and Reset - EXACTLY SAME AS OTHER PAGES */
@@ -190,7 +191,7 @@
             margin-bottom: 30px;
             position: relative;
             top: auto;
-             z-index: 900;
+            z-index: 900;
         }
 
         .page-title {
@@ -425,8 +426,13 @@
         }
 
         @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
         }
 
         .map-details {
@@ -528,7 +534,8 @@
             left: 0;
         }
 
-        .footer-column p, .footer-column a {
+        .footer-column p,
+        .footer-column a {
             color: #bdc3c7;
             margin-bottom: 15px;
             display: block;
@@ -609,8 +616,15 @@
         }
 
         @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         .notification-success {
@@ -626,16 +640,16 @@
             .page-title {
                 font-size: 2.2rem;
             }
-            
+
             .contact-layout {
                 grid-template-columns: 1fr;
                 gap: 30px;
             }
-            
+
             .map-details {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -645,7 +659,7 @@
             .mobile-toggle {
                 display: block;
             }
-            
+
             .nav-menu {
                 position: fixed;
                 top: 80px;
@@ -659,27 +673,27 @@
                 transition: transform 0.5s ease;
                 z-index: 999;
             }
-            
+
             .nav-menu.active {
                 transform: translateY(0);
             }
-            
+
             .nav-menu li {
                 margin: 0 0 20px 0;
             }
-            
+
             .page-title {
                 font-size: 1.8rem;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
             }
-            
+
             .map-details {
                 grid-template-columns: 1fr;
             }
-            
+
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -690,24 +704,27 @@
             .page-title {
                 font-size: 1.6rem;
             }
-            
-            .contact-info, .contact-form-container, .map-container, .hours-container {
+
+            .contact-info,
+            .contact-form-container,
+            .map-container,
+            .hours-container {
                 padding: 20px;
             }
-            
+
             .contact-item {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .contact-icon {
                 margin-bottom: 10px;
             }
-            
+
             .map-placeholder {
                 height: 300px;
             }
-            
+
             .notification {
                 left: 20px;
                 right: 20px;
@@ -716,6 +733,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header & Navigation  -->
     <header>
@@ -725,25 +743,25 @@
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
-                
+
                 <div class="mobile-toggle" id="mobileToggle">
                     <i class="fas fa-bars"></i>
                 </div>
-                
+
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
                     <li class="dropdown">
                         <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                          
+
                             <a href="report.php">Reports</a>
                             <a href="cpri.php">CPRI Testing</a>
                         </div>
                     </li>
                     <li><a href="product.php">Product Catalog</a></li>
                     <li><a href="contact.php" class="active">Contact Us</a></li>
-                    
+
                 </ul>
             </nav>
         </div>
@@ -753,7 +771,7 @@
     <header class="page-header">
         <div class="container">
             <h1 class="page-title">Contact Us</h1>
-            <p class="page-subtitle">Get in touch with our electrical testing experts. We're here to help with all your testing needs.</p>
+            <p class="page-subtitle">Get in touch with our electrical testing experts in Pakistan. We're here to help with all your testing needs.</p>
         </div>
     </header>
 
@@ -772,24 +790,25 @@
                             </div>
                             <div class="contact-content">
                                 <h3>Our Location</h3>
-                                <p>123 Industrial Area, Phase II<br>
-                                   Bengaluru, Karnataka 560058<br>
-                                   India</p>
+                                <p>SRS Electrical Appliances Plot No 45, Industrial Area
+                                    Korangi Industrial Area<br>
+                                    Karachi, Pakistan<br>
+                                </p>
                             </div>
                         </div>
-                        
+
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fas fa-phone"></i>
                             </div>
                             <div class="contact-content">
                                 <h3>Phone Numbers</h3>
-                                <p>Main Office: +91 98765 43210<br>
-                                   Testing Lab: +91 98765 43211<br>
-                                   Support: +91 98765 43212</p>
+                                <p>Main Office: +92 300 1234567<br>
+                                    Testing Lab: +92 300 1234568<br>
+                                    Support: +92 300 1234569</p>
                             </div>
                         </div>
-                        
+
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fas fa-envelope"></i>
@@ -797,24 +816,24 @@
                             <div class="contact-content">
                                 <h3>Email Addresses</h3>
                                 <p>General Inquiries: info@srselectrical.com<br>
-                                   Testing Services: testing@srselectrical.com<br>
-                                   Support: support@srselectrical.com</p>
+                                    Testing Services: testing@srselectrical.com<br>
+                                    Support: support@srselectrical.com</p>
                             </div>
                         </div>
-                        
+
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="contact-content">
                                 <h3>Business Hours</h3>
-                                <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
-                                   Saturday: 9:00 AM - 2:00 PM<br>
-                                   Sunday: Closed</p>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM (PKT)<br>
+                                    Saturday: 9:00 AM - 2:00 PM (PKT)<br>
+                                    Sunday: Closed</p>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="social-contact">
                         <h3 style="color: var(--primary-blue); margin-bottom: 15px;">Follow Us</h3>
                         <div class="social-icons">
@@ -842,27 +861,27 @@
                             <label class="form-label" for="name">Full Name *</label>
                             <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="email">Email Address *</label>
                             <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="phone">Contact Number *</label>
                             <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="company">Company Name</label>
                             <input type="text" class="form-control" id="company" placeholder="Enter your company name">
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="address">Address</label>
                             <textarea class="form-control" id="address" placeholder="Enter your complete address"></textarea>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="service">Service Required</label>
                             <select class="form-select" id="service">
@@ -875,12 +894,12 @@
                                 <option value="other">Other Services</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="message">Message *</label>
                             <textarea class="form-control" id="message" placeholder="Enter your message" required></textarea>
                         </div>
-                        
+
                         <button type="submit" class="submit-btn">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
@@ -894,28 +913,28 @@
             <h2 class="section-title">Find Our Location</h2>
             <div class="map-container">
                 <div class="map-placeholder">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <p>Interactive Map Location</p>
-                    <small style="margin-top: 5px;">Bengaluru, Karnataka, India</small>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28945.266669828372!2d67.05923211083986!3d24.926675499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb338caa5ac57cb%3A0x2c4b1fc512ab6bb!2sAptech%20Gulshan-e-Iqbal!5e0!3m2!1sen!2s!4v1769067006041!5m2!1sen!2s" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
                 </div>
-                
+
                 <div class="map-details">
                     <div class="map-detail-item">
                         <div class="map-detail-icon">
-                            <i class="fas fa-subway"></i>
+                            <i class="fas fa-train"></i>
                         </div>
-                        <h4>Nearest Metro</h4>
-                        <p>Peenya Industrial Metro Station (1.2 km)</p>
+                        <h4>Nearest Railway</h4>
+                        <p>Karachi Cantonment Railway Station (2.5 km)</p>
                     </div>
-                    
+
                     <div class="map-detail-item">
                         <div class="map-detail-icon">
                             <i class="fas fa-bus"></i>
                         </div>
                         <h4>Bus Station</h4>
-                        <p>Peenya 2nd Stage Bus Stop (500 m)</p>
+                        <p>Saddar Bus Stop (1 km)</p>
                     </div>
-                    
+
                     <div class="map-detail-item">
                         <div class="map-detail-icon">
                             <i class="fas fa-car"></i>
@@ -932,7 +951,7 @@
             <h2 class="section-title">Testing Lab Hours</h2>
             <div class="hours-container">
                 <p style="margin-bottom: 20px; color: var(--medium-gray);">Our testing laboratory operates on a schedule to ensure quality service. Please note the following hours for different services:</p>
-                
+
                 <table class="hours-table">
                     <tr>
                         <td>General Testing</td>
@@ -959,7 +978,7 @@
                         <td>Monday - Friday: 2:00 PM - 5:00 PM</td>
                     </tr>
                 </table>
-                
+
                 <div class="hours-note">
                     <i class="fas fa-info-circle"></i> For emergency testing services outside business hours, please contact us via phone for special arrangements.
                 </div>
@@ -983,34 +1002,35 @@
                     <div class="contact-info-footer">
                         <div class="contact-item-footer">
                             <i class="fas fa-phone"></i>
-                            <span>+91 98765 43210</span>
+                            <span>+92 300 1234567</span>
                         </div>
                         <div class="contact-item-footer">
                             <i class="fas fa-envelope"></i>
-                            <span>info@srselectrical.com</span>
+                            <span>info@srselectrical.pk</span>
                         </div>
                         <div class="contact-item-footer">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>123 Industrial Area, Phase II<br>Bengaluru, Karnataka 560058</span>
+                            <span>SRS Electrical Appliances Plot No 45, Industrial Area
+                                Korangi Industrial Area<br>Karachi , Pakistan</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
-                     <a href="about.php">About Us</a>
+                    <a href="about.php">About Us</a>
                     <a href="contact.php">Contact Us</a>
                     <a href="cpri.php">CPRI Certification</a>
                     <a href="faqs.php">FAQs</a>
                     <a href="report.php">Testing Reports</a>
                 </div>
-                
+
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
-                    <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
-                    
+                    <p>SRS Electrical Appliances is a Pakistan based electrical testing and lab automation company providing certified testing and CPRI support.</p>
+
                     <div class="social-links">
                         <a href="https://www.facebook.com/" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
@@ -1027,9 +1047,9 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
+                <p>&copy; 2026 SRS Electrical Appliances. All Rights Reserved. Karachi, Pakistan. ISO compliant testing and certification support.</p>
             </div>
         </div>
     </footer>
@@ -1038,14 +1058,14 @@
         // Mobile Navigation Toggle - 
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
-        
+
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileToggle.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            mobileToggle.innerHTML = navMenu.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' :
+                '<i class="fas fa-bars"></i>';
         });
-        
+
         // Close mobile menu when clicking on a link 
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -1053,15 +1073,15 @@
                 mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
-        
+
         // Contact Form Submission
         const contactForm = document.getElementById('contactForm');
         const notification = document.getElementById('notification');
         const notificationText = document.getElementById('notificationText');
-        
+
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // Get form values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
@@ -1070,38 +1090,38 @@
             const address = document.getElementById('address').value;
             const service = document.getElementById('service').value;
             const message = document.getElementById('message').value;
-            
+
             // Basic validation
             if (!name || !email || !phone || !message) {
                 showNotification('Please fill in all required fields', false);
                 return;
             }
-            
+
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 showNotification('Please enter a valid email address', false);
                 return;
             }
-            
+
             // Phone validation (basic)
             const phoneRegex = /^[0-9\-\+\s\(\)]{10,}$/;
             if (!phoneRegex.test(phone.replace(/\D/g, ''))) {
                 showNotification('Please enter a valid phone number', false);
                 return;
             }
-            
+
             // Simulate form submission
             showNotification('Sending your message...', true);
-            
+
             // In a real application, you would send data to server here
             setTimeout(() => {
                 // Show success message
                 showNotification('Message sent successfully! We will contact you soon.', true);
-                
+
                 // Reset form
                 contactForm.reset();
-                
+
                 // Log form data (in real app, this would be sent to server)
                 console.log('Contact Form Submitted:', {
                     name,
@@ -1115,29 +1135,29 @@
                 });
             }, 1500);
         });
-        
+
         // Show notification function
         function showNotification(message, isSuccess = true) {
             notificationText.textContent = message;
             notification.className = `notification ${isSuccess ? 'notification-success' : 'notification-error'}`;
             notification.style.display = 'flex';
-            
+
             // Update icon
             const icon = notification.querySelector('i');
             icon.className = isSuccess ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
-            
+
             // Hide after 4 seconds
             setTimeout(() => {
                 notification.style.display = 'none';
             }, 4000);
         }
-        
+
         // Update year in footer - Same as other pages
         document.addEventListener('DOMContentLoaded', function() {
             const currentYear = new Date().getFullYear();
             const yearElement = document.querySelector('.footer-bottom p');
             yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
-            
+
             // Add animation to map placeholder
             const mapPlaceholder = document.querySelector('.map-placeholder');
             setInterval(() => {
@@ -1149,4 +1169,5 @@
         });
     </script>
 </body>
+
 </html>
