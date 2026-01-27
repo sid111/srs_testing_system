@@ -922,18 +922,30 @@ if ($scheduledResult) {
                     <span class="logo-text">SRS Electrical</span>
                 </a>
 
-                <div class="mobile-toggle" id="mobileToggle">
-                    <i class="fas fa-bars"></i>
-                </div>
+                <div class="sidebar-section">
+                    <!-- Quick Actions -->
+                    <div class="quick-actions-container">
+                        <h3 style="font-size: 1.4rem; color: var(--primary-blue); margin-bottom: 20px;">Quick Actions</h3>
+                        <div class="actions-grid">
+                            <button class="action-btn" onclick="openStartTestModal()">
+                                <i class="fas fa-flask action-icon"></i>
+                                <span class="action-text">Start Test</span>
+                            </button>
+                            <?php if (isset($_SESSION['admin_id'])): ?>
+                                <button class="action-btn" onclick="openGenerateReportModal()">
+                                    <i class="fas fa-file-download action-icon"></i>
+                                    <span class="action-text">Generate Report</span>
+                                </button>
+                            <?php endif; ?>
+                            <button class="action-btn" onclick="openAddProductModal()">
+                                <i class="fas fa-box-open action-icon"></i>
+                                <span class="action-text">Add Product</span>
+                            </button>
+                            <button class="action-btn" onclick="openAddCpriModal()">
+                                <i class="fas fa-certificate action-icon"></i>
+                                <span class="action-text">Add CPRI</span>
+                            </button>
 
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="about.php">About</a></li>
-                    <li class="dropdown">
-                        <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-content">
-                            <a href="report.php">Reports</a>
-                            <a href="cpri.php">CPRI Testing</a>
                         </div>
                     </li>
                     <li><a href="product.php">Product Catalog</a></li>
