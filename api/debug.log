@@ -27,3 +27,46 @@ FILES data: Array
 
 Before try-catch block
 Success: CPRI record added successfully
+--- New Request ---
+POST data: Array
+(
+    [product_id] => ELEC-2023-001
+    [product_name] => HV Switchgear Panel
+    [submission_date] => 2026-01-06
+)
+
+FILES data: Array
+(
+)
+
+Before try-catch block
+Success: CPRI record added successfully
+--- New Request ---
+POST data: Array
+(
+    [product_id] => PRD-002
+    [product_name] => Digital Energy Meter DEM-2023
+    [submission_date] => 2026-01-27
+    [test_date] => 2026-03-26
+    [status] => pending
+    [testing_lab] => CPRI Testing Lab
+    [cpri_reference] => CPRI-2026-0127
+    [certificate_no] => CPRI-CERT-0127
+)
+
+FILES data: Array
+(
+    [certificate_image] => Array
+        (
+            [name] => Black and White Luxury Elegant Degustation Tasting Menu_20260120_113327_0002.png
+            [full_path] => Black and White Luxury Elegant Degustation Tasting Menu_20260120_113327_0002.png
+            [type] => image/png
+            [tmp_name] => C:\xampp\tmp\phpBF4A.tmp
+            [error] => 0
+            [size] => 235869
+        )
+
+)
+
+Before try-catch block
+Success: CPRI record added successfully
