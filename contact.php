@@ -1,3 +1,4 @@
+<?php include 'config/admin_session.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
