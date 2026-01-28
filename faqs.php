@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -190,7 +191,7 @@
             margin-bottom: 30px;
             position: relative;
             top: auto;
-             z-index: 900;
+            z-index: 900;
         }
 
         .page-title {
@@ -217,7 +218,7 @@
         }
 
         /* FAQs Page Specific Styles */
-        
+
         /* Search Bar */
         .search-section {
             background-color: var(--white);
@@ -227,13 +228,13 @@
             margin-bottom: 40px;
             text-align: center;
         }
-        
+
         .search-container {
             position: relative;
             max-width: 700px;
             margin: 0 auto;
         }
-        
+
         .search-box {
             width: 100%;
             padding: 18px 25px;
@@ -242,13 +243,13 @@
             font-size: 1.1rem;
             transition: var(--transition);
         }
-        
+
         .search-box:focus {
             outline: none;
             border-color: var(--accent-blue);
             box-shadow: 0 0 0 3px rgba(42, 134, 186, 0.2);
         }
-        
+
         .search-btn {
             position: absolute;
             right: 5px;
@@ -263,22 +264,22 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        
+
         .search-btn:hover {
             background: var(--primary-blue);
         }
-        
+
         /* FAQ Categories */
         .categories-section {
             margin-bottom: 40px;
         }
-        
+
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 25px;
         }
-        
+
         .category-card {
             background-color: var(--white);
             padding: 30px 20px;
@@ -289,27 +290,27 @@
             cursor: pointer;
             border-top: 4px solid var(--accent-blue);
         }
-        
+
         .category-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-        
+
         .category-card.active {
             background-color: #e9f7fe;
             border-top-color: var(--primary-blue);
         }
-        
+
         .category-icon {
             font-size: 2.5rem;
             color: var(--accent-blue);
             margin-bottom: 15px;
         }
-        
+
         .category-card.active .category-icon {
             color: var(--primary-blue);
         }
-        
+
         /* FAQ Items */
         .faq-container {
             background-color: var(--white);
@@ -318,16 +319,16 @@
             overflow: hidden;
             margin-bottom: 40px;
         }
-        
+
         .faq-section {
             padding: 30px;
             border-bottom: 1px solid var(--border-color);
         }
-        
+
         .faq-section:last-child {
             border-bottom: none;
         }
-        
+
         .faq-item {
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
@@ -335,15 +336,15 @@
             overflow: hidden;
             transition: var(--transition);
         }
-        
+
         .faq-item:last-child {
             margin-bottom: 0;
         }
-        
+
         .faq-item:hover {
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-        
+
         .faq-question {
             padding: 20px;
             cursor: pointer;
@@ -355,34 +356,34 @@
             background-color: #f8f9fa;
             transition: var(--transition);
         }
-        
+
         .faq-question:hover {
             background-color: #e9f7fe;
         }
-        
+
         .faq-toggle {
             color: var(--accent-blue);
             font-size: 1.2rem;
             transition: transform 0.3s ease;
         }
-        
+
         .faq-item.active .faq-toggle {
             transform: rotate(180deg);
             color: var(--primary-blue);
         }
-        
+
         .faq-answer {
             padding: 0 20px;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease, padding 0.3s ease;
         }
-        
+
         .faq-item.active .faq-answer {
             padding: 0 20px 20px;
             max-height: 1000px;
         }
-        
+
         /* Contact Section */
         .contact-cta {
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
@@ -392,13 +393,13 @@
             text-align: center;
             margin-bottom: 40px;
         }
-        
+
         .contact-cta h2 {
             font-size: 2rem;
             margin-bottom: 20px;
             color: white;
         }
-        
+
         .contact-cta p {
             font-size: 1.1rem;
             margin-bottom: 30px;
@@ -407,7 +408,7 @@
             margin-right: auto;
             opacity: 0.9;
         }
-        
+
         .cta-button {
             display: inline-block;
             background-color: white;
@@ -419,13 +420,13 @@
             transition: var(--transition);
             font-size: 1.1rem;
         }
-        
+
         .cta-button:hover {
             background-color: var(--light-blue);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         /* Footer - EXACTLY SAME AS OTHER PAGES */
         footer {
             background-color: #2c3e50;
@@ -459,7 +460,8 @@
             left: 0;
         }
 
-        .footer-column p, .footer-column a {
+        .footer-column p,
+        .footer-column a {
             color: #bdc3c7;
             margin-bottom: 15px;
             display: block;
@@ -526,11 +528,11 @@
             .page-title {
                 font-size: 2.2rem;
             }
-            
+
             .categories-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -540,7 +542,7 @@
             .mobile-toggle {
                 display: block;
             }
-            
+
             .nav-menu {
                 position: fixed;
                 top: 80px;
@@ -554,43 +556,43 @@
                 transition: transform 0.5s ease;
                 z-index: 999;
             }
-            
+
             .nav-menu.active {
                 transform: translateY(0);
             }
-            
+
             .nav-menu li {
                 margin: 0 0 20px 0;
             }
-            
+
             .page-title {
                 font-size: 1.8rem;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
             }
-            
+
             .search-section {
                 padding: 30px 20px;
             }
-            
+
             .categories-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .faq-section {
                 padding: 20px;
             }
-            
+
             .contact-cta h2 {
                 font-size: 1.6rem;
             }
-            
+
             .contact-cta {
                 padding: 40px 25px;
             }
-            
+
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -601,25 +603,25 @@
             .page-title {
                 font-size: 1.6rem;
             }
-            
+
             .search-box {
                 padding: 15px 20px;
                 font-size: 1rem;
             }
-            
+
             .faq-question {
                 padding: 15px;
                 font-size: 1rem;
             }
-            
+
             .faq-answer {
                 padding: 0 15px;
             }
-            
+
             .faq-item.active .faq-answer {
                 padding: 0 15px 15px;
             }
-            
+
             .cta-button {
                 padding: 12px 30px;
                 font-size: 1rem;
@@ -627,6 +629,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header & Navigation -->
     <header>
@@ -636,24 +639,31 @@
                     <i class="fas fa-bolt logo-icon"></i>
                     <span class="logo-text">SRS Electrical</span>
                 </a>
-                
+
                 <div class="mobile-toggle" id="mobileToggle">
                     <i class="fas fa-bars"></i>
                 </div>
-                
+
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
-                    <li class="dropdown">
-                        <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-content">
-                            <a href="report.php">Reports</a>
-                            <a href="cpri.php">CPRI Testing</a>
-                        </div>
-                    </li>
                     <li><a href="product.php">Product Catalog</a></li>
-                    <li><a href="contact.php">Contact Us</a></li>
-            
+                    <li class="dropdown">
+                        <?php if ($isAdminLoggedIn): ?>
+                            <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
+                            <div class="dropdown-content">
+                                <a href="report.php">Report</a>
+                                <a href="cpri.php">CPRI Testing</a>
+                            </div>
+                        <?php endif; ?>
+                    </li>
+                    <li>
+                        <?php if ($isAdminLoggedIn): ?>
+                            <a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
+                        <?php else: ?>
+                            <a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a>
+                        <?php endif; ?>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -673,7 +683,7 @@
         <section class="search-section">
             <h2 class="section-title">How Can We Help You?</h2>
             <p>Search for answers to your questions about our testing services, products, and certifications</p>
-            
+
             <div class="search-container">
                 <input type="text" class="search-box" id="searchBox" placeholder="Type your question here...">
                 <button class="search-btn" id="searchBtn">
@@ -693,7 +703,7 @@
                     <h3>All Questions</h3>
                     <p>View all frequently asked questions</p>
                 </div>
-                
+
                 <div class="category-card" data-category="testing">
                     <div class="category-icon">
                         <i class="fas fa-flask"></i>
@@ -701,7 +711,7 @@
                     <h3>Testing Services</h3>
                     <p>Lab testing procedures and reports</p>
                 </div>
-                
+
                 <div class="category-card" data-category="cpri">
                     <div class="category-icon">
                         <i class="fas fa-certificate"></i>
@@ -709,7 +719,7 @@
                     <h3>CPRI Certification</h3>
                     <p>Certification process and requirements</p>
                 </div>
-                
+
                 <div class="category-card" data-category="products">
                     <div class="category-icon">
                         <i class="fas fa-box"></i>
@@ -717,7 +727,7 @@
                     <h3>Products</h3>
                     <p>Electrical products and specifications</p>
                 </div>
-                
+
                 <div class="category-card" data-category="general">
                     <div class="category-icon">
                         <i class="fas fa-question-circle"></i>
@@ -734,7 +744,7 @@
                 <!-- Testing Services Section -->
                 <div class="faq-section" id="testing-section">
                     <h2 class="section-title">Testing Services</h2>
-                    
+
                     <div class="faq-item" data-category="testing">
                         <div class="faq-question">
                             <span>What types of electrical testing do you offer?</span>
@@ -744,7 +754,7 @@
                             <p>We offer comprehensive electrical testing services including high voltage testing, dielectric strength testing, insulation resistance testing, temperature rise testing, short circuit testing, and environmental testing. Our lab is equipped to test switchgear, control panels, transformers, capacitors, cables, and various electrical appliances as per national and international standards.</p>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item" data-category="testing">
                         <div class="faq-question">
                             <span>How long does the testing process typically take?</span>
@@ -754,7 +764,7 @@
                             <p>The testing duration depends on the type and complexity of tests required. Standard tests usually take 3-5 working days, while comprehensive testing packages may take 7-10 working days. For urgent requirements, we offer expedited testing services with a 24-48 hour turnaround time (additional charges apply). You can track the progress of your testing through our online dashboard.</p>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item" data-category="testing">
                         <div class="faq-question">
                             <span>What standards do you follow for testing?</span>
@@ -764,7 +774,7 @@
                             <p>We follow national standards (IS/IEC), international standards (IEC, IEEE, ANSI), and specific customer requirements. Our lab is accredited to test as per IS 13947 (switchgear), IS 8623 (control panels), IS 12640 (capacitors), and various other Indian and international standards. We also conduct testing as per CPRI guidelines for high voltage equipment.</p>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item" data-category="testing">
                         <div class="faq-question">
                             <span>Do you provide testing for imported electrical equipment?</span>
@@ -775,11 +785,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- CPRI Certification Section -->
                 <div class="faq-section" id="cpri-section">
                     <h2 class="section-title">CPRI Certification</h2>
-                    
+
                     <div class="faq-item" data-category="cpri">
                         <div class="faq-question">
                             <span>What is CPRI certification and why is it important?</span>
@@ -789,7 +799,7 @@
                             <p>CPRI (Central Power Research Institute) certification is a mandatory requirement for electrical equipment used in power transmission and distribution systems in India. It ensures that the equipment meets safety, performance, and reliability standards set by CPRI. This certification is crucial for switchgear, transformers, insulators, and other high-voltage equipment to be used in government projects, utilities, and large industrial installations.</p>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item" data-category="cpri">
                         <div class="faq-question">
                             <span>How do I apply for CPRI certification through your lab?</span>
@@ -799,7 +809,7 @@
                             <p>You can apply for CPRI certification by submitting an application along with technical specifications of your product. Our team will guide you through the documentation requirements and testing procedures. Once testing is completed successfully, we prepare the test report and submit it to CPRI for certification. The entire process typically takes 4-6 weeks depending on the product complexity.</p>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item" data-category="cpri">
                         <div class="faq-question">
                             <span>What are the costs associated with CPRI certification?</span>
@@ -810,11 +820,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Products Section -->
                 <div class="faq-section" id="products-section">
                     <h2 class="section-title">Products</h2>
-                    
+
                     <div class="faq-item" data-category="products">
                         <div class="faq-question">
                             <span>What types of electrical products do you test?</span>
@@ -824,7 +834,7 @@
                             <p>We test a wide range of electrical products including LV/MV switchgear, control panels, distribution boards, transformers, capacitors, circuit breakers, contactors, relays, meters, cables, wiring accessories, and electrical appliances. Our testing capabilities cover products from household electrical items to industrial power equipment.</p>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item" data-category="products">
                         <div class="faq-question">
                             <span>Do you test custom-designed electrical panels?</span>
@@ -835,11 +845,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- General Questions Section -->
                 <div class="faq-section" id="general-section">
                     <h2 class="section-title">General Questions</h2>
-                    
+
                     <div class="faq-item" data-category="general">
                         <div class="faq-question">
                             <span>Where is your testing laboratory located?</span>
@@ -849,7 +859,7 @@
                             <p>Our main testing laboratory is located in Bengaluru, Karnataka. We have a 15,000 sq.ft. facility equipped with state-of-the-art testing equipment. We also have collection centers in major industrial cities across India for sample collection and dispatch. For specific address details, please visit our Contact Us page.</p>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item" data-category="general">
                         <div class="faq-question">
                             <span>What are your working hours?</span>
@@ -859,7 +869,7 @@
                             <p>Our laboratory operates from Monday to Saturday, 9:00 AM to 6:00 PM. For urgent testing requirements, we offer 24/7 emergency testing services with prior appointment. Our customer support team is available from 8:00 AM to 8:00 PM on all working days.</p>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item" data-category="general">
                         <div class="faq-question">
                             <span>How can I track my testing progress?</span>
@@ -869,7 +879,7 @@
                             <p>Once you submit your samples for testing, you will receive a unique tracking ID. You can use this ID to track your testing progress through our online client portal. We also send regular email updates at key milestones of the testing process. For real-time updates, you can contact our customer support team.</p>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item" data-category="general">
                         <div class="faq-question">
                             <span>Do you provide testing services for international clients?</span>
@@ -913,7 +923,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Column 2: Quick Links -->
                 <div class="footer-column">
                     <h3>Quick Links</h3>
@@ -923,12 +933,12 @@
                     <a href="faqs.php" class="active">FAQs</a>
                     <a href="reoprt.php">Testing Reports</a>
                 </div>
-                
+
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
                     <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
-                    
+
                     <div class="social-links">
                         <a href="https://www.facebook.com/" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
@@ -945,7 +955,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
             </div>
@@ -956,14 +966,14 @@
         // Mobile Navigation Toggle - EXACTLY SAME AS OTHER PAGES
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
-        
+
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileToggle.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            mobileToggle.innerHTML = navMenu.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' :
+                '<i class="fas fa-bars"></i>';
         });
-        
+
         // Close mobile menu when clicking on a link - EXACTLY SAME AS OTHER PAGES
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -971,7 +981,7 @@
                 mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
-        
+
         // FAQ Toggle Functionality
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
@@ -979,7 +989,7 @@
                 faqItem.classList.toggle('active');
             });
         });
-        
+
         // Category Filtering
         document.querySelectorAll('.category-card').forEach(card => {
             card.addEventListener('click', () => {
@@ -988,9 +998,9 @@
                     item.classList.remove('active');
                 });
                 card.classList.add('active');
-                
+
                 const selectedCategory = card.getAttribute('data-category');
-                
+
                 // Show/hide FAQs based on category
                 document.querySelectorAll('.faq-item').forEach(faq => {
                     if (selectedCategory === 'all' || faq.getAttribute('data-category') === selectedCategory) {
@@ -999,7 +1009,7 @@
                         faq.style.display = 'none';
                     }
                 });
-                
+
                 // Show/hide section titles based on whether they have visible FAQs
                 document.querySelectorAll('.faq-section').forEach(section => {
                     const visibleFaqs = section.querySelectorAll('.faq-item[style="display: block"]').length;
@@ -1011,24 +1021,24 @@
                 });
             });
         });
-        
+
         // Search Functionality
         const searchBox = document.getElementById('searchBox');
         const searchBtn = document.getElementById('searchBtn');
-        
+
         function performSearch() {
             const searchTerm = searchBox.value.toLowerCase();
-            
+
             if (searchTerm.trim() === '') {
                 // If search is empty, show all FAQs
                 document.querySelectorAll('.faq-item').forEach(faq => {
                     faq.style.display = 'block';
                 });
-                
+
                 document.querySelectorAll('.faq-section').forEach(section => {
                     section.style.display = 'block';
                 });
-                
+
                 // Reset category to "All"
                 document.querySelectorAll('.category-card').forEach(item => {
                     item.classList.remove('active');
@@ -1036,22 +1046,22 @@
                         item.classList.add('active');
                     }
                 });
-                
+
                 return;
             }
-            
+
             // Filter FAQs based on search term
             document.querySelectorAll('.faq-item').forEach(faq => {
                 const question = faq.querySelector('.faq-question span').textContent.toLowerCase();
                 const answer = faq.querySelector('.faq-answer p').textContent.toLowerCase();
-                
+
                 if (question.includes(searchTerm) || answer.includes(searchTerm)) {
                     faq.style.display = 'block';
                 } else {
                     faq.style.display = 'none';
                 }
             });
-            
+
             // Show/hide section titles based on search results
             document.querySelectorAll('.faq-section').forEach(section => {
                 const visibleFaqs = section.querySelectorAll('.faq-item[style="display: block"]').length;
@@ -1061,20 +1071,20 @@
                     section.style.display = 'none';
                 }
             });
-            
+
             // Update category to indicate search is active
             document.querySelectorAll('.category-card').forEach(item => {
                 item.classList.remove('active');
             });
         }
-        
+
         searchBtn.addEventListener('click', performSearch);
         searchBox.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 performSearch();
             }
         });
-        
+
         // Expand first FAQ item in each category for better UX
         document.querySelectorAll('.faq-section').forEach(section => {
             const firstFaq = section.querySelector('.faq-item');
@@ -1082,7 +1092,7 @@
                 firstFaq.classList.add('active');
             }
         });
-        
+
         // Update year in footer - Same as other pages
         document.addEventListener('DOMContentLoaded', function() {
             const currentYear = new Date().getFullYear();
@@ -1091,4 +1101,5 @@
         });
     </script>
 </body>
+
 </html>

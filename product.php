@@ -1078,16 +1078,23 @@
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
+                    <li><a href="product.php">Product Catalog</a></li>
                     <li class="dropdown">
-                        <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-content">
-                            <a href="report.php">Reports</a>
-                            <a href="cpri.php">CPRI Testing</a>
-                        </div>
+                        <?php if ($isAdminLoggedIn): ?>
+                            <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
+                            <div class="dropdown-content">
+                                <a href="report.php">Report</a>
+                                <a href="cpri.php">CPRI Testing</a>
+                            </div>
+                        <?php endif; ?>
                     </li>
-                    <li><a href="product.php" class="active">Product Catalog</a></li>
-                    <li><a href="contact.php">Contact Us</a></li>
-
+                    <li>
+                        <?php if ($isAdminLoggedIn): ?>
+                            <a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
+                        <?php else: ?>
+                            <a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a>
+                        <?php endif; ?>
+                    </li>
                 </ul>
             </nav>
         </div>

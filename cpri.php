@@ -66,28 +66,43 @@
     </head>
 
     <body>
-        <!-- Header & Navigation -->
-        <header>
-            <div class="container">
-                <nav class="navbar">
-                    <a href="index.php" class="logo"> <i class="fas fa-bolt logo-icon"></i> <span class="logo-text">SRS Electrical</span> </a>
-                    <div class="mobile-toggle" id="mobileToggle"> <i class="fas fa-bars"></i> </div>
-                    <ul class="nav-menu" id="navMenu">
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="about.php">About</a></li>
-                        <li class="dropdown">
-                            <a href="lab-testing.php" class="active">Lab Testing <i class="fas fa-chevron-down"></i></a>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.php" class="logo">
+                    <i class="fas fa-bolt logo-icon"></i>
+                    <span class="logo-text">SRS Electrical</span>
+                </a>
+
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php">About</a></li>
+                    <li><a href="product.php">Product Catalog</a></li>
+                    <li class="dropdown">
+                        <?php if ($isAdminLoggedIn): ?>
+                            <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
                             <div class="dropdown-content">
-                                <a href="report.php">Reports</a>
+                                <a href="report.php">Report</a>
                                 <a href="cpri.php">CPRI Testing</a>
                             </div>
-                        </li>
-                        <li><a href="product.php">Product Catalog</a></li>
-                        <li><a href="contact.php">Contact Us</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+                        <?php endif; ?>
+                    </li>
+                    <li>
+                        <?php if ($isAdminLoggedIn): ?>
+                            <a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
+                        <?php else: ?>
+                            <a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a>
+                        <?php endif; ?>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
         <!-- Page Header -->
         <header class="page-header">
