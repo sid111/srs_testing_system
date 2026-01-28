@@ -925,7 +925,7 @@ $reportTypes = [
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="productPrice">Price (₹) <span style="color: red;">*</span></label>
+                                <label for="productPrice">Price (Rs. ) <span style="color: red;">*</span></label>
                                 <input type="number" id="productPrice" name="price" step="0.01" min="0" required>
                             </div>
                             <div class="form-group">
