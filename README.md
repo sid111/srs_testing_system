@@ -1,51 +1,75 @@
-# SRS Electrical Appliances
+# SRS Electrical Appliances - Lab Automation & Electrical Testing
 
-This is a web application for SRS Electrical Appliances, a company that specializes in electrical testing. The application provides a platform for managing products, tests, and test results.
+This project is a web-based Product Testing System for SRS Electrical Appliances, a company specializing in lab automation and electrical testing. The application is built with PHP and uses a MySQL database to manage products, testing procedures, and reporting.
+
+## Overview
+
+The SRS application provides a centralized platform for managing the entire lifecycle of electrical appliance testing. It includes a public-facing website with information about the company's services and a secure admin dashboard for managing the testing process.
 
 ## Features
 
-*   **Product Catalog:** View and manage a catalog of electrical products.
-*   **Lab Testing:** Track products that are currently under testing.
-*   **Dashboard:** View key statistics and performance metrics related to product testing.
-*   **Admin Login:** Secure admin area for managing the application.
+- **Public Website:** A responsive website with information about the company, its products, and services.
+- **Admin Dashboard:** A secure dashboard for administrators to manage the testing process.
+- **Product Management:** Add, view, and manage the products to be tested.
+- **Testing Workflow:** Initiate tests, track their status, and record results.
+- **CPRI Testing:** Manage the submission of products for CPRI testing and certification.
+- **Report Generation:** Generate and manage test reports in various formats (PDF, DOC, etc.).
+- **User Management:** A registration and login system for administrators.
 
 ## Technologies Used
 
-*   **Frontend:** HTML, CSS, JavaScript
-*   **Backend:** PHP
-*   **Database:** MySQL / MariaDB
+- **Backend:** PHP
+- **Frontend:** HTML, CSS, JavaScript
+- **Database:** MySQL
+- **Other:** Chart.js (for data visualization in the dashboard)
 
-## Database Schema
+## Setup and Installation
 
-The database schema is defined in the `database/srp.sql` file. It consists of the following tables:
+1.  **Prerequisites:**
+    - A web server with PHP support (e.g., Apache, Nginx).
+    - A MySQL database server.
 
-*   `admin`: Stores admin user credentials.
-*   `products`: Stores product information.
-*   `tests`: Stores information about different types of tests.
-*   `testers`: Stores information about the technicians who perform the tests.
-*   `testing_records`: Stores the results of the tests performed on the products.
-*   `product_specs`: Stores additional specifications for each product.
+2.  **Clone the repository:**
 
-## API
+    ```bash
+    git clone <repository-url>
+    ```
 
-The application uses a set of PHP scripts in the `api/` directory to provide a RESTful API for the frontend.
+3.  **Database Setup:**
+    - Create a new database named `srp`.
+    - Import the database schema from `database/srp.sql`.
 
-*   `get_products.php`: Retrieves a list of all products.
-*   `add_product.php`: Adds a new product to the database.
-*   `get_test_results.php`: Retrieves a list of all test results.
-*   `add_test_result.php`: Adds a new test result.
-*   `get_dashboard_stats.php`: Retrieves statistics for the dashboard.
+4.  **Configuration:**
+    - Update the database connection details in `config/conn.php` if they are different from the default:
+      ```php
+      <?php
+      $conn = mysqli_connect("localhost", "root", "", "srp");
+      if (!$conn) die("Database connection failed");
+      ```
+    - The login credentials in `login_handler.php` are also hardcoded to the same values.
 
-## Setup
+5.  **Running the application:**
+    - Place the project files in the web root of your server (e.g., `htdocs` for XAMPP).
+    - Access the application through your web browser.
 
-1.  Create a new database named `srp`.
-2.  Import the `database/srp.sql` file into the `srp` database.
-3.  Place the project files in your web server's document root (e.g., `htdocs` for XAMPP).
-4.  Update the database connection details in `config/conn.php` if necessary.
-5.  Access the application through your web browser.
+## Database
 
-## Admin Credentials
+The database schema is located in `database/srp.sql`. The main tables are:
 
-Default admin credentials are:
-**Username:** admin
-**Password:** admin123
+- `admin`: Stores administrator credentials.
+- `products`: Stores information about the electrical products.
+- `generated_reports`: Stores information about the generated test reports.
+- `cpri_reports`: Stores information about CPRI submissions.
+- `testers`: Stores information about the testers.
+
+## API Endpoints
+
+The `api/` directory contains a set of PHP scripts that serve as API endpoints for various actions, such as:
+
+- `add_product.php`: Adds a new product.
+- `add_report.php`: Adds a new report.
+- `add_test_result.php`: Adds a new test result.
+- `delete_product.php`: Deletes a product.
+- `get_products.php`: Retrieves a list of products.
+- `update_product.php`: Updates a product.
+- and more...
