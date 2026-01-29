@@ -1,7 +1,7 @@
 <?php
 session_start();
 $isAdminLoggedIn = isset($_SESSION['admin_id']);
-include("config/conn.php");
+include("../config/conn.php");
 
 // --- Fetch Testers ---
 $testers = [];
