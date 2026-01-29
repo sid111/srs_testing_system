@@ -991,7 +991,7 @@
         <header class="page-header">
             <div class="container">
                 <h1 class="page-title">Lab Testing</h1>
-                <p class="page-subtitle">Electrical Lab Automation System - Product Testing Dashboard</p>
+                <p class="page-subtitle">Pakistan's Leading Electrical Lab Automation System - Product Testing Dashboard</p>
             </div>
         </header>
 
@@ -1009,42 +1009,42 @@
             <section class="lab-testing-section">
                 <h2 class="section-title">Lab Testing Facilities</h2>
                 <p style="margin-bottom: 30px; color: var(--medium-gray);">Our state-of-the-art testing equipment
-                    ensures accurate and reliable results for all electrical products.</p>
+                    ensures accurate and reliable results for all electrical products, compliant with Pakistan Engineering Council (PEC) standards and international certifications.</p>
 
                 <div class="image-slider-container">
                     <div class="image-slider" id="imageSlider">
                         <!-- Slide 1 -->
                         <div class="slide"
-                            style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                            style="background-image: url('assets/images/lab testing 1.jpg');">
                             <div class="slide-content">
                                 <div>
                                     <h3 class="slide-title">High Voltage Testing Lab</h3>
                                     <p class="slide-description">Advanced equipment for testing switchgear and
-                                        transformers up to 33kV</p>
+                                        transformers up to 33kV, compliant with Pakistan's electrical grid standards</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Slide 2 -->
                         <div class="slide"
-                            style="background-image: url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');">
+                            style="background-image: url('assets/images/lab testing 2.avif');">
                             <div class="slide-content">
                                 <div>
                                     <h3 class="slide-title">Automation Control Testing</h3>
                                     <p class="slide-description">Precision testing of control panels and automation
-                                        systems</p>
+                                        systems, supporting Pakistan's growing industrial automation sector</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Slide 3 -->
                         <div class="slide"
-                            style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                            style="background-image: url('assets/images/lab testing 3.jpg');">
                             <div class="slide-content">
                                 <div>
                                     <h3 class="slide-title">Safety Compliance Testing</h3>
                                     <p class="slide-description">Comprehensive safety and compliance testing for all
-                                        electrical appliances</p>
+                                        electrical appliances, meeting Pakistan Standards & Quality Control Authority (PSQCA) requirements</p>
                                 </div>
                             </div>
                         </div>
@@ -1079,7 +1079,7 @@
                                     <th>Product Name</th>
                                     <th>Product Type</th>
                                     <th>Test Status</th>
-                                    <th>Tester Name</th>
+                                    <th>Lab Engineer</th>
                                 </tr>
                             </thead>
                             <tbody id="productTableBody">
@@ -1189,18 +1189,19 @@
                 <!-- Column 1: Contact Info -->
                 <div class="footer-column">
                     <h3>Contact Us</h3>
-                    <div class="contact-info">
-                        <div class="contact-item">
+                    <div class="contact-info-footer">
+                        <div class="contact-item-footer">
                             <i class="fas fa-phone"></i>
-                            <span>+91 98765 43210</span>
+                            <span>+92 300 1234567</span>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item-footer">
                             <i class="fas fa-envelope"></i>
-                            <span>info@srselectrical.com</span>
+                            <span>info@srselectrical.pk</span>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item-footer">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>123 Industrial Area, Phase II<br>Bengaluru, Karnataka 560058</span>
+                            <span>SRS Electrical Appliances Plot No 45, Industrial Area
+                                Korangi Industrial Area<br>Karachi , Pakistan</span>
                         </div>
                     </div>
                 </div>
@@ -1212,13 +1213,13 @@
                     <a href="contact.php">Contact Us</a>
                     <a href="cpri.php">CPRI Certification</a>
                     <a href="faqs.php">FAQs</a>
-                    <a href="reoprt.php">Testing Reports</a>
+                    <a href="report.php">Testing Reports</a>
                 </div>
 
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
-                    <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
+                    <p>SRS Electrical Appliances is a Pakistan based electrical testing and lab automation company providing certified testing and CPRI support.</p>
 
                     <div class="social-links">
                         <a href="https://www.facebook.com/" class="social-icon">
@@ -1238,8 +1239,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved
-                    Testing Facility</p>
+                <p>&copy; 2026 SRS Electrical Appliances. All Rights Reserved. Karachi, Pakistan. ISO compliant testing and certification support.</p>
             </div>
         </div>
     </footer>

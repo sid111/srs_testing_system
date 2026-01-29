@@ -860,7 +860,7 @@ $reportTypes = [
                 </div>
             </header>
 
-            <!-- Stats Grid (Visual only, matching dashboardnew.php) -->
+            <!-- Stats Grid -->
             <div class="container">
                 <div class="stats-grid">
                     <div class="stat-card">
