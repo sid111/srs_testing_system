@@ -971,15 +971,6 @@
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
                     <li><a href="product.php">Product Catalog</a></li>
-                    <li class="dropdown">
-                        <?php if ($isAdminLoggedIn): ?>
-                            <a href="lab-testing.php">Lab Testing <i class="fas fa-chevron-down"></i></a>
-                            <div class="dropdown-content">
-                                <a href="report.php">Report</a>
-                                <a href="cpri.php">CPRI Testing</a>
-                            </div>
-                        <?php endif; ?>
-                    </li>
                     <li>
                         <?php if ($isAdminLoggedIn): ?>
                             <a href="config/logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
