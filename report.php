@@ -108,13 +108,18 @@ if ($scheduledResult) {
             padding: 30px 0;
         }
 
-        header {
+        header.main-header {
             background-color: var(--white);
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
+
+        .page-header {
+            position: static;
+        }
+
 
         .navbar {
             display: flex;
@@ -799,7 +804,7 @@ if ($scheduledResult) {
 
 <body>
     <!-- Header & Navigation -->
-    <header>
+    <header class="main-header">
         <div class="container">
             <nav class="navbar">
                 <a href="index.php" class="logo">
