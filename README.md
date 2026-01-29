@@ -46,7 +46,7 @@ The SRS application provides a centralized platform for managing the entire life
       $conn = mysqli_connect("localhost", "root", "", "srp");
       if (!$conn) die("Database connection failed");
       ```
-    - The login credentials in `login_handler.php` are also hardcoded to the same values.
+    - The login credentials in `config/login_handler.php` are also hardcoded to the same values.
 
 5.  **Running the application:**
     - Place the project files in the web root of your server (e.g., `htdocs` for XAMPP).

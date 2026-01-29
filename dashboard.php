@@ -1,5 +1,5 @@
 <?php
-include 'dashboard_auth.php';
+include 'config/dashboard_auth.php';
 $isAdminLoggedIn = isset($_SESSION['admin_id']);
 include("config/conn.php");
 
@@ -845,7 +845,7 @@ $reportTypes = [
             </div>
 
             <div class="sidebar-section">
-                <a href="logout.php" class="nav-list" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: var(--danger-red); font-weight: 700; text-decoration: none; transition: var(--transition); margin-top: auto;">
+                <a href="config/logout.php" class="nav-list" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: var(--danger-red); font-weight: 700; text-decoration: none; transition: var(--transition); margin-top: auto;">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>

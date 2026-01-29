@@ -1090,7 +1090,7 @@
                     </li>
                     <li>
                         <?php if ($isAdminLoggedIn): ?>
-                            <a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
+                            <a href="config/logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
                         <?php else: ?>
                             <a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a>
                         <?php endif; ?>

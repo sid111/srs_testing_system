@@ -991,7 +991,7 @@
                     </li>
                     <li>
                         <?php if ($isAdminLoggedIn): ?>
-                            <a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
+                            <a href="config/logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a>
                         <?php else: ?>
                             <a href="dashboard.php" class="btn login-btn" id="loginBtn">Login</a>
                         <?php endif; ?>
@@ -1044,7 +1044,7 @@
                 </div>
 
                 <div class="register-link">
-                    Don't have an account? <a href="register.php" id="registerLink">Register here</a>
+                    Don't have an account? <a href="config/register.php" id="registerLink">Register here</a>
                 </div>
             </form>
         </div>
@@ -1387,7 +1387,7 @@
             formData.append('password', password);
             formData.append('remember', remember ? 1 : 0);
 
-            fetch('login_handler.php', {
+            fetch('config/login_handler.php', {
                     method: 'POST',
                     body: formData
                 })

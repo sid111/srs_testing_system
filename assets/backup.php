@@ -938,7 +938,7 @@ if ($scheduledResult) {
                     </li>
                     <li><a href="product.php">Product Catalog</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
-                    <li><a href="logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a></li>
+                    <li><a href="config/logout.php" style="color: var(--danger-red); font-weight: 700;">Logout</a></li>
                 </ul>
             </nav>
         </div>
