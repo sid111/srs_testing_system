@@ -1324,7 +1324,7 @@ $reportTypes = [
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="modal-buttons">
+                    <div class="modal-buttons" style="justify-content: center;">
                         <button type="submit" class="btn-submit">Update</button>
                         <button type="button" class="btn-submit" style="background-color: #6c757d;" id="cancelEdit">Cancel</button>
                     </div>
@@ -1459,341 +1459,338 @@ $reportTypes = [
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-                    // --- Navigation Logic ---
-                    const navBtns = document.querySelectorAll('.nav-btn');
-                    const tableSections = document.querySelectorAll('.table-section');
-                    const formContainers = document.querySelectorAll('.form-container');
-                    const qaBtns = document.querySelectorAll('.qa-btn');
+            // --- Navigation Logic ---
+            const navBtns = document.querySelectorAll('.nav-btn');
+            const tableSections = document.querySelectorAll('.table-section');
+            const formContainers = document.querySelectorAll('.form-container');
+            const qaBtns = document.querySelectorAll('.qa-btn');
 
-                    function hideAll() {
-                        tableSections.forEach(el => el.classList.remove('active'));
-                        formContainers.forEach(el => el.classList.remove('active'));
-                        navBtns.forEach(el => el.classList.remove('active'));
+            function hideAll() {
+                tableSections.forEach(el => el.classList.remove('active'));
+                formContainers.forEach(el => el.classList.remove('active'));
+                navBtns.forEach(el => el.classList.remove('active'));
+            }
+
+            // Sidebar Navigation (Tables)
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    hideAll();
+                    btn.classList.add('active');
+                    const targetId = btn.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+
+                    // If Products Under Test is selected, fetch data
+                    if (targetId === 'products-testing') {
+                        fetchTestResults();
                     }
+                });
+            });
 
-                    // Sidebar Navigation (Tables)
-                    navBtns.forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            hideAll();
-                            btn.classList.add('active');
-                            const targetId = btn.getAttribute('data-target');
-                            document.getElementById(targetId).classList.add('active');
-
-                            // If Products Under Test is selected, fetch data
-                            if (targetId === 'products-testing') {
-                                fetchTestResults();
-                            }
-                        });
-                    });
-
-                    // Quick Actions (Forms)
-                    qaBtns.forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            hideAll();
-                            const action = btn.getAttribute('data-action');
-                            let formId = '';
-                            switch (action) {
-                                case 'start-test':
-                                    formId = 'start-test-form';
-                                    populateProducts();
-                                    populateTesters();
-                                    break;
-                                case 'generate-report':
-                                    formId = 'generate-report-form';
-                                    break;
-                                case 'add-product':
-                                    formId = 'add-product-form';
-                                    break;
-                                case 'cpri':
-                                    formId = 'cpri-form';
-                                    populateCpriProducts();
-                                    break;
-                            }
-                            if (formId) {
-                                document.getElementById(formId).classList.add('active');
-                            }
-                        });
-                    });
-
-                    // --- Lab Testing Table Logic ---
-                    const productTableBody = document.getElementById('productTableBody');
-                    const emptyState = document.getElementById('emptyState');
-                    let testResults = [];
-
-                    async function fetchTestResults() {
-                        try {
-                            const response = await fetch('api/get_testing-records.php');
-                            const data = await response.json();
-                            if (data.success) {
-                                testResults = data.records;
-                                renderProductTable(testResults);
-                            } else {
-                                console.error(data.message);
-                            }
-                        } catch (error) {
-                            console.error('Error fetching test results:', error);
-                        }
+            // Quick Actions (Forms)
+            qaBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    hideAll();
+                    const action = btn.getAttribute('data-action');
+                    let formId = '';
+                    switch (action) {
+                        case 'start-test':
+                            formId = 'start-test-form';
+                            populateProducts();
+                            populateTesters();
+                            break;
+                        case 'generate-report':
+                            formId = 'generate-report-form';
+                            break;
+                        case 'add-product':
+                            formId = 'add-product-form';
+                            break;
+                        case 'cpri':
+                            formId = 'cpri-form';
+                            populateCpriProducts();
+                            break;
                     }
+                    if (formId) {
+                        document.getElementById(formId).classList.add('active');
+                    }
+                });
+            });
 
-                    function renderProductTable(products) {
-                        productTableBody.innerHTML = '';
-                        if (products.length === 0) {
-                            emptyState.style.display = 'block';
-                            return;
-                        }
-                        emptyState.style.display = 'none';
-                        products.forEach(record => {
-                            const row = document.createElement('tr');
-                            let statusBadge = '';
-                            const result = record.result ? record.result.toLowerCase() : '';
-                            const status = record.status ? record.status.toLowerCase() : '';
+            // --- Lab Testing Table Logic ---
+            const productTableBody = document.getElementById('productTableBody');
+            const emptyState = document.getElementById('emptyState');
+            let testResults = [];
 
-                            if (result === 'pass') statusBadge = '<span class="status-badge status-completed">Passed</span>';
-                            else if (result === 'fail') statusBadge = '<span class="status-badge status-failed">Failed</span>';
-                            else if (status === 'in-progress') statusBadge = '<span class="status-badge status-in-progress">In Progress</span>';
-                            else statusBadge = '<span class="status-badge status-pending">Pending</span>';
+            async function fetchTestResults() {
+                try {
+                    const response = await fetch('api/get_testing-records.php');
+                    const data = await response.json();
+                    if (data.success) {
+                        testResults = data.records;
+                        renderProductTable(testResults);
+                    } else {
+                        console.error(data.message);
+                    }
+                } catch (error) {
+                    console.error('Error fetching test results:', error);
+                }
+            }
 
-                            row.innerHTML = `
+            function renderProductTable(products) {
+                productTableBody.innerHTML = '';
+                if (products.length === 0) {
+                    emptyState.style.display = 'block';
+                    return;
+                }
+                emptyState.style.display = 'none';
+                products.forEach(record => {
+                    const row = document.createElement('tr');
+                    let statusBadge = '';
+                    const result = record.result ? record.result.toLowerCase() : '';
+                    const status = record.status ? record.status.toLowerCase() : '';
+
+                    if (result === 'pass') statusBadge = '<span class="status-badge status-completed">Passed</span>';
+                    else if (result === 'fail') statusBadge = '<span class="status-badge status-failed">Failed</span>';
+                    else if (status === 'in-progress') statusBadge = '<span class="status-badge status-in-progress">In Progress</span>';
+                    else statusBadge = '<span class="status-badge status-pending">Pending</span>';
+
+                    row.innerHTML = `
                         <td>${record.product_id}</td>
                         <td><span style="color: var(--accent-blue); font-weight: 600; cursor: pointer;" onclick="openProductModal('${record.test_id}')">${record.product_name || record.product_id}</span></td>
                         <td>${record.test_type}</td>
                         <td>${statusBadge}</td>
                         <td>${record.tester_name || '-'}</td>
                     `;
-                            productTableBody.appendChild(row);
-                        });
-                    }
+                    productTableBody.appendChild(row);
+                });
+            }
 
-                    // --- Product Modal Logic ---
-                    window.openProductModal = function(recordId) {
-                        const record = testResults.find(r => r.test_id == recordId);
-                        if (!record) return;
+            // --- Product Modal Logic ---
+            window.openProductModal = function(recordId) {
+                const record = testResults.find(r => r.test_id == recordId);
+                if (!record) return;
 
-                        document.getElementById('modalProductId').textContent = record.product_id;
-                        document.getElementById('modalProductName').textContent = record.product_name || record.product_id;
-                        document.getElementById('modalProductType').textContent = record.test_type;
-                        document.getElementById('modalTestDate').textContent = record.test_date;
-                        document.getElementById('modalTechnician').textContent = record.tester_name || '-';
-                        document.getElementById('modalProductDescription').textContent = record.notes || 'No description available.';
-                        document.getElementById('modalTestNotes').textContent = record.result || 'N/A';
+                document.getElementById('modalProductId').textContent = record.product_id;
+                document.getElementById('modalProductName').textContent = record.product_name || record.product_id;
+                document.getElementById('modalProductType').textContent = record.test_type;
+                document.getElementById('modalTestDate').textContent = record.test_date;
+                document.getElementById('modalTechnician').textContent = record.tester_name || '-';
+                document.getElementById('modalProductDescription').textContent = record.notes || 'No description available.';
+                document.getElementById('modalTestNotes').textContent = record.result || 'N/A';
 
-                        let statusText = 'Pending';
-                        let statusClass = 'status-pending';
-                        const result = record.result ? record.result.toLowerCase() : '';
-                        if (result === 'pass') {
-                            statusText = 'Passed';
-                            statusClass = 'status-completed';
-                        } else if (result === 'fail') {
-                            statusText = 'Failed';
-                            statusClass = 'status-failed';
-                        } else if (record.status === 'in-progress') {
-                            statusText = 'In Progress';
-                            statusClass = 'status-in-progress';
-                        }
+                let statusText = 'Pending';
+                let statusClass = 'status-pending';
+                const result = record.result ? record.result.toLowerCase() : '';
+                if (result === 'pass') {
+                    statusText = 'Passed';
+                    statusClass = 'status-completed';
+                } else if (result === 'fail') {
+                    statusText = 'Failed';
+                    statusClass = 'status-failed';
+                } else if (record.status === 'in-progress') {
+                    statusText = 'In Progress';
+                    statusClass = 'status-in-progress';
+                }
 
-                        const statusEl = document.getElementById('modalTestStatus');
-                        statusEl.textContent = statusText;
-                        statusEl.className = `status-badge ${statusClass}`;
+                const statusEl = document.getElementById('modalTestStatus');
+                statusEl.textContent = statusText;
+                statusEl.className = `status-badge ${statusClass}`;
 
-                        document.getElementById('productModal').style.display = 'flex';
-                    };
+                document.getElementById('productModal').style.display = 'flex';
+            };
 
-                    document.getElementById('closeProductModal').onclick = () => document.getElementById('productModal').style.display = 'none';
+            document.getElementById('closeProductModal').onclick = () => document.getElementById('productModal').style.display = 'none';
 
-                    // --- CPRI Modal Logic ---
-                    window.viewCertificate = function(id) {
-                        fetch('api/view_cpri.php?id=' + id).then(res => res.text()).then(html => {
-                            document.getElementById('modalTitle').innerText = 'View Certificate';
-                            document.getElementById('certificateContent').innerHTML = html;
-                            document.getElementById('certificateModal').style.display = 'flex';
-                        });
-                    };
-                    window.editCertificate = function(id) {
-                        fetch('api/edit_cpri.php?id=' + id).then(res => res.text()).then(html => {
-                            document.getElementById('modalTitle').innerText = 'Edit CPRI Record';
-                            document.getElementById('certificateContent').innerHTML = html;
-                            document.getElementById('certificateModal').style.display = 'flex';
-                        });
-                    };
-                    window.deleteCertificate = function(id) {
-                        if (confirm('Delete this submission?')) {
-                            fetch('api/delete_cpri.php?id=' + id).then(res => res.text()).then(msg => {
-                                alert(msg);
-                                location.reload();
-                            });
-                        }
-                    };
-                    window.closeCertificateModal = function() {
-                        document.getElementById('certificateModal').style.display = 'none';
-                    };
-
-                        // --- Report Edit Modal Logic ---
-                        const editReportModal = document.getElementById('editReportModal');
-                        document.querySelectorAll('.edit-btn').forEach(btn => {
-                            btn.addEventListener('click', () => {
-                                document.getElementById('edit_id').value = btn.dataset.id;
-                                document.getElementById('edit_type').value = btn.dataset.type;
-                                document.getElementById('edit_name').value = btn.dataset.name;
-                                document.getElementById('edit_rtype').value = btn.dataset.rtype;
-                                document.getElementById('edit_format').value = btn.dataset.format;
-                                document.getElementById('edit_status').value = btn.dataset.status;
-                                if (btn.dataset.generated_by) document.getElementById('edit_generated_by').value = btn.dataset.generated_by;
-                                editReportModal.style.display = 'flex';
-                            });
-                        });
-                        document.getElementById('closeEditModal').onclick = () => editReportModal.style.display = 'none';
-                        document.getElementById('cancelEdit').onclick = () => editReportModal.style.display = 'none';
-
-                        document.getElementById('editReportForm').addEventListener('submit', function(e) {
-                            e.preventDefault();
-                            const fd = new FormData(this);
-                            // Map fields correctly for update_report.php
-                            if (fd.get('edit_type') === 'generated') {
-                                fd.append('report_id', fd.get('id'));
-                                fd.append('report_name', fd.get('name'));
-                            }
-                            fetch('api/update_report.php', {
-                                    method: 'POST',
-                                    body: fd
-                                })
-                                .then(r => r.json())
-                                .then(res => {
-                                    if (res.success) {
-                                        alert('Updated');
-                                        location.reload();
-                                    } else alert('Error: ' + res.message);
-                                });
-                        });
-
-                        document.querySelectorAll('.delete-btn').forEach(btn => {
-                            btn.addEventListener('click', () => {
-                                if (confirm('Delete report?')) {
-                                    const fd = new URLSearchParams();
-                                    fd.append('report_id', btn.dataset.id);
-                                    fetch('api/delete_report.php', {
-                                            method: 'POST',
-                                            body: fd
-                                        })
-                                        .then(r => r.json())
-                                        .then(res => {
-                                            if (res.success) {
-                                                btn.closest('tr').remove();
-                                            } else alert('Error: ' + res.message);
-                                        });
-                                }
-                            });
-                        });
-
-                        // --- Form Population Helpers ---
-                        async function populateTesters() {
-                            const res = await fetch('api/get_testers.php');
-                            const data = await res.json();
-                            const select = document.getElementById('testerSelect');
-                            select.innerHTML = '<option value="">-- Select Tester --</option>';
-                            if (data.success) data.testers.forEach(t => {
-                                select.innerHTML += `<option value="${t.tester_name}">${t.tester_name}</option>`;
-                            });
-                        }
-                        async function populateProducts() {
-                            const res = await fetch('api/get_products.php');
-                            const data = await res.json();
-                            const select = document.getElementById('productId');
-                            select.innerHTML = '<option value="">-- Select Product --</option>';
-                            if (data.success) data.products.forEach(p => {
-                                select.innerHTML += `<option value="${p.product_id}">${p.product_id} - ${p.name}</option>`;
-                            });
-                        }
-                        async function populateCpriProducts() {
-                            const res = await fetch('api/get_products.php');
-                            const data = await res.json();
-                            const select = document.getElementById('cpriProductId');
-                            select.innerHTML = '<option value="">-- Select Product --</option>';
-                            if (data.success) data.products.forEach(p => {
-                                const opt = document.createElement('option');
-                                opt.value = p.product_id;
-                                opt.textContent = `${p.product_id} - ${p.name}`;
-                                opt.dataset.name = p.name;
-                                select.appendChild(opt);
-                            });
-                        }
-                        document.getElementById('cpriProductId').addEventListener('change', function() {
-                            const opt = this.options[this.selectedIndex];
-                            document.getElementById('cpriProductName').value = opt.dataset.name || '';
-                        });
-
-                        // --- Form Submissions ---
-                        document.getElementById('addProductForm').addEventListener('submit', function(e) {
-                            e.preventDefault();
-                            fetch('api/add_product.php', {
-                                    method: 'POST',
-                                    body: new FormData(this)
-                                })
-                                .then(r => r.json()).then(res => {
-                                    alert(res.message);
-                                    if (res.success) this.reset();
-                                });
-                        });
-                        document.getElementById('startTestForm').addEventListener('submit', function(e) {
-                            e.preventDefault();
-                            fetch('api/add_test_result.php', {
-                                    method: 'POST',
-                                    body: new FormData(this)
-                                })
-                                .then(r => r.json()).then(res => {
-                                    alert(res.message);
-                                    if (res.success) this.reset();
-                                });
-                        });
-                        document.getElementById('addCpriForm').addEventListener('submit', function(e) {
-                            e.preventDefault();
-                            fetch('api/add_cpri.php', {
-                                    method: 'POST',
-                                    body: new FormData(this)
-                                })
-                                .then(r => r.json()).then(res => {
-                                    alert(res.message);
-                                    if (res.status === 'success') this.reset();
-                                });
-                        });
-                        document.getElementById('generateReportForm').addEventListener('submit', function(e) {
-                            e.preventDefault();
-                            const fd = new FormData(this);
-                            fd.append('report_name', document.getElementById('reportName').value);
-                            fd.append('report_type', document.getElementById('reportType').value);
-                            fetch('api/insert_report.php', {
-                                    method: 'POST',
-                                    body: fd
-                                })
-                                .then(r => r.json()).then(res => {
-                                    if (res.success) {
-                                        alert('Report Generated');
-                                        window.open('api/view_report.php?id=' + res.report_id);
-                                        this.reset();
-                                    } else alert('Error: ' + res.message);
-                                });
-                        });
-
-                        // Image Drop Zone
-                        const dropZone = document.getElementById('imageDropZone');
-                        const fileInput = document.getElementById('productImage');
-                        dropZone.onclick = () => fileInput.click();
-                        fileInput.onchange = (e) => {
-                            if (e.target.files[0]) {
-                                const reader = new FileReader();
-                                reader.onload = (ev) => {
-                                    document.getElementById('previewImg').src = ev.target.result;
-                                    document.getElementById('imagePreview').style.display = 'block';
-                                    dropZone.style.display = 'none';
-                                };
-                                reader.readAsDataURL(e.target.files[0]);
-                            }
-                        };
-                        window.removeImage = function() {
-                            fileInput.value = '';
-                            document.getElementById('imagePreview').style.display = 'none';
-                            dropZone.style.display = 'block';
-                        };
+            // --- CPRI Modal Logic ---
+            window.viewCertificate = function(id) {
+                fetch('api/view_cpri.php?id=' + id).then(res => res.text()).then(html => {
+                    document.getElementById('modalTitle').innerText = 'View Certificate';
+                    document.getElementById('certificateContent').innerHTML = html;
+                    document.getElementById('certificateModal').style.display = 'flex';
+                });
+            };
+            window.editCertificate = function(id) {
+                fetch('api/edit_cpri.php?id=' + id).then(res => res.text()).then(html => {
+                    document.getElementById('modalTitle').innerText = 'Edit CPRI Record';
+                    document.getElementById('certificateContent').innerHTML = html;
+                    document.getElementById('certificateModal').style.display = 'flex';
+                });
+            };
+            window.deleteCertificate = function(id) {
+                if (confirm('Delete this submission?')) {
+                    fetch('api/delete_cpri.php?id=' + id).then(res => res.text()).then(msg => {
+                        alert(msg);
+                        location.reload();
                     });
+                }
+            };
+            window.closeCertificateModal = function() {
+                document.getElementById('certificateModal').style.display = 'none';
+            };
+
+            // --- Report Edit Modal Logic ---
+            const editReportModal = document.getElementById('editReportModal');
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('edit_id').value = btn.dataset.id;
+                    document.getElementById('edit_type').value = btn.dataset.type;
+                    document.getElementById('edit_name').value = btn.dataset.name;
+                    document.getElementById('edit_rtype').value = btn.dataset.rtype;
+                    document.getElementById('edit_format').value = btn.dataset.format;
+                    document.getElementById('edit_status').value = btn.dataset.status;
+                    if (btn.dataset.generated_by) document.getElementById('edit_generated_by').value = btn.dataset.generated_by;
+                    editReportModal.style.display = 'flex';
+                });
+            });
+            document.getElementById('closeEditModal').onclick = () => editReportModal.style.display = 'none';
+            document.getElementById('cancelEdit').onclick = () => editReportModal.style.display = 'none';
+
+            document.getElementById('editReportForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const fd = new FormData(this);
+                fetch('api/update_report.php', {
+                        method: 'POST',
+                        body: fd
+                    })
+                    .then(r => r.json())
+                    .then(res => {
+                        if (res.success) {
+                            alert('Report updated successfully.');
+                            location.reload();
+                        } else {
+                            alert('Error updating report: ' + res.message);
+                        }
+                    });
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (confirm('Delete report?')) {
+                        const fd = new URLSearchParams();
+                        fd.append('report_id', btn.dataset.id);
+                        fetch('api/delete_report.php', {
+                                method: 'POST',
+                                body: fd
+                            })
+                            .then(r => r.json())
+                            .then(res => {
+                                if (res.success) {
+                                    btn.closest('tr').remove();
+                                } else alert('Error: ' + res.message);
+                            });
+                    }
+                });
+            });
+
+            // --- Form Population Helpers ---
+            async function populateTesters() {
+                const res = await fetch('api/get_testers.php');
+                const data = await res.json();
+                const select = document.getElementById('testerSelect');
+                select.innerHTML = '<option value="">-- Select Tester --</option>';
+                if (data.success) data.testers.forEach(t => {
+                    select.innerHTML += `<option value="${t.tester_name}">${t.tester_name}</option>`;
+                });
+            }
+            async function populateProducts() {
+                const res = await fetch('api/get_products.php');
+                const data = await res.json();
+                const select = document.getElementById('productId');
+                select.innerHTML = '<option value="">-- Select Product --</option>';
+                if (data.success) data.products.forEach(p => {
+                    select.innerHTML += `<option value="${p.product_id}">${p.product_id} - ${p.name}</option>`;
+                });
+            }
+            async function populateCpriProducts() {
+                const res = await fetch('api/get_products.php');
+                const data = await res.json();
+                const select = document.getElementById('cpriProductId');
+                select.innerHTML = '<option value="">-- Select Product --</option>';
+                if (data.success) data.products.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.product_id;
+                    opt.textContent = `${p.product_id} - ${p.name}`;
+                    opt.dataset.name = p.name;
+                    select.appendChild(opt);
+                });
+            }
+            document.getElementById('cpriProductId').addEventListener('change', function() {
+                const opt = this.options[this.selectedIndex];
+                document.getElementById('cpriProductName').value = opt.dataset.name || '';
+            });
+
+            // --- Form Submissions ---
+            document.getElementById('addProductForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                fetch('api/add_product.php', {
+                        method: 'POST',
+                        body: new FormData(this)
+                    })
+                    .then(r => r.json()).then(res => {
+                        alert(res.message);
+                        if (res.success) this.reset();
+                    });
+            });
+            document.getElementById('startTestForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                fetch('api/add_test_result.php', {
+                        method: 'POST',
+                        body: new FormData(this)
+                    })
+                    .then(r => r.json()).then(res => {
+                        alert(res.message);
+                        if (res.success) this.reset();
+                    });
+            });
+            document.getElementById('addCpriForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                fetch('api/add_cpri.php', {
+                        method: 'POST',
+                        body: new FormData(this)
+                    })
+                    .then(r => r.json()).then(res => {
+                        alert(res.message);
+                        if (res.status === 'success') this.reset();
+                    });
+            });
+            document.getElementById('generateReportForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const fd = new FormData(this);
+                fd.append('report_name', document.getElementById('reportName').value);
+                fd.append('report_type', document.getElementById('reportType').value);
+                fetch('api/insert_report.php', {
+                        method: 'POST',
+                        body: fd
+                    })
+                    .then(r => r.json()).then(res => {
+                        if (res.success) {
+                            alert('Report Generated');
+                            window.open('api/view_report.php?id=' + res.report_id);
+                            this.reset();
+                        } else alert('Error: ' + res.message);
+                    });
+            });
+
+            // Image Drop Zone
+            const dropZone = document.getElementById('imageDropZone');
+            const fileInput = document.getElementById('productImage');
+            dropZone.onclick = () => fileInput.click();
+            fileInput.onchange = (e) => {
+                if (e.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        document.getElementById('previewImg').src = ev.target.result;
+                        document.getElementById('imagePreview').style.display = 'block';
+                        dropZone.style.display = 'none';
+                    };
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            };
+            window.removeImage = function() {
+                fileInput.value = '';
+                document.getElementById('imagePreview').style.display = 'none';
+                dropZone.style.display = 'block';
+            };
+        });
     </script>
 </body>
 

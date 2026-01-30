@@ -433,7 +433,6 @@
             background-color: #2c3e50;
             color: var(--white);
             padding: 60px 0 30px;
-            margin-top: 40px;
         }
 
         .footer-content {
@@ -510,6 +509,22 @@
             text-decoration: none;
             transition: var(--transition);
         }
+
+        /* Footer social icons fix */
+        .social-links a,
+        .social-icons a,
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-links a i,
+        .social-icons a i,
+        .footer-social a i {
+            line-height: 1;
+        }
+
 
         .social-icon:hover {
             background-color: var(--accent-blue);
@@ -708,7 +723,7 @@
                     <div class="category-icon">
                         <i class="fas fa-certificate"></i>
                     </div>
-                    <h3>CPRI Certification</h3>
+                    <h3>PSQCA Certification</h3>
                     <p>Certification process and requirements</p>
                 </div>
 
@@ -743,7 +758,7 @@
                             <i class="fas fa-chevron-down faq-toggle"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>We offer comprehensive electrical testing services including high voltage testing, dielectric strength testing, insulation resistance testing, temperature rise testing, short circuit testing, and environmental testing. Our lab is equipped to test switchgear, control panels, transformers, capacitors, cables, and various electrical appliances as per national and international standards.</p>
+                            <p>We offer comprehensive electrical testing services including high voltage testing, dielectric strength testing, insulation resistance testing, temperature rise testing, short circuit testing, and environmental testing. Our lab is equipped to test switchgear, control panels, transformers, capacitors, cables, and various electrical appliances as per Pakistani and international standards.</p>
                         </div>
                     </div>
 
@@ -763,7 +778,7 @@
                             <i class="fas fa-chevron-down faq-toggle"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>We follow national standards (IS/IEC), international standards (IEC, IEEE, ANSI), and specific customer requirements. Our lab is accredited to test as per IS 13947 (switchgear), IS 8623 (control panels), IS 12640 (capacitors), and various other Indian and international standards. We also conduct testing as per CPRI guidelines for high voltage equipment.</p>
+                            <p>We follow national standards (PS/IEC), international standards (IEC, IEEE, ANSI), and specific customer requirements. Our lab is accredited to test as per PS 13947 (switchgear), PS 8623 (control panels), PS 12640 (capacitors), and various other Pakistani and international standards. We also conduct testing as per PSQCA guidelines for high voltage equipment.</p>
                         </div>
                     </div>
 
@@ -773,22 +788,22 @@
                             <i class="fas fa-chevron-down faq-toggle"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>Yes, we provide testing services for imported electrical equipment to ensure compliance with Indian standards and regulations. We can test equipment for BIS certification requirements, custom clearance needs, and safety compliance. Our reports are accepted by customs authorities, port authorities, and regulatory bodies across India.</p>
+                            <p>Yes, we provide testing services for imported electrical equipment to ensure compliance with Pakistani standards and regulations. We can test equipment for PSQCA certification requirements, custom clearance needs, and safety compliance. Our reports are accepted by customs authorities, port authorities, and regulatory bodies across Pakistan.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- CPRI Certification Section -->
+                <!-- PSQCA Certification Section -->
                 <div class="faq-section" id="cpri-section">
-                    <h2 class="section-title">CPRI Certification</h2>
+                    <h2 class="section-title">PSQCA Certification</h2>
 
                     <div class="faq-item" data-category="cpri">
                         <div class="faq-question">
-                            <span>What is CPRI certification and why is it important?</span>
+                            <span>What is PSQCA certification and why is it important?</span>
                             <i class="fas fa-chevron-down faq-toggle"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>CPRI (Central Power Research Institute) certification is a mandatory requirement for electrical equipment used in power transmission and distribution systems in India. It ensures that the equipment meets safety, performance, and reliability standards set by CPRI. This certification is crucial for switchgear, transformers, insulators, and other high-voltage equipment to be used in government projects, utilities, and large industrial installations.</p>
+                            <p>PSQCA (Pakistan Standards and Quality Control Authority) certification is a mandatory requirement for electrical equipment used in power transmission and distribution systems in Pakistan. It ensures that the equipment meets safety, performance, and reliability standards set by PSQCA. This certification is crucial for switchgear, transformers, insulators, and other high-voltage equipment to be used in government projects, utilities, and large industrial installations.</p>
                         </div>
                     </div>
 
@@ -804,11 +819,11 @@
 
                     <div class="faq-item" data-category="cpri">
                         <div class="faq-question">
-                            <span>What are the costs associated with CPRI certification?</span>
+                            <span>What are the costs associated with PSQCA certification?</span>
                             <i class="fas fa-chevron-down faq-toggle"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>CPRI certification costs vary based on the type of equipment, voltage rating, and tests required. Costs typically include testing charges, certification fees, and technical documentation preparation. We provide detailed quotations after reviewing your product specifications. For accurate pricing, please contact our certification department with your product details.</p>
+                            <p>PSQCA certification costs vary based on the type of equipment, voltage rating, and tests required. Costs typically include testing charges, certification fees, and technical documentation preparation. We provide detailed quotations after reviewing your product specifications. For accurate pricing, please contact our certification department with your product details.</p>
                         </div>
                     </div>
                 </div>
@@ -848,7 +863,7 @@
                             <i class="fas fa-chevron-down faq-toggle"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>Our main testing laboratory is located in Bengaluru, Karnataka. We have a 15,000 sq.ft. facility equipped with state-of-the-art testing equipment. We also have collection centers in major industrial cities across India for sample collection and dispatch. For specific address details, please visit our Contact Us page.</p>
+                            <p>Our main testing laboratory is located in Karachi, Sindh. We have a 15,000 sq.ft. facility equipped with state-of-the-art testing equipment. We also have collection centers in major industrial cities across Pakistan for sample collection and dispatch. For specific address details, please visit our Contact Us page.</p>
                         </div>
                     </div>
 
@@ -894,7 +909,7 @@
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-content">
                 <!-- Column 1: Contact Info -->
@@ -903,7 +918,7 @@
                     <div class="contact-info">
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>+91 98765 43210</span>
+                            <span>+92 300 1234567</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
@@ -911,7 +926,7 @@
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>123 Industrial Area, Phase II<br>Bengaluru, Karnataka 560058</span>
+                            <span>SRS Electrical Appliances Plot No 45, Industrial Area<br>Korangi Industrial Area Karachi, Pakistan</span>
                         </div>
                     </div>
                 </div>
@@ -920,16 +935,16 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <a href="about.php">About Us</a>
-                    <a href="lab-testing.php">Lab Testing</a>
+                    <a href="contact.php">Contact Us</a>
                     <a href="cpri.php">CPRI Certification</a>
-                    <a href="faqs.php" class="active">FAQs</a>
-                    <a href="reoprt.php">Testing Reports</a>
+                    <a href="faqs.php">FAQs</a>
+                    <a href="report.php">Testing Reports</a>
                 </div>
 
                 <!-- Column 3: Social Media -->
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
-                    <p>Follow us on social media for updates on electrical testing standards and industry news.</p>
+                    <p>SRS Electrical Appliances is a Pakistan based electrical testing and lab automation company providing certified testing and CPRI support.</p>
 
                     <div class="social-links">
                         <a href="https://www.facebook.com/" class="social-icon">
@@ -949,7 +964,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2023 SRS Electrical Appliances. All Rights Reserved. | ISO 9001:2015 Certified | CPRI Approved Testing Facility</p>
+                <p>&copy; © 2026 SRS Electrical Appliances. All Rights Reserved. Karachi, Pakistan. ISO compliant testing and certification support.</p>
             </div>
         </div>
     </footer>
