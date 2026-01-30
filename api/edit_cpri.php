@@ -18,12 +18,12 @@ if (!$row = $result->fetch_assoc()) {
 }
 
 // Pre-fill values
-$product_id       = htmlspecialchars($row['product_id']);
-$product_name     = htmlspecialchars($row['product_name']);
+$product_id       = htmlspecialchars($row['product_id'] ?? '');
+$product_name     = htmlspecialchars($row['product_name'] ?? '');
 $submission_date  = $row['submission_date'];
 $test_date        = $row['test_date'] ?: '';
 $status           = $row['status'];
-$cpri_reference   = htmlspecialchars($row['cpri_reference']);
+$cpri_reference   = htmlspecialchars($row['cpri_reference'] ?? '');
 $certificate_image = $row['certificate_image'];
 ?>
 
@@ -69,7 +69,7 @@ $certificate_image = $row['certificate_image'];
             <label class="filter-label">Certificate Image</label>
             <?php if ($certificate_image && file_exists("../$certificate_image")): ?>
                 <div class="image-preview" id="certificatePreview" style="width: 200px; max-height: 150px; overflow: hidden; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">
-                    <img src="/srs/<?= htmlspecialchars($certificate_image) ?>" alt="Certificate Image" style="width: 100%; height: auto; display: block;">
+                    <img src="/srs/<?= htmlspecialchars($certificate_image ?? '') ?>" alt="Certificate Image" style="width: 100%; height: auto; display: block;">
                 </div>
             <?php else: ?>
                 <div class="image-preview" id="certificatePreview" style="width: 200px; max-height: 150px; overflow: hidden; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">
@@ -80,9 +80,9 @@ $certificate_image = $row['certificate_image'];
         </div>
     </div>
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline" onclick="closeCertificateModal()">Cancel</button>
-        <button type="submit" class="btn btn-primary">Update Record</button>
+    <div class="modal-buttons" style="justify-content: center;">
+        <button type="button" class="btn-submit" style="background-color: #6c757d;" onclick="closeCertificateModal()">Cancel</button>
+        <button type="submit" class="btn-submit">Update Record</button>
     </div>
 </form>
 
@@ -103,15 +103,19 @@ $certificate_image = $row['certificate_image'];
             })
             .then(res => res.json())
             .then(resp => {
-                alert(resp.message);
                 if (resp.status === 'success') {
+                    alert(resp.message);
                     closeCertificateModal();
-                    location.reload();
+                    // Optionally, you might want to refresh the specific table/view
+                    // instead of a full page reload to make it smoother.
+                    location.reload(); 
+                } else {
+                    alert('Error: ' + resp.message);
                 }
             })
             .catch(err => {
                 console.error(err);
-                alert('Error updating CPRI record.');
+                alert('An unexpected error occurred. Please check the console.');
             });
     });
 
