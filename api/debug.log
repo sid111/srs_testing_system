@@ -70,3 +70,32 @@ FILES data: Array
 
 Before try-catch block
 Success: CPRI record added successfully
+--- New Request ---
+POST data: Array
+(
+    [product_id] => PRD-004
+    [product_name] => Motor Control Center Panel
+    [submission_date] => 2026-01-30
+    [test_date] => 2026-01-05
+    [status] => approved
+    [testing_lab] => CPRI Testing Lab
+    [cpri_reference] => 
+    [certificate_no] => 
+)
+
+FILES data: Array
+(
+    [certificate_image] => Array
+        (
+            [name] => Black and White Luxury Elegant Degustation Tasting Menu_20260120_113327_0008.png
+            [full_path] => Black and White Luxury Elegant Degustation Tasting Menu_20260120_113327_0008.png
+            [type] => image/png
+            [tmp_name] => C:\Users\Saiyan\AppData\Local\Temp\php32CD.tmp
+            [error] => 0
+            [size] => 234047
+        )
+
+)
+
+Before try-catch block
+Success: CPRI record added successfully

@@ -838,7 +838,7 @@ $reportTypes = [
             <div class="sidebar-section">
                 <div class="muted tiny">Data Views</div>
                 <ul class="nav-list">
-                    <li><button class="nav-btn active" data-target="recent-reports"><i class="fas fa-file-alt"></i> Recent Reports</button></li>
+                    <li><button class="nav-btn" data-target="recent-reports"><i class="fas fa-file-alt"></i> Recent Reports</button></li>
                     <li><button class="nav-btn" data-target="cpri-submissions"><i class="fas fa-certificate"></i> CPRI Submissions</button></li>
                     <li><button class="nav-btn" data-target="products-testing"><i class="fas fa-flask"></i> Testing Overview</button></li>
                 </ul>
